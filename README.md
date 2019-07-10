@@ -1,4 +1,4 @@
-# faciem
+# Faciem
 
 > The Frontend of the venovum application
 
