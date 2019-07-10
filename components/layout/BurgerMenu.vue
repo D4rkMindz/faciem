@@ -22,13 +22,29 @@
               Home
             </nuxt-link>
           </div>
-          <div class="py-3 text-center text-gray-500 hover:text-gray-900 cursor-pointer"
+          <div v-if="!authenticated"
+               class="py-3 text-center text-gray-500 hover:text-gray-900 cursor-pointer"
                @click="menuOpen = false">
             <nuxt-link to="/login">
               Login
             </nuxt-link>
           </div>
-          <div class="py-3"
+          <div v-if="authenticated"
+               class="py-3 text-center text-gray-500 hover:text-gray-900 cursor-pointer"
+               @click="menuOpen = false">
+            <nuxt-link to="/watch">
+              Watch
+            </nuxt-link>
+          </div>
+          <div v-if="authenticated"
+               class="py-3 text-center text-gray-500 hover:text-gray-900 cursor-pointer"
+               @click="menuOpen = false">
+            <nuxt-link to="/logout">
+              Logout
+            </nuxt-link>
+          </div>
+          <div v-if="!authenticated"
+               class="py-3"
                @click="menuOpen = false">
             <nuxt-link to="/">
               <button class="bg-purple text-white font-bold py-2 px-4 rounded-full hover:bg-purple-400">
@@ -43,6 +59,10 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex';
+
+const { mapState } = createNamespacedHelpers('auth');
+
 export default {
   name: 'BurgerMenu',
   data: () => {
@@ -50,7 +70,13 @@ export default {
       menuOpen: false,
     };
   },
-};
+  computed: {
+    ...mapState({
+      authenticated: state => state.authenticated,
+    }),
+  },
+}
+;
 </script>
 
 <style scoped>

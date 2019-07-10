@@ -40,7 +40,9 @@ export default {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    baseURL: 'https://venovum.dev/',
+  },
   /*
    ** Build configuration
    */
@@ -53,6 +55,7 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {},
+    extend(config, ctx) {
+    },
   },
 };
