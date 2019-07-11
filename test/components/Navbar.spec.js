@@ -1,8 +1,12 @@
-import { mount } from '@vue/test-utils';
+import { mount } from '@/test/helper';
 import Navbar from '@/components/layout/Navbar.vue';
 
 describe('Navbar', () => {
-  test('is a Vue instance', () => {
+  it('should ', function () {
+
+  });
+
+  it('is a Vue instance', () => {
     const wrapper = mount(Navbar);
     expect(wrapper.isVueInstance()).toBeTruthy();
   });

@@ -11,7 +11,7 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: process.env.npm_package_description || '',
+        content: 'Venovum lets you earn money by providing feedback to specific advertisements. Start today by watching taylored advertisements',
       },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
@@ -42,6 +42,9 @@ export default {
    */
   axios: {
     baseURL: 'https://venovum.dev/',
+    headers: {
+      'Content-Type': 'application/json',
+    },
   },
   /*
    ** Build configuration

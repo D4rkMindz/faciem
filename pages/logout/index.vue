@@ -10,6 +10,7 @@ import { createNamespacedHelpers } from 'vuex';
 const { mapActions } = createNamespacedHelpers('auth');
 
 export default {
+  name: 'LogoutPage',
   created() {
     this.logout();
     this.$router.push('/');

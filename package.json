@@ -15,7 +15,9 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
-    "nuxt": "^2.0.0"
+    "nuxt": "^2.0.0",
+    "vue-router": "latest",
+    "vuex": "latest"
   },
   "devDependencies": {
     "tailwindcss": "^1.0.0",
@@ -36,6 +38,7 @@
     "babel-jest": "^24.1.0",
     "jest": "^24.1.0",
     "vue-jest": "^3.0.3",
-    "nodemon": "^1.18.9"
+    "nodemon": "^1.18.9",
+    "@types/jest": ">=22.3"
   }
 }
