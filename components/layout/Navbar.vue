@@ -11,7 +11,8 @@
       <div class="block items-center lg:hidden py-2">
         <burger-menu />
       </div>
-      <div class="w-full items-center flex-grow hidden lg:flex lg:w-auto lg:justify-between">
+      <div class="w-full items-center flex-grow hidden lg:flex lg:w-auto lg:justify-between"
+           desktop-navigation>
         <div class="hidden lg:inline-flex">
           <div class="mx-5 py-2 items-center text-gray-900 hover:text-gray-900 cursor-pointer">
             PRIVATE
