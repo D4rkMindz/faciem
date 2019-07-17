@@ -1,4 +1,8 @@
-export default {
+const stage = process.env.NODE_ENV || 'dev';
+const env = require('./nuxt.config.' + stage + '.js');
+const colors = require('./tailwind.config').theme;
+
+const config = {
   mode: 'universal',
   /*
    ** Headers of the page
@@ -16,10 +20,13 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
+  render: {
+    compressor: false,
+  },
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: '#fff' },
+  loading: { color: colors.primary },
   /*
    ** Global CSS
    */
@@ -58,7 +65,15 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {
+    extend(config, { isDev }) {
+      if (!isDev) {
+        config.output.publicPath = './_nuxt/';
+      }
+
+      return config;
     },
   },
 };
+
+const final = Object.assign({}, config, env);
+module.exports = final;

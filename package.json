@@ -15,17 +15,23 @@
     "test:e2e": "npm run build && npx start-test :3000 test:e2e:cypress",
     "test:e2e:cypress": "cypress run",
     "test:e2e:cypress:record": "cypress run --record --key $CYPRESS_KEY",
-    "test:unit": "jest"
+    "test:unit": "jest",
+    "deploy": "npm run build && sls deploy",
+    "start-server": "npm run build && node server.js",
+    "start-sls": "npm run build && sls offline start"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
-    "nuxt": "^2.0.0",
-    "vue-router": "latest",
-    "vuex": "latest"
-  },
-  "devDependencies": {
     "@nuxtjs/eslint-config": "^0.0.1",
     "@nuxtjs/eslint-module": "^0.0.1",
+    "nuxt": "^2.0.0",
+    "vue-router": "latest",
+    "vuex": "latest",
+    "nuxt-start": "^2.6.3",
+    "serverless-apigw-binary": "^0.4.4",
+    "serverless-http": "^2.0.1"
+  },
+  "devDependencies": {
     "@types/jest": ">=22.3",
     "@vue/test-utils": "^1.0.0-beta.27",
     "babel-core": "7.0.0-bridge.0",
@@ -46,6 +52,8 @@
     "nodemon": "^1.18.9",
     "start-server-and-test": "^1.9.1",
     "tailwindcss": "^1.0.0",
-    "vue-jest": "^3.0.3"
+    "vue-jest": "^3.0.3",
+    "serverless-domain-manager": "^3.2.1",
+    "serverless-offline": "^4.10.0"
   }
 }
