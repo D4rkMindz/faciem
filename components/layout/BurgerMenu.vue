@@ -47,7 +47,7 @@
                class="py-3"
                @click="menuOpen = false">
             <nuxt-link to="/">
-              <button class="bg-purple text-white font-bold py-2 px-4 rounded-full hover:bg-purple-400">
+              <button class="bg-purple-500 text-white font-bold py-2 px-4 rounded-full hover:bg-purple-400">
                 Sign Up
               </button>
             </nuxt-link>

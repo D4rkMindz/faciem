@@ -1,7 +1,8 @@
+tenant: venovum
+app: faciem
+
 service:
   name: venovum-faciem
-  app: faciem
-  tenant: venovum
 
 # Add the serverless-webpack plugin
 

@@ -26,11 +26,14 @@ const config = {
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: colors.primary },
+  loading: { color: 'white' },
   /*
    ** Global CSS
    */
-  css: ['~/assets/css/tailwind.css'],
+  css: [
+    '~/assets/css/tailwind.css',
+    '~/assets/scss/venovum.scss',
+  ],
   /*
    ** Plugins to load before mounting the App
    */

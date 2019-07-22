@@ -6,10 +6,11 @@
   "author": "Björn Pfoster",
   "scripts": {
     "build": "nuxt build",
-    "test": "npm run test:unit & npm run test:ui",
+    "test": "npm run test:unit && npm run test:e2e",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "dev": "nuxt",
     "generate": "nuxt generate",
+    "generate:tailwind": "npx tailwind build assets/css/tailwind.css -o assets/css/output.css -c tailwind.config.js",
     "precommit": "npm run lint",
     "start": "nuxt start",
     "test:e2e": "npm run build && npx start-test :3000 test:e2e:cypress",
@@ -17,8 +18,8 @@
     "test:e2e:cypress:record": "cypress run --record --key $CYPRESS_KEY",
     "test:unit": "jest",
     "deploy": "npm run build && sls deploy",
-    "start-server": "npm run build && node server.js",
-    "start-sls": "npm run build && sls offline start"
+    "start:server": "npm run build && node server.js",
+    "start:sls": "npm run build && sls offline start"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
@@ -29,6 +30,8 @@
     "vuex": "latest",
     "nuxt-start": "^2.6.3",
     "serverless-apigw-binary": "^0.4.4",
+    "@ky-is/tailwind-color-palette": "^1.0.0",
+    "tailwindcss": "^1.0.0",
     "serverless-http": "^2.0.1"
   },
   "devDependencies": {
@@ -49,11 +52,13 @@
     "eslint-plugin-standard": ">=4.0.0",
     "eslint-plugin-vue": "^5.2.2",
     "jest": "^24.1.0",
+    "node-sass": "^4.12.0",
     "nodemon": "^1.18.9",
-    "start-server-and-test": "^1.9.1",
-    "tailwindcss": "^1.0.0",
-    "vue-jest": "^3.0.3",
+    "sass-loader": "^7.1.0",
     "serverless-domain-manager": "^3.2.1",
-    "serverless-offline": "^4.10.0"
+    "serverless-offline": "^4.10.0",
+    "start-server-and-test": "^1.9.1",
+    "style-loader": "^0.23.1",
+    "vue-jest": "^3.0.3"
   }
 }
