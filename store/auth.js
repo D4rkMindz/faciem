@@ -20,6 +20,7 @@ export const getters = {
   errorMessage: state => state.error.message,
   errorLanguage: state => state.error.language,
   status: state => state.status,
+  isAuthenticating: state => state.status === AuthenticationState.AUTHENTICATING,
 };
 
 export const mutations = {

@@ -18,7 +18,8 @@
       <div class="lg:flex lg:items-center mb-6">
         <div class="lg:w-1/3">
           <label for="password"
-                 class="block text-gray-500 lg:text-right mb-1 lg:mb-0 pr-4">
+                 class="block text-gray-500 lg:text-right mb-1 lg:mb-0 pr-4"
+                 @keyup.enter.native="authenticate">
             Password
           </label>
         </div>
@@ -35,6 +36,7 @@
       </p>
       <div class="text-right">
         <button class="bg-purple-500 text-white font-bold py-2 px-4 rounded-full"
+                :class="{'opacity-50 cursor-not-allowed': (isAuthenticating() === true)}"
                 @click="authenticate">
           Login
         </button>
@@ -65,6 +67,7 @@ export default {
       'errorMessage',
       'errorLanguage',
       'state',
+      'isAuthenticating',
     ]),
     async authenticate() {
       await this.login({ username: this.username, password: this.password });
