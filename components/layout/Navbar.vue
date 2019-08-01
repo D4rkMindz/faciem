@@ -38,9 +38,11 @@
         <div class="hidden lg:inline-flex">
           <div v-if="!authenticated"
                class="navigation-link button-link">
-            <button class="bg-purple-500 text-white font-bold py-2 px-4 rounded-full">
-              Sign Up
-            </button>
+            <nuxt-link to="/signup">
+              <button class="bg-purple-500 text-white font-bold py-2 px-4 rounded-full">
+                Sign Up
+              </button>
+            </nuxt-link>
           </div>
           <div v-if="!authenticated"
                class="navigation-link">
