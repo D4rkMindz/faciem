@@ -1,9 +1,41 @@
+.disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+.error {
+  @apply text-red-500;
+}
+
+.border-default {
+  @apply border border-solid border-gray-200;
+}
+
+.border-ok {
+  @apply border border-solid border-green-500;
+}
+
+.border-error {
+  @apply border border-solid border-red-500;
+}
+
 .input {
-  @apply bg-gray-200 appearance-none border-none rounded w-full py-2 px-4 text-gray-700 leading-tight;
+  @apply bg-gray-200 appearance-none border-default rounded w-full py-2 px-4 text-gray-700 leading-tight;
 
   &:focus {
     @apply outline-none;
   }
+
+  &.ok {
+    @apply border-ok;
+  }
+
+  &.error {
+    @apply border-error;
+  }
+}
+
+.button {
+  @apply bg-purple-500 text-white font-bold py-2 px-4 rounded-full;
 }
 
 .navigation-link {

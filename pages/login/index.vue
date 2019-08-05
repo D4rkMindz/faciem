@@ -35,7 +35,7 @@
         {{ errorMessage() }}
       </p>
       <div class="text-right">
-        <button class="bg-purple-500 text-white font-bold py-2 px-4 rounded-full"
+        <button class="button"
                 :class="{'opacity-50 cursor-not-allowed': (isAuthenticating() === true)}"
                 @click="authenticate">
           Login
