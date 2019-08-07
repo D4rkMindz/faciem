@@ -3,8 +3,8 @@
     <nav class="flex flex-wrap items-center justify-between bg-white mx-auto py-2 px-3 lg:py-12 lg:px-10">
       <div class="items-center flex-shrink-0 mx-2">
         <nuxt-link to="/">
-          <img src="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo3.png"
-               class="h-8"
+          <img src="/img/logo.png"
+               class="h-8 w-8 lg:ml-32"
                alt="Venovum logo" />
         </nuxt-link>
       </div>
