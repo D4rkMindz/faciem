@@ -19,7 +19,7 @@
             Email
           </label>
         </div>
-        <div class="lg:w-3/6 mb-6 lg:my-0">
+        <div class="w-full lg:w-3/6 mb-3 lg:my-0">
           <input id="email"
                  v-model="email"
                  class="input"
@@ -27,6 +27,10 @@
                  type="email"
                  @keydown="onEmailSignupInput"
                  @input="onEmailSignupInput" />
+        </div>
+        <div v-if="hasError()"
+             class="w-full text-center error block lg:hidden mb-3">
+          {{ getMostCurrentError() }}
         </div>
         <div class="w-full lg:w-2/6 px-2">
           <button class="button w-full"
@@ -38,7 +42,7 @@
         </div>
       </div>
       <div v-if="hasError()"
-           class="text-center error">
+           class="text-center error hidden lg:block">
         {{ getMostCurrentError() }}
       </div>
     </div>
@@ -120,7 +124,7 @@ export default {
       }
     },
     onEmailSignupInput() {
-      // TODO continue here by resetting the form and displaying the error correctly
+      // TODO test
       if (this.hasError()) {
         this.reset();
       }
@@ -128,7 +132,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-
-</style>
