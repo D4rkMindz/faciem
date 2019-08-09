@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto">
+  <div class="container mx-auto signup">
     <div class="w-full lg:w-1/3 p-6 lg:float-right flex items-center lg:mt-20 lg:mr-32">
       <img src="/img/registration.svg"
            alt="Register now at Venovum.com" />
@@ -29,7 +29,7 @@
                  @input="onEmailSignupInput" />
         </div>
         <div v-if="hasError()"
-             class="w-full text-center error block lg:hidden mb-3">
+             class="w-full text-center error block lg:hidden mb-3 error-mobile">
           {{ getMostCurrentError() }}
         </div>
         <div class="w-full lg:w-2/6 px-2">
@@ -42,7 +42,7 @@
         </div>
       </div>
       <div v-if="hasError()"
-           class="text-center error hidden lg:block">
+           class="text-center error hidden lg:block error-desktop">
         {{ getMostCurrentError() }}
       </div>
     </div>
@@ -69,7 +69,11 @@ export default {
         return '';
       }
 
-      if (this.isValidEmail(this.email)) {
+      if (this.hasError()) {
+        return 'error';
+      }
+
+      if (this.isValidEmail()) {
         return 'ok';
       }
 
@@ -114,17 +118,19 @@ export default {
       'isSigningUp',
       'isSignedUp',
     ]),
-    isValidEmail: function (email) {
-      return this.hasError() ? false : this.email === '' ? false : this.emailRegex.test(email);
+    isValidEmail: function () {
+      return this.email === '' ? false : this.emailRegex.test(this.email);
     },
     signUpWithEmail: async function () {
+      if (this.isSignUpDisabled) {
+        return;
+      }
       await this.signUp({ email: this.email });
       if (!this.hasError()) {
         this.$router.push('/signup/thank-you');
       }
     },
     onEmailSignupInput() {
-      // TODO test
       if (this.hasError()) {
         this.reset();
       }

@@ -12,14 +12,36 @@ export function startServer() {
   cy.server();
 }
 
+export function runOnAllDevices(name, route, callback) {
+  runOnMobileViewports(name, () => {
+    navigateMobile(route);
+    callback();
+  });
+  runOnTabletViewports(name, () => {
+    navigateMobile(route);
+    callback();
+  });
+  runOnDesktopViewports(name, () => {
+    navigateDesktop(route);
+    callback();
+  });
+}
+
 /**
- * Run tests on all viewports
- * @param {string} name The name of the test
- * @param callback The callback that is called with the tested viewport
+ * Navigate on desktop screen
+ * @param route
  */
-export function runOnAllViewports(name, callback) {
-  const viewports = ['macbook-15', 'macbook-13', 'macbook-11', 'ipad-2', 'ipad-mini', 'iphone-6+', 'iphone-6', 'iphone-5', 'iphone-4', 'iphone-3'];
-  runViewports(name, viewports, callback);
+export function navigateDesktop(route) {
+  cy.get('.navigation-link').find(`a[href="${route}"]`).click();
+}
+
+/**
+ * Navigate on mobile screen
+ * @param route
+ */
+export function navigateMobile(route) {
+  cy.get('div.burger').click();
+  cy.get('nav .overlay.shown').find(`a[href="${route}"]`).click();
 }
 
 /**

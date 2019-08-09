@@ -1,19 +1,19 @@
-import { getters, mutations, state } from '../store/auth';
+import { getters, mutations, state } from '../store/registration';
+
 const testMutations = {
   ...mutations,
   SET(state, { key, value }) {
     state[key] = value;
   },
 };
+
 export default {
   modules: {
-    auth: {
+    registration: {
       namespaced: true,
       actions: {
-        login: jest.fn(() => Promise.resolve(true)),
-        loggingIn: jest.fn(),
-        logout: jest.fn(),
-        error: jest.fn(),
+        signUp: jest.fn(() => Promise.resolve(true)),
+        reset: jest.fn(),
       },
       state: state,
       getters: getters,
