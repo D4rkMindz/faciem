@@ -1,4 +1,5 @@
 import { getters, mutations, state } from '../store/auth';
+
 const testMutations = {
   ...mutations,
   SET(state, { key, value }) {
@@ -10,7 +11,7 @@ export default {
     auth: {
       namespaced: true,
       actions: {
-        login: jest.fn(() => Promise.resolve(true)),
+        login: jest.fn(() => Promise.resolve()),
         loggingIn: jest.fn(),
         logout: jest.fn(),
         error: jest.fn(),

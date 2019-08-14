@@ -18,8 +18,7 @@
       <div class="lg:flex lg:items-center mb-6">
         <div class="lg:w-1/3">
           <label for="password"
-                 class="block text-gray-500 lg:text-right mb-1 lg:mb-0 pr-4"
-                 @keyup.enter.native="authenticate">
+                 class="block text-gray-500 lg:text-right mb-1 lg:mb-0 pr-4">
             Password
           </label>
         </div>
@@ -27,7 +26,8 @@
           <input id="password"
                  v-model="password"
                  class="input"
-                 type="password" />
+                 type="password"
+                 @keyup.enter.native="authenticate" />
         </div>
       </div>
       <p v-if="hasError"

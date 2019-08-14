@@ -10,6 +10,7 @@ describe('/logout', () => {
 
   it('redirects to home mount', () => {
     const wrapper = mount(LogoutPage, store);
+    expect(wrapper.vm.$router.push).toBeCalledTimes(1);
     expect(wrapper.vm.$router.push).toBeCalledWith('/');
   });
 });

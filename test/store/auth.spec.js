@@ -6,7 +6,7 @@ const { login, loggingIn, logout, error } = mutations;
 describe('Auth store', () => {
   describe('actions', () => {
     it('should login', () => {
-
+      // TODO
     });
   });
 

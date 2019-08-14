@@ -4,11 +4,11 @@
       <img src="/img/mail-sent.svg"
            alt="Please check your inbox" />
     </div>
-    <div class="w-full lg:w-1/2 px-6 float-left">
-      <h1 class="text-center lg:text-left p-3 text-2xl lg:text-6xl">
+    <div class="w-full lg:w-1/3 px-6 float-left">
+      <h1 class="text-center lg:text-left title">
         Thank You
       </h1>
-      <p class="text-gray-500 p-3 text-sm">
+      <p class="text">
         Please have a look into your inbox and confirm your email
       </p>
     </div>

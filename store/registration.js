@@ -5,6 +5,14 @@ export function state() {
     emailToken: null,
     status: RegistrationState.INITIAL,
     error: { message: null, language: null },
+    user: {
+      username: '',
+      firstname: '',
+      middlename: '',
+      lastname: '',
+      birthdate: '',
+      password: '',
+    },
   };
 }
 
@@ -32,6 +40,14 @@ export const getters = {
 };
 
 export const mutations = {
+  REGISTERING(state) {
+    state.status = RegistrationState.REGISTERING;
+    state.error = { errors: null, message: null, language: null };
+  },
+  REGISTERED(state) {
+    state.status = RegistrationState.REGISTERED;
+    state.error = { errors: null, message: null, language: null };
+  },
   SIGNING_UP(state) {
     state.emailToken = null;
     state.status = RegistrationState.SIGNING_UP;
@@ -56,7 +72,7 @@ export const mutations = {
 
 export const actions = {
   /**
-   * Log in a user
+   * Sign up a user
    * @param commit
    * @param username
    * @param password
@@ -78,6 +94,43 @@ export const actions = {
       commit('ERROR', e.response.data);
     }
   },
+
+  /**
+   *
+   * @param commit
+   * @param emailToken
+   * @param firstName
+   * @param middleName
+   * @param lastName
+   * @param birthDate
+   * @param password
+   * @return {Promise<void>}
+   */
+  async register({ commit }, { emailToken, firstName, middleName, lastName, birthDate, password }) {
+    try {
+      commit('REGISTERING');
+      const response = await this.$axios.post(
+        '/users/register',
+        {
+          emailToken: emailToken,
+          firstName: firstName,
+          middleName: middleName,
+          lastName: lastName,
+          birthDate: birthDate,
+          password: password,
+        },
+      );
+
+      if (response.status === 200) {
+        commit('REGISTERED');
+      } else {
+        commit('ERROR', response.data);
+      }
+    } catch (e) {
+      commit('ERROR', e.response.data);
+    }
+  },
+
   /**
    * Reset the errors
    */
