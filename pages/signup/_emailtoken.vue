@@ -5,7 +5,7 @@
            alt="Thank you for signing up at venovum. Please finish your registration, you're almost done" />
     </div>
 
-    <div class="block lg:inline-block bg-white shadow w-11/12 lg:w-8/12 mx-auto p-6 mx-auto lg:ml-auto">
+    <div class="block lg:inline-block bg-white shadow w-11/12 lg:w-8/12 mx-auto p-6 mx-auto lg:ml-auto registration-card">
       <h1 class="text-center lg:text-left title">
         Almost done
       </h1>
@@ -13,27 +13,29 @@
         Please fill out the missing fields to complete your registration
       </p>
 
-      <div class="form">
+      <div class="registration">
         <transition name="fade"
                     mode="out-in"
                     :duration="500">
           <div v-if="step === 1"
                key="step-1"
-               class="step step-1">
-            <Input id="first-name"
-                   v-model="firstname"
-                   label="First name *" />
+               class="step">
+            <div class="form">
+              <Input id="first-name"
+                     v-model="firstname"
+                     label="First name *" />
 
-            <Input id="middle-name"
-                   v-model="middlename"
-                   label="Middle name" />
+              <Input id="middle-name"
+                     v-model="middlename"
+                     label="Middle name" />
 
-            <Input id="last-name"
-                   v-model="lastname"
-                   label="Last name *" />
+              <Input id="last-name"
+                     v-model="lastname"
+                     label="Last name *" />
+            </div>
 
-            <div class="text-right">
-              <button class="button w-full lg:w-auto"
+            <div class="flex flex-wrap">
+              <button class="button w-full lg:w-auto lg:ml-auto"
                       @click="save">
                 Save
               </button>
@@ -42,23 +44,25 @@
 
           <div v-else-if="step === 2"
                key="step-2"
-               class="step step-2">
-            <Input id="username"
-                   v-model="username"
-                   label="Username *" />
+               class="step">
+            <div class="form">
+              <Input id="username"
+                     v-model="username"
+                     label="Username *" />
 
-            <Input id="password"
-                   v-model="password"
-                   type="password"
-                   label="Password" />
+              <Input id="password"
+                     v-model="password"
+                     type="password"
+                     label="Password" />
+            </div>
 
-            <div class="flex flex-wrap">
-              <button class="button outline w-full lg:w-1/3 mr-auto"
+            <div class="flex flex-wrap flex-col-reverse lg:flex-row">
+              <button class="button outline w-full lg:w-auto mr-auto mt-6 lg:mt-0"
                       @click="back">
                 Back
               </button>
 
-              <button class="button w-full lg:w-1/3"
+              <button class="button w-full lg:w-auto"
                       @click="finish">
                 Finish
               </button>
@@ -133,5 +137,23 @@ export default {
 
   .fade-enter, .fade-leave-to, .fade-leave-active {
     opacity: 0;
+  }
+
+  .registration-card {
+    min-height: 50vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .registration {
+    height: 100%;
+  }
+
+  .step {
+    height: auto;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 </style>
