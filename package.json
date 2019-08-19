@@ -22,17 +22,18 @@
     "start:sls": "npm run build && sls offline start"
   },
   "dependencies": {
+    "@ky-is/tailwind-color-palette": "^1.0.0",
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/eslint-config": "^0.0.1",
     "@nuxtjs/eslint-module": "^0.0.1",
+    "moment": "^2.24.0",
     "nuxt": "^2.0.0",
-    "vue-router": "latest",
-    "vuex": "latest",
     "nuxt-start": "^2.6.3",
     "serverless-apigw-binary": "^0.4.4",
-    "@ky-is/tailwind-color-palette": "^1.0.0",
+    "serverless-http": "^2.0.1",
     "tailwindcss": "^1.0.0",
-    "serverless-http": "^2.0.1"
+    "vue-router": "latest",
+    "vuex": "latest"
   },
   "devDependencies": {
     "@types/jest": ">=22.3",
