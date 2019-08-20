@@ -13,6 +13,9 @@ export default {
       namespaced: true,
       actions: {
         signUp: jest.fn(() => Promise.resolve(true)),
+        register: jest.fn(() => Promise.resolve(true)),
+        savePersonalInformation: jest.fn(),
+        saveCredentials: jest.fn(),
         reset: jest.fn(),
       },
       state: state,

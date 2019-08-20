@@ -28,7 +28,7 @@
                  @keydown="onEmailSignupInput"
                  @input="onEmailSignupInput" />
         </div>
-        <div v-if="hasError()"
+        <div v-if="hasErrors()"
              class="w-full text-center error block lg:hidden mb-3 error-mobile">
           {{ getMostCurrentError() }}
         </div>
@@ -41,7 +41,7 @@
           </button>
         </div>
       </div>
-      <div v-if="hasError()"
+      <div v-if="hasErrors()"
            class="text-center error hidden lg:block error-desktop">
         {{ getMostCurrentError() }}
       </div>
@@ -69,7 +69,7 @@ export default {
         return '';
       }
 
-      if (this.hasError()) {
+      if (this.hasErrors()) {
         return 'error';
       }
 
@@ -99,7 +99,7 @@ export default {
         return true;
       }
 
-      if (this.hasError()) {
+      if (this.hasErrors()) {
         return true;
       }
 
@@ -112,7 +112,7 @@ export default {
       'reset',
     ]),
     ...mapGetters([
-      'hasError',
+      'hasErrors',
       'getMostCurrentError',
       'status',
       'isSigningUp',
@@ -126,12 +126,12 @@ export default {
         return;
       }
       await this.signUp({ email: this.email });
-      if (!this.hasError()) {
+      if (!this.hasErrors()) {
         this.$router.push('/signup/thank-you');
       }
     },
     onEmailSignupInput() {
-      if (this.hasError()) {
+      if (this.hasErrors()) {
         this.reset();
       }
     },

@@ -22,19 +22,19 @@ export const getters = {
   // finish the registration with username, password ...
   isRegistering: state => state.status === RegistrationState.REGISTERING,
   isRegistered: state => state.status === RegistrationState.REGISTERED,
-  // getMostCurrentError: (state) => {
-  //   // error might be empty so better check if is filled before accessing it
-  //   let filtered = state.error && state.error.errors ? state.error.errors.filter(error => error.field === 'email') : null;
-  //   if (!filtered) {
-  //     filtered = [{
-  //       field: null,
-  //       message: null,
-  //     }];
-  //   }
-  //   return filtered.shift().message;
-  // },
-  hasRegistrationErrors: state => state.status === RegistrationState.ERROR,
-  getRegistrationErrors: state => state.error,
+  getMostCurrentError: (state) => {
+    // error might be empty so better check if is filled before accessing it
+    let filtered = state.error && state.error.errors ? state.error.errors.filter(error => error.field === 'email') : null;
+    if (!filtered) {
+      filtered = [{
+        field: null,
+        message: null,
+      }];
+    }
+    return filtered.shift().message;
+  },
+  hasErrors: state => state.status === RegistrationState.ERROR,
+  getErrors: state => state.error,
   status: state => state.status,
   user: state => state.user,
 };
@@ -100,33 +100,6 @@ export const actions = {
   },
 
   /**
-   * Save personal information
-   * @param commit
-   * @param firstname
-   * @param middlename
-   * @param lastname
-   * @param birthdate
-   */
-  savePersonalInformation({ commit }, { firstname, middlename, lastname, birthdate }) {
-    commit('SAVE_PERSONAL_INFORMATION', {
-      firstname: firstname,
-      middlename: middlename,
-      lastname: lastname,
-      birthdate: birthdate,
-    });
-  },
-
-  /**
-   * Save user credentials
-   * @param commit
-   * @param username
-   * @param password
-   */
-  saveCredentials({ commit }, { username }) {
-    commit('SAVE_USERNAME', { username: username });
-  },
-
-  /**
    * Register a user on the server
    * @param commit
    * @param emailToken
@@ -172,6 +145,33 @@ export const actions = {
     } catch (e) {
       commit('ERROR', e.response.data);
     }
+  },
+
+  /**
+   * Save personal information
+   * @param commit
+   * @param firstname
+   * @param middlename
+   * @param lastname
+   * @param birthdate
+   */
+  savePersonalInformation({ commit }, { firstname, middlename, lastname, birthdate }) {
+    commit('SAVE_PERSONAL_INFORMATION', {
+      firstname: firstname,
+      middlename: middlename,
+      lastname: lastname,
+      birthdate: birthdate,
+    });
+  },
+
+  /**
+   * Save user credentials
+   * @param commit
+   * @param username
+   * @param password
+   */
+  saveCredentials({ commit }, { username }) {
+    commit('SAVE_USERNAME', { username: username });
   },
 
   /**

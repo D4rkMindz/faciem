@@ -22,6 +22,11 @@ export function mount(Instance, storeModule) {
     mocks: {
       $router: {
         push: jest.fn(),
+        currentRoute: {
+          params: {
+            emailtoken: 'test-token',
+          },
+        },
       },
     },
     store: store,

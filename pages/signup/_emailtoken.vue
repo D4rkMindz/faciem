@@ -130,12 +130,6 @@ export default {
       return moment().subtract(18, 'years').format('DD.MM.YYYY');
     },
   },
-  watch: {
-    password(newVal, oldVal) {
-      // eslint-disable-next-line no-console
-      console.log('replaced ', oldVal, this.password);
-    },
-  },
   created() {
     this.populate();
     this.emailtoken = this.$router.currentRoute.params.emailtoken;
@@ -149,8 +143,8 @@ export default {
     ...mapGetters([
       'isRegistering',
       'isRegistered',
-      'getRegistrationErrors',
-      'hasRegistrationErrors',
+      'getErrors',
+      'hasErrors',
       'user',
     ]),
     async finish() {
@@ -179,7 +173,7 @@ export default {
         return;
       }
 
-      if (this.hasRegistrationErrors()) {
+      if (this.checkForErrors()) {
         const errors = {
           firstname: [],
           middlename: [],
@@ -188,7 +182,7 @@ export default {
           username: [],
           password: [],
         };
-        this.getRegistrationErrors().errors.forEach(error => errors[error.field].push(error.message));
+        this.getErrors().errors.forEach(error => errors[error.field].push(error.message));
 
         this.errors = errors;
       }
@@ -231,7 +225,7 @@ export default {
         this[validator]();
       });
 
-      return !this.hasErrors(fields);
+      return !this.checkForErrors(fields);
     },
     validateLength(name, field, minimum, maximum) {
       minimum = minimum || 2;
@@ -260,7 +254,7 @@ export default {
       this.errors.lastname = this.validateLength(this.lastname, 'Last name');
     },
     validateBirthdate() {
-      const birthdate = moment(this.birthdate, 'DD.MM.YYYY');
+      const birthdate = moment(this.birthdate, 'DD.MM.YYYY', true);
       const errors = [];
       if (!birthdate.isValid()) {
         errors.push('The date must match dd.mm.yyyy format');
@@ -293,7 +287,7 @@ export default {
 
       this.errors.password = [];
     },
-    hasErrors(fields) {
+    checkForErrors(fields) {
       let hasError = false;
       const errors = this.errors;
 
