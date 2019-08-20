@@ -22,18 +22,19 @@ export const getters = {
   // finish the registration with username, password ...
   isRegistering: state => state.status === RegistrationState.REGISTERING,
   isRegistered: state => state.status === RegistrationState.REGISTERED,
-  hasError: state => state.status === RegistrationState.ERROR,
-  getMostCurrentError: (state) => {
-    // error might be empty so better check if is filled before accessing it
-    let filtered = state.error && state.error.errors ? state.error.errors.filter(error => error.field === 'email') : null;
-    if (!filtered) {
-      filtered = [{
-        field: null,
-        message: null,
-      }];
-    }
-    return filtered.shift().message;
-  },
+  // getMostCurrentError: (state) => {
+  //   // error might be empty so better check if is filled before accessing it
+  //   let filtered = state.error && state.error.errors ? state.error.errors.filter(error => error.field === 'email') : null;
+  //   if (!filtered) {
+  //     filtered = [{
+  //       field: null,
+  //       message: null,
+  //     }];
+  //   }
+  //   return filtered.shift().message;
+  // },
+  hasRegistrationErrors: state => state.status === RegistrationState.ERROR,
+  getRegistrationErrors: state => state.error,
   status: state => state.status,
   user: state => state.user,
 };
@@ -57,7 +58,7 @@ export const mutations = {
   },
   ERROR(state, error) {
     state.status = RegistrationState.ERROR;
-    state.error = error;
+    state.error = { errors: error.errors, message: error.message, language: error.language };
   },
   RESET(state) {
     state.status = RegistrationState.INITIAL;
@@ -69,7 +70,7 @@ export const mutations = {
     state.user.lastname = lastname;
     state.user.birthdate = birthdate;
   },
-  SAVE_USERNAME(state, username) {
+  SAVE_USERNAME(state, { username }) {
     state.user.username = username;
   },
 };
@@ -133,12 +134,12 @@ export const actions = {
    * @param middleName
    * @param lastName
    * @param birthDate
+   * @param username
    * @param password
    * @return {Promise<void>}
    */
-  async register({ commit }, { emailToken, firstName, middleName, lastName, birthDate, password }) {
+  async register({ commit }, { emailToken, firstName, middleName, lastName, birthDate, username, password }) {
     try {
-      debugger;
       // eslint-disable-next-line no-console
       console.table([
         ['token', emailToken],
@@ -146,6 +147,7 @@ export const actions = {
         ['middle name', middleName],
         ['last name', lastName],
         ['birthDate', birthDate],
+        ['username', username],
         ['password', password],
       ]);
       commit('REGISTERING');
@@ -157,6 +159,7 @@ export const actions = {
           middle_name: middleName,
           last_name: lastName,
           birth_date: birthDate,
+          username: username,
           password: password,
         },
       );

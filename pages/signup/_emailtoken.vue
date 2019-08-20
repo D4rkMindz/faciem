@@ -51,7 +51,7 @@
             </div>
 
             <div class="flex flex-wrap">
-              <button class="button w-full lg:w-auto lg:ml-auto"
+              <button class="button w-full lg:w-auto lg:ml-auto loading"
                       @click="save">
                 Save
               </button>
@@ -130,6 +130,12 @@ export default {
       return moment().subtract(18, 'years').format('DD.MM.YYYY');
     },
   },
+  watch: {
+    password(newVal, oldVal) {
+      // eslint-disable-next-line no-console
+      console.log('replaced ', oldVal, this.password);
+    },
+  },
   created() {
     this.populate();
     this.emailtoken = this.$router.currentRoute.params.emailtoken;
@@ -143,29 +149,55 @@ export default {
     ...mapGetters([
       'isRegistering',
       'isRegistered',
-      'emailToken',
+      'getRegistrationErrors',
+      'hasRegistrationErrors',
       'user',
     ]),
-    finish() {
-      this.register({
-        emailToken: this.emailToken,
-        firstName: this.firstName,
-        middleName: this.middleName,
-        lastName: this.lastName,
-        birthDate: this.birthDate,
+    async finish() {
+      // validate all fields from the first page again
+      const fields = ['firstname', 'middlename', 'lastname', 'birthdate', 'username', 'password'];
+
+      if (!this.isValid(fields)) {
+        return;
+      }
+
+      this.saveCredentials({ username: this.username });
+      this.populate();
+      await this.register({
+        emailToken: this.emailtoken,
+        firstName: this.firstname,
+        middleName: this.middlename,
+        lastName: this.lastname,
+        username: this.username,
         password: this.password,
+        // PHP 'c' format
+        birthDate: moment(this.birthdate).format('YYYY-MM-DD[T]HH:mm:ssZ'),
       });
+
+      if (this.isRegistered()) {
+        this.$router.push('/login');
+        return;
+      }
+
+      if (this.hasRegistrationErrors()) {
+        const errors = {
+          firstname: [],
+          middlename: [],
+          lastname: [],
+          birthdate: [],
+          username: [],
+          password: [],
+        };
+        this.getRegistrationErrors().errors.forEach(error => errors[error.field].push(error.message));
+
+        this.errors = errors;
+      }
     },
     save() {
       // validate all fields from the first page again
       const fields = ['firstname', 'middlename', 'lastname', 'birthdate'];
-      fields.forEach((field) => {
-        const validator = 'validate' + field.charAt(0).toUpperCase() + field.slice(1);
 
-        this[validator](field);
-      });
-
-      if (this.hasErrors()) {
+      if (!this.isValid(fields)) {
         return;
       }
 
@@ -191,31 +223,41 @@ export default {
       this.birthdate = user.birthdate;
       this.username = user.username;
       // dont save the password
-      this.password = '';
     },
-    validateName(name, field) {
+    isValid(fields) {
+      fields.forEach((field) => {
+        const validator = 'validate' + field.charAt(0).toUpperCase() + field.slice(1);
+
+        this[validator]();
+      });
+
+      return !this.hasErrors(fields);
+    },
+    validateLength(name, field, minimum, maximum) {
+      minimum = minimum || 2;
+      maximum = maximum || 255;
       const errors = [];
-      if (name.length < 2) {
-        errors.push(`${field} is not long enough. Minimum 2 letters`);
+      if (name.length < minimum) {
+        errors.push(`${field} is not long enough. Minimum ${minimum} letters`);
       }
 
-      if (name.length > 255) {
-        errors.push(`${field} exceeds the maximum length. Please keep it shorter than 255 characters`);
+      if (name.length > maximum) {
+        errors.push(`${field} exceeds the maximum length. Please keep it shorter than ${maximum} characters`);
       }
 
       return errors;
     },
     validateFirstname() {
-      this.errors.firstname = this.validateName(this.firstname, 'First name');
+      this.errors.firstname = this.validateLength(this.firstname, 'First name');
     },
     validateMiddlename() {
       if (this.middlename.length <= 0) {
         return;
       }
-      this.errors.middlename = this.validateName(this.middlename, 'Middle name');
+      this.errors.middlename = this.validateLength(this.middlename, 'Middle name');
     },
     validateLastname() {
-      this.errors.lastname = this.validateName(this.lastname, 'Last name');
+      this.errors.lastname = this.validateLength(this.lastname, 'Last name');
     },
     validateBirthdate() {
       const birthdate = moment(this.birthdate, 'DD.MM.YYYY');
@@ -231,16 +273,36 @@ export default {
       this.errors.birthdate = errors;
     },
     validateUsername() {
-      this.errors.username = [];
+      // https://stackoverflow.com/a/12019115/6805097
+      const regex = /^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._-]+(?<![_.])$/;
+      const errors = this.validateLength(this.username, 'Username', 3, 30);
+      if (!this.username.match(regex)) {
+        errors.push('Your username can only contain alphanumeric letters, ".", "-" and "_" and cannot end with ".", "-" and "_"');
+      }
+
+      this.errors.username = errors;
     },
     validatePassword() {
+      // https://stackoverflow.com/a/21456918/6805097
+      const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]$/;
+      const errors = this.validateLength(this.password, 'Password', 6);
+
+      if (!this.password.match(regex)) {
+        errors.push('Your password must contain at least one uppercase, one lowercase and a special character');
+      }
+
       this.errors.password = [];
     },
-    hasErrors() {
+    hasErrors(fields) {
       let hasError = false;
       const errors = this.errors;
-      Object.keys(this.errors).forEach((field) => {
-        if (errors[field] !== 0) {
+
+      if (!fields) {
+        fields = Object.keys(this.errors);
+      }
+
+      fields.forEach((field) => {
+        if (errors[field].length !== 0) {
           hasError = true;
         }
       });

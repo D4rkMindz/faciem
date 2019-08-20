@@ -23,11 +23,12 @@
     <div
       v-for="(error, i) in errors"
       :key="i"
-      class="mb-6 flex">
+      class="flex"
+      :class="{'mb-6': (index === Object.keys(errors).length - 1)}">
       <div class="hidden lg:block lg:w-1/3">
         &nbsp;
       </div>
-      <div class="w-full lg:w-2/3 text-center error">
+      <div class="w-full lg:w-2/3 text-center error text-xs">
         {{ error }}
       </div>
     </div>
