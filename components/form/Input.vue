@@ -35,6 +35,17 @@
 </template>
 
 <script>
+/**
+ * Input component
+ *
+ * This component can be used to replace the native input.
+ *
+ * @attribute v-model The value of the input
+ * @attribute errors An array of errors
+ *
+ * @event validate Is emitted if the input can be validated.
+ * This event can be used to validate the data from the v-model and then push the errors to the error attribute
+ */
 export default {
   name: 'Input',
   model: {
@@ -71,14 +82,23 @@ export default {
       type: String,
       required: false,
     },
+    errors: {
+      default: () => [],
+      type: Array,
+      required: false,
+    },
   },
   data: function () {
     return {
       touched: false,
       classes: '',
-      errors: [],
       inputValue: this.value,
     };
+  },
+  watch: {
+    errors: function () {
+      this.classes = this.errors.length === 0 ? 'ok' : 'error';
+    },
   },
   methods: {
     onBlur() {
@@ -96,11 +116,7 @@ export default {
       this.emit();
     },
     emit() {
-      const result = new Promise(resolve => this.$emit('validate', resolve));
-      result.then((errors) => {
-        this.errors = errors;
-        this.classes = this.errors.length === 0 ? 'ok' : 'error';
-      });
+      this.$emit('validate', this.inputValue);
     },
   },
 };

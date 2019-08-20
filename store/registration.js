@@ -37,6 +37,7 @@ export const getters = {
     return filtered.shift().message;
   },
   status: state => state.status,
+  user: state => state.user,
 };
 
 export const mutations = {
@@ -68,6 +69,15 @@ export const mutations = {
     state.status = RegistrationState.INITIAL;
     state.error = { errors: null, message: null, language: null };
   },
+  SAVE_PERSONAL_INFORMATION(state, { firstname, middlename, lastname, birthdate }) {
+    state.user.firstname = firstname;
+    state.user.middlename = middlename;
+    state.user.lastname = lastname;
+    state.user.birthdate = birthdate;
+  },
+  SAVE_USERNAME(state, username) {
+    state.user.username = username;
+  },
 };
 
 export const actions = {
@@ -96,7 +106,34 @@ export const actions = {
   },
 
   /**
-   *
+   * Save personal information
+   * @param commit
+   * @param firstname
+   * @param middlename
+   * @param lastname
+   * @param birthdate
+   */
+  savePersonalInformation({ commit }, { firstname, middlename, lastname, birthdate }) {
+    commit('SAVE_PERSONAL_INFORMATION', {
+      firstname: firstname,
+      middlename: middlename,
+      lastname: lastname,
+      birthdate: birthdate,
+    });
+  },
+
+  /**
+   * Save user credentials
+   * @param commit
+   * @param username
+   * @param password
+   */
+  saveCredentials({ commit }, { username }) {
+    commit('SAVE_USERNAME', { username: username });
+  },
+
+  /**
+   * Register a user on the server
    * @param commit
    * @param emailToken
    * @param firstName

@@ -23,15 +23,31 @@
             <div class="form">
               <Input id="first-name"
                      v-model="firstname"
-                     label="First name *" />
+                     placeholder="Required"
+                     label="First name"
+                     :errors="errors.firstname"
+                     @validate="validateFirstname" />
 
               <Input id="middle-name"
                      v-model="middlename"
-                     label="Middle name" />
+                     placeholder="Optional"
+                     label="Middle name"
+                     :errors="errors.middlename"
+                     @validate="validateMiddlename" />
 
               <Input id="last-name"
                      v-model="lastname"
-                     label="Last name *" />
+                     placeholder="Required"
+                     label="Last name"
+                     :errors="errors.lastname"
+                     @validate="validateLastname" />
+
+              <Input id="birth-date"
+                     v-model="birthdate"
+                     :placeholder="minimumAge"
+                     label="Birthdate"
+                     :errors="errors.birthdate"
+                     @validate="validateBirthdate" />
             </div>
 
             <div class="flex flex-wrap">
@@ -48,12 +64,16 @@
             <div class="form">
               <Input id="username"
                      v-model="username"
-                     label="Username *" />
+                     label="Username"
+                     :errors="errors.username"
+                     @validate="validateUsername" />
 
               <Input id="password"
                      v-model="password"
                      type="password"
-                     label="Password" />
+                     label="Password"
+                     :errors="errors.password"
+                     @validate="validatePassword" />
             </div>
 
             <div class="flex flex-wrap flex-col-reverse lg:flex-row">
@@ -76,6 +96,7 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex';
+import moment from 'moment';
 import Input from '@/components/form/Input';
 
 const { mapActions, mapGetters } = createNamespacedHelpers('registration');
@@ -84,31 +105,46 @@ export default {
   components: {
     Input,
   },
-  data: () => {
+  data() {
     return {
       step: 1,
       emailtoken: null,
-      username: '',
       firstname: '',
       middlename: '',
       lastname: '',
       birthdate: '',
+      username: '',
       password: '',
+      errors: {
+        firstname: [],
+        middlename: [],
+        lastname: [],
+        birthdate: [],
+        username: [],
+        password: [],
+      },
     };
   },
+  computed: {
+    minimumAge: function () {
+      return moment().subtract(18, 'years').format('DD.MM.YYYY');
+    },
+  },
   created() {
+    this.populate();
     this.emailtoken = this.$router.currentRoute.params.emailtoken;
   },
   methods: {
     ...mapActions([
       'register',
+      'savePersonalInformation',
+      'saveCredentials',
     ]),
     ...mapGetters([
       'isRegistering',
       'isRegistered',
-      'hasError',
       'emailToken',
-      'getMostCurrentError',
+      'user',
     ]),
     finish() {
       this.register({
@@ -121,21 +157,105 @@ export default {
       });
     },
     save() {
+      // validate all fields from the first page again
+      const fields = ['firstname', 'middlename', 'lastname', 'birthdate'];
+      fields.forEach((field) => {
+        const validator = 'validate' + field.charAt(0).toUpperCase() + field.slice(1);
+
+        this[validator](field);
+      });
+
+      if (this.hasErrors()) {
+        return;
+      }
+
+      this.savePersonalInformation({
+        firstname: this.firstname,
+        middlename: this.middlename,
+        lastname: this.lastname,
+        birthdate: this.birthdate,
+      });
+
+      this.populate();
       this.step = 2;
     },
     back() {
+      this.populate();
       this.step--;
+    },
+    populate() {
+      const user = this.user();
+      this.firstname = user.firstname;
+      this.middlename = user.middlename;
+      this.lastname = user.lastname;
+      this.birthdate = user.birthdate;
+      this.username = user.username;
+      // dont save the password
+      this.password = '';
+    },
+    validateName(name, field) {
+      const errors = [];
+      if (name.length < 2) {
+        errors.push(`${field} is not long enough. Minimum 2 letters`);
+      }
+
+      if (name.length > 255) {
+        errors.push(`${field} exceeds the maximum length. Please keep it shorter than 255 characters`);
+      }
+
+      return errors;
+    },
+    validateFirstname() {
+      this.errors.firstname = this.validateName(this.firstname, 'First name');
+    },
+    validateMiddlename() {
+      if (this.middlename.length <= 0) {
+        return;
+      }
+      this.errors.middlename = this.validateName(this.middlename, 'Middle name');
+    },
+    validateLastname() {
+      this.errors.lastname = this.validateName(this.lastname, 'Last name');
+    },
+    validateBirthdate() {
+      const birthdate = moment(this.birthdate, 'DD.MM.YYYY');
+      const errors = [];
+      if (!birthdate.isValid()) {
+        errors.push('The date must match dd.mm.yyyy format');
+      }
+
+      if (birthdate.diff(moment().subtract(18, 'years')) > 0) {
+        errors.push('You need to be at least 18 years old to use venovum');
+      }
+
+      this.errors.birthdate = errors;
+    },
+    validateUsername() {
+      this.errors.username = [];
+    },
+    validatePassword() {
+      this.errors.password = [];
+    },
+    hasErrors() {
+      let hasError = false;
+      const errors = this.errors;
+      Object.keys(this.errors).forEach((field) => {
+        if (errors[field] !== 0) {
+          hasError = true;
+        }
+      });
+      return hasError;
     },
   },
 };
 </script>
 
 <style scoped>
-  .fade-enter-active, .fade-leave-active {
+  .fade-enter-active, .fade-blur-active {
     transition: opacity .5s;
   }
 
-  .fade-enter, .fade-leave-to, .fade-leave-active {
+  .fade-enter, .fade-blur-to, .fade-blur-active {
     opacity: 0;
   }
 
