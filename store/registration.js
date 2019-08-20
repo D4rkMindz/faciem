@@ -2,7 +2,6 @@ import { RegistrationState } from '../domain/registration/registration-state';
 
 export function state() {
   return {
-    emailToken: null,
     status: RegistrationState.INITIAL,
     error: { message: null, language: null },
     user: {
@@ -23,7 +22,6 @@ export const getters = {
   // finish the registration with username, password ...
   isRegistering: state => state.status === RegistrationState.REGISTERING,
   isRegistered: state => state.status === RegistrationState.REGISTERED,
-  emailToken: state => state.emailToken,
   hasError: state => state.status === RegistrationState.ERROR,
   getMostCurrentError: (state) => {
     // error might be empty so better check if is filled before accessing it
@@ -50,22 +48,18 @@ export const mutations = {
     state.error = { errors: null, message: null, language: null };
   },
   SIGNING_UP(state) {
-    state.emailToken = null;
     state.status = RegistrationState.SIGNING_UP;
     state.error = { errors: null, message: null, language: null };
   },
-  SIGN_UP(state, emailToken) {
-    state.emailToken = emailToken;
+  SIGN_UP(state) {
     state.status = RegistrationState.SIGNED_UP;
     state.error = { errors: null, message: null, language: null };
   },
   ERROR(state, error) {
-    state.emailToken = null;
     state.status = RegistrationState.ERROR;
     state.error = error;
   },
   RESET(state) {
-    state.emailToken = null;
     state.status = RegistrationState.INITIAL;
     state.error = { errors: null, message: null, language: null };
   },
@@ -97,8 +91,7 @@ export const actions = {
       );
 
       if (response.status === 200) {
-        const token = response.data.email_token;
-        commit('SIGN_UP', token);
+        commit('SIGN_UP');
       }
     } catch (e) {
       commit('ERROR', e.response.data);
@@ -145,15 +138,25 @@ export const actions = {
    */
   async register({ commit }, { emailToken, firstName, middleName, lastName, birthDate, password }) {
     try {
+      debugger;
+      // eslint-disable-next-line no-console
+      console.table([
+        ['token', emailToken],
+        ['first name', firstName],
+        ['middle name', middleName],
+        ['last name', lastName],
+        ['birthDate', birthDate],
+        ['password', password],
+      ]);
       commit('REGISTERING');
       const response = await this.$axios.post(
-        '/users/register',
+        '/users',
         {
-          emailToken: emailToken,
-          firstName: firstName,
-          middleName: middleName,
-          lastName: lastName,
-          birthDate: birthDate,
+          email_token: emailToken,
+          first_name: firstName,
+          middle_name: middleName,
+          last_name: lastName,
+          birth_date: birthDate,
           password: password,
         },
       );
