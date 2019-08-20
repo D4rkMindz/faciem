@@ -60,7 +60,7 @@ export default {
     },
     value: {
       default: '',
-      type: String,
+      type: [String, Number, Object],
       required: true,
     },
     label: {

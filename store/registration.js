@@ -112,6 +112,11 @@ export const actions = {
    * @return {Promise<void>}
    */
   async register({ commit }, { emailToken, firstName, middleName, lastName, birthDate, username, password }) {
+    const setError = function (responseData) {
+      const error = responseData;
+      error.errors = [{ field: 'username', message: responseData.message }];
+      commit('ERROR', error);
+    };
     try {
       // eslint-disable-next-line no-console
       console.table([
@@ -139,11 +144,17 @@ export const actions = {
 
       if (response.status === 200) {
         commit('REGISTERED');
-      } else {
+      } else if (response.status === 422) {
         commit('ERROR', response.data);
+      } else {
+        setError(response.data);
       }
     } catch (e) {
-      commit('ERROR', e.response.data);
+      if (e.response.status === 422) {
+        commit('ERROR', e.response.data);
+      } else {
+        setError(e.response.data);
+      }
     }
   },
 

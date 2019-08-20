@@ -173,7 +173,7 @@ export default {
         return;
       }
 
-      if (this.checkForErrors()) {
+      if (this.hasErrors()) {
         const errors = {
           firstname: [],
           middlename: [],
