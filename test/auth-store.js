@@ -1,5 +1,6 @@
 import { getters, mutations, state } from '../store/auth';
 
+// irgend en kommentar
 const testMutations = {
   ...mutations,
   SET(state, { key, value }) {
