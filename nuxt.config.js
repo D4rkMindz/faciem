@@ -3,7 +3,7 @@ const env = require('./nuxt.config.' + stage + '.js');
 const colors = require('./tailwind.config').theme;
 
 const config = {
-  mode: 'universal',
+  mode: 'spa',
   /*
    ** Headers of the page
    */
