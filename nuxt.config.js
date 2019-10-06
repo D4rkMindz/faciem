@@ -37,7 +37,9 @@ const config = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: [
+    { src: '~/plugins/localstorage.js', ssr: false },
+  ],
   /*
    ** Nuxt.js modules
    */
