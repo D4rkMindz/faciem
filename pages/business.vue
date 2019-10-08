@@ -1,17 +1,3 @@
-<!--<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Venovum</title>
-  <link href="https://fonts.googleapis.com/css?family=Oxygen:400,700|Arimo:400,700" rel="stylesheet">
-  <link rel="stylesheet" href="../static/css/style.css">
-  <link rel="stylesheet" href="../static/css/custom.css">
-  <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
-  <script>
-    !function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/50183a79e6ab481f049b91a46/14afb4b961da28b5b5ebbb471.js");
-  </script>
-</head>
-</html>-->
 <template>
   <div>
     <section class="hero">
@@ -28,8 +14,7 @@
             </p>
             <p class="hero-cta mb-0 is-revealing">
               <button id="open-popup"
-                      class="button button-primary button-shadow"
-                      @click="showNewsletterPopup">
+                      class="button button-primary button-shadow">
                 Newsletter
               </button>
             </p>
@@ -89,7 +74,7 @@
                   Simpel
                 </h4>
                 <p class="text-sm">
-                  Venovum wurde so einfach wie möglich gestaltet. Je simpler, desto besser. Sei auch du ein Teil davon!
+                  Jeder soll bei Venovum dabei sein können. Deshalb wurde Venovum so einfach wie möglich gestaltet. Je simpler, desto besser. Sei auch du ein Teil davon!
                 </p>
               </div>
             </div>
@@ -103,7 +88,7 @@
                   Seriös
                 </h4>
                 <p class="text-sm">
-                  Venvoum steht für Transparenz. Wir wollen die richtige Webung an die richtigen Leute bringe, wodurch beide Seiten profitieren.
+                  Allfälligem Misstrauen wollen wir mit grösstmöglicher Transparenz entgegenwirken. Venovum steht dafür, die richtige Werbung an die richtigen Leute zu bringen, wodurch beide Seiten profitieren können.
                 </p>
               </div>
             </div>
@@ -126,7 +111,7 @@
                   Sicher
                 </h4>
                 <p class="text-sm">
-                  Die Sicherheit deiner Daten hat für uns höchste Priorität. Alle Angaben dienen dazu dir präferierte webeinhalte anzuzeigen. Anonymität ist garantiert.
+                  Die Sicherheit deiner Daten hat für uns höchste Priorität. Alle Angaben werden einzig und alleine dazu verwendet, die Werbungen den richtigen Zielgruppen anzuzeigen. Anonymität ist garantiert.
                 </p>
               </div>
             </div>
@@ -145,7 +130,7 @@
                    class="tab-link is-active">
                   <img src="../static/images/tabs-icon-01.svg"
                        alt="Tabs icon 01" />
-                  <span class="h4 m-0">Interaktion</span>
+                  <span class="h4 m-0">Für Benutzer</span>
                 </a>
               </li>
               <li class="is-revealing">
@@ -153,40 +138,40 @@
                    class="tab-link">
                   <img src="../static/images/tabs-icon-02.svg"
                        alt="Tabs icon 02" />
-                  <span class="h4 m-0">Massgeschneidert</span>
+                  <span class="h4 m-0">Für Geschäfter</span>
                 </a>
               </li>
-              <li class="is-revealing">
-                <a href="#tab-3"
-                   class="tab-link">
-                  <img src="../static/images/tabs-icon-03.svg"
-                       alt="Tabs icon 03" />
-                  <span class="h4 m-0">Prozess</span>
+              <!-- <li class="is-revealing">
+                <a href="#tab-3" class="tab-link">
+                  <img src="dist/images/tabs-icon-03.svg" alt="Tabs icon 03">
+                  <span class="h4 m-0">Ease of use</span>
                 </a>
-              </li>
+              </li> -->
             </ul>
             <div class="tabs-content">
               <div id="tab-1"
                    class="tab-panel is-active">
-                <h2>Interaktion</h2>
-                <p>Lass dich von den neusten Werbekampagnen unterhalten und verdiene dir zudem ein zusätzliche Einkommen. Du kannst mit deinem Feedback dafür sorgen, dass zukünftige Kampagnen noch besser werden. </p>
+                <h2>Be part of it</h2>
+                <p>Be directly entertained by the latest advertising and control the advertising campaign with your feedback.</p>
                 <p class="mb-0">
-                  Noch nie kam deine Meinung direkter bei einem Unternehmen an. Dein Feedback zählt!😏
+                  Your feedback always helps. Maybe you deserve a bonus with it.😏
                 </p>
               </div>
               <div id="tab-2"
                    class="tab-panel">
-                <h2>Massgeschneidert</h2>
-                <p>Fall du Präferenzen bezüglich der Art der angezeigten Werbungen hast, so kann dies durch unsere Zuordnung problemlos eingestellt werden.</p>
+                <h2>Power of customisation</h2>
+                <p>You don't like something you see? Report it directly and prevent fatal errors with it</p>
                 <p class="mb-0">
-                  So werden dir nur Videos angezeigt welche dich tatsächlich interessieren, wodurch es für dich ein spannender Zeitvertreib bleibt.
+                  With our reporting function you can also give us feedback at any time.
                 </p>
               </div>
               <div id="tab-3"
                    class="tab-panel">
-                <h2>Prozess</h2>
-                <p>1.  Registriere dich einfach und schnell auf der Plattform <br />2.  Gib alle notwendigen Angaben an, um später von dir präferierte Werbeinhalte zu sehen<br />3.  Konsumiere Werbevideos diverse Unternehmen, beantworte die dazugehörigen Kontrollfragen und der entsprechende Betrag wird deinem Konto gutgeschrieben.<br />4.  Sobald du genug Guthaben für eine Auszahlung hast…</p>
-                <!--<p class="mb-0">The easier the better</p>-->
+                <h2>Keep it simple</h2>
+                <p>Everyone can and should join us. To this end, we have reduced the hurdles for a start at our application to a minimum.</p>
+                <p class="mb-0">
+                  The easier the better
+                </p>
               </div>
             </div>
           </div>
@@ -383,7 +368,7 @@
     <!--            </div>-->
     <!--                    </div>-->
     <!--                </div>-->
-    <!--        </section>-->
+    <!--            </section>-->
 
     <!--      <section class="cta section">-->
     <!--        <div class="container">-->
@@ -395,14 +380,24 @@
     <!--          </div>-->
     <!--        </div>-->
     <!--      </section>-->
+    <script src="../static/js/main.min.js" />
+    <script type="text/javascript"
+            src="//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js"
+            data-dojo-config="usePlainJson: true, isDebug: false" />
+    <script>
+      function showMailingPopup() {
+      window.dojoRequire(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us20.list-manage.com","uuid":"50183a79e6ab481f049b91a46","lid":"69020ad2c8","uniqueMethods":true}) })
+      document.cookie = "MCPopupClosed=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+      }
+      document.getElementById("open-popup").onclick = function() {showMailingPopup()};
+    </script>
+
+    <script>
+      export default {
+      name: 'business',
+      };
+    </script>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'RootPage',
-  layout: null,
-};
-</script>
-
-<style src="../static/css/custom.css"></style>
+<style src="../static/css/custom_business.css"></style>
