@@ -75,6 +75,10 @@
 .navigation-link {
   @apply mx-5 py-2 items-center text-gray-500 cursor-pointer text-center;
 
+  /* TODO remove this after changing landing page (correction for style.css) */
+  font-size: 16px !important;
+  line-height: 24px !important;
+
   &:hover {
     @apply text-gray-900;
   }
@@ -87,6 +91,6 @@
 
 @screen lg {
   .title {
-    @apply text-6xl;
+    @apply text-5xl;
   }
 }

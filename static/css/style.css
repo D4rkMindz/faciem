@@ -1,15 +1,23 @@
 html {
   line-height: 1.15;
   -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%
+  -webkit-text-size-adjust: 100%;
+  font-size: 20px;
+  line-height: 30px;
 }
 
 body {
-  margin: 0
+  margin: 0;
+  color: #333E4A;
+  font-size: 1rem;
 }
 
 article, aside, footer, header, nav, section {
   display: block
+}
+
+nav {
+  background-color: transparent !important;
 }
 
 h1 {
@@ -38,7 +46,12 @@ pre {
 
 a {
   background-color: transparent;
-  -webkit-text-decoration-skip: objects
+  -webkit-text-decoration-skip: objects;
+  text-decoration: none;
+}
+
+a:hover, a:active {
+  text-decoration: none !important;
 }
 
 abbr[title] {
@@ -301,22 +314,12 @@ th:last-child, td:last-child {
   padding-right: 0
 }
 
-html {
-  font-size: 20px;
-  line-height: 30px
-}
-
-body {
-  color: #333E4A;
-  font-size: 1rem
-}
-
 body, button, input, select, textarea {
   font-family: "Oxygen", sans-serif
 }
 
 a {
-  color: #3525D3;
+  /*color: #3525D3;*/
   text-decoration: none
 }
 
@@ -1377,7 +1380,7 @@ button, input, select, textarea, label {
 }
 
 .hero {
-  position: relative;
+  position: inherit;
   padding-top: 88px;
   text-align: center;
   z-index: 0

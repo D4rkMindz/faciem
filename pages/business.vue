@@ -138,7 +138,7 @@
                    class="tab-link">
                   <img src="../static/images/tabs-icon-02.svg"
                        alt="Tabs icon 02" />
-                  <span class="h4 m-0">Für Geschäfter</span>
+                  <span class="h4 m-0">Für Unternehmen</span>
                 </a>
               </li>
               <!-- <li class="is-revealing">
@@ -380,7 +380,7 @@
     <!--          </div>-->
     <!--        </div>-->
     <!--      </section>-->
-    <script src="../static/js/main.min.js" />
+    <script src="js/main.min.js" />
     <script type="text/javascript"
             src="//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js"
             data-dojo-config="usePlainJson: true, isDebug: false" />
@@ -400,4 +400,4 @@
   </div>
 </template>
 
-<style src="../static/css/custom_business.css"></style>
+<style src="../static/css/custom_business.css" scoped></style>

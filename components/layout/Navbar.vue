@@ -23,7 +23,7 @@
           </div>
           <div v-if="!authenticated"
                class="navigation-link">
-            <nuxt-link to="/"
+            <nuxt-link to="/business"
                        exact>
               BUSINESS
             </nuxt-link>
@@ -88,5 +88,10 @@ export default {
   .button-link {
     margin: 0;
     padding: 0;
+  }
+  /* TODO remove this after changing landing page (correction for style.css) */
+  .button-link > a > button {
+    font-size: 16px !important;
+    line-height: 24px !important;
   }
 </style>

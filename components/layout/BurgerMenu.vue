@@ -10,11 +10,17 @@
          :class="{shown: menuOpen}">
       <div class="flex justify-center items-center h-full w-full">
         <div>
-          <div class="py-3 text-center text-gray-500 hover:text-gray-900 cursor-pointer">
-            PRIVATE
+          <div class="py-3 text-center text-gray-500 hover:text-gray-900 cursor-pointer"
+               @click="menuOpen = false">
+            <nuxt-link to="/">
+              PRIVATE
+            </nuxt-link>
           </div>
-          <div class="py-3 text-center text-gray-500 hover:text-gray-900 cursor-pointer">
-            BUSINESS
+          <div class="py-3 text-center text-gray-500 hover:text-gray-900 cursor-pointer"
+               @click="menuOpen = false">
+            <nuxt-link to="/business">
+              BUSINESS
+            </nuxt-link>
           </div>
           <div class="py-3 text-center text-gray-500 hover:text-gray-900 cursor-pointer"
                @click="menuOpen = false">

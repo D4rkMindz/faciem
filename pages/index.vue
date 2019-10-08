@@ -6,10 +6,6 @@
   <link href="https://fonts.googleapis.com/css?family=Oxygen:400,700|Arimo:400,700" rel="stylesheet">
   <link rel="stylesheet" href="../static/css/style.css">
   <link rel="stylesheet" href="../static/css/custom.css">
-  <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
-  <script>
-    !function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/50183a79e6ab481f049b91a46/14afb4b961da28b5b5ebbb471.js");
-  </script>
 </head>
 </html>-->
 <template>
@@ -28,8 +24,7 @@
             </p>
             <p class="hero-cta mb-0 is-revealing">
               <button id="open-popup"
-                      class="button button-primary button-shadow"
-                      @click="showNewsletterPopup">
+                      class="button button-primary button-shadow">
                 Newsletter
               </button>
             </p>
@@ -395,6 +390,21 @@
     <!--          </div>-->
     <!--        </div>-->
     <!--      </section>-->
+    <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js" />
+    <script src="js/main.min.js" />
+    <script id="mcjs">
+      !function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/50183a79e6ab481f049b91a46/14afb4b961da28b5b5ebbb471.js");
+    </script>
+    <script type="text/javascript"
+            src="//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js"
+            data-dojo-config="usePlainJson: true, isDebug: false" />
+    <script>
+      function showMailingPopup() {
+      window.dojoRequire(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us20.list-manage.com","uuid":"50183a79e6ab481f049b91a46","lid":"69020ad2c8","uniqueMethods":true}) })
+      document.cookie = "MCPopupClosed=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+      }
+      document.getElementById("open-popup").onclick = function() {showMailingPopup()};
+    </script>
   </div>
 </template>
 
@@ -405,4 +415,4 @@ export default {
 };
 </script>
 
-<style src="../static/css/custom.css"></style>
+<style src="../static/css/custom.css" scoped></style>

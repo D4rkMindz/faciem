@@ -5,7 +5,7 @@
            alt="Register now at Venovum.com" />
     </div>
     <div class="w-full lg:w-1/2 px-6 float-left">
-      <h1 class="text-center lg:text-left p-3 text-2xl lg:text-6xl">
+      <h1 class="text-center lg:text-left p-3 title">
         Get Started With Ease
       </h1>
       <p class="text-gray-500 p-3 text-sm">
