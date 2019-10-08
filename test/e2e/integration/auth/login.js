@@ -30,7 +30,6 @@ describe('Login', () => {
         expect(location.pathname).to.eq('/watch');
       });
     });
-
     /**
      * Test the login for tablet views
      */
