@@ -89,9 +89,4 @@ export default {
     margin: 0;
     padding: 0;
   }
-  /* TODO remove this after changing landing page (correction for style.css) */
-  .button-link > a > button {
-    font-size: 16px !important;
-    line-height: 24px !important;
-  }
 </style>

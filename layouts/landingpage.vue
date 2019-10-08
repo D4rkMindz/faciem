@@ -162,5 +162,3 @@ export default {
   name: 'Landingpage',
 };
 </script>
-
-<style src="../static/css/style.css"></style>

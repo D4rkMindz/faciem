@@ -12,6 +12,10 @@ body {
   font-size: 1rem;
 }
 
+
+body {
+}
+
 article, aside, footer, header, nav, section {
   display: block
 }
@@ -1397,7 +1401,7 @@ button, input, select, textarea, label {
   height: 342px;
   bottom: -128px;
   left: calc(50% - 720px);
-  background-image: url("../images/header-bg-left.svg");
+  background-image: url("../../static/images/header-bg-left.svg");
   z-index: -2
 }
 
@@ -1406,7 +1410,7 @@ button, input, select, textarea, label {
   height: 320px;
   top: -140px;
   left: calc(50% - 360px);
-  background-image: url("../images/header-bg-right.svg");
+  background-image: url("../../static/images/header-bg-right.svg");
   background-size: 720px 320px;
   z-index: -1
 }
