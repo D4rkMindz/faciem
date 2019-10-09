@@ -72,6 +72,18 @@
   }
 }
 
+.link {
+  @apply text-blue-400;
+
+  &:hover {
+    @apply text-blue-600;
+  }
+}
+
+.text-muted {
+  @apply text-gray-500;
+}
+
 .navigation-link {
   @apply mx-5 py-2 items-center text-gray-500 cursor-pointer text-center;
 

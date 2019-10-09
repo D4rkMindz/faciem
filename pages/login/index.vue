@@ -42,6 +42,15 @@
         </button>
       </div>
     </div>
+    <div class="w-1/1 text-center mt-3">
+      <p class="text-muted">
+        Don't have an Account?
+        <nuxt-link to="/signup"
+                   class="link">
+          Create an account
+        </nuxt-link>
+      </p>
+    </div>
   </div>
 </template>
 
