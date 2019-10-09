@@ -412,11 +412,8 @@
 export default {
   name: 'RootPage',
   layout: null,
-  head: {
-    // todo continue here by fixing the scope of this "global" style. This should only work on landing page, not login, etc. See https://github.com/nuxt/nuxt.js/issues/3877
-    link: [{ rel: 'stylesheet', href: require('@/assets/css/style.css') }],
-  },
 };
 </script>
 
+<style src="../static/css/style.css" scoped></style>
 <style src="../static/css/custom.css" scoped></style>

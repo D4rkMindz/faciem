@@ -89,4 +89,7 @@ export default {
     margin: 0;
     padding: 0;
   }
+  nav {
+    background-color: transparent;
+  }
 </style>

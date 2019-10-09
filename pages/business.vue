@@ -400,4 +400,5 @@
   </div>
 </template>
 
+<style src="../static/css/style.css" scoped></style>
 <style src="../static/css/custom_business.css" scoped></style>
