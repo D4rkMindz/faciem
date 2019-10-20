@@ -1,9 +1,10 @@
+import decode from 'jwt-decode';
 import { AuthenticationState } from '@/domain/auth/authentication-state';
 
 export function state() {
   return {
     authenticated: false,
-    token: null,
+    token: { original: null, decoded: null },
     refreshToken: null,
     status: null,
     error: { message: null, language: null },
@@ -12,8 +13,8 @@ export function state() {
 
 export const getters = {
   isAuthenticated: state => state.authenticated,
-  hasToken: state => !!state.token,
-  token: state => state.token,
+  hasToken: state => !!state.token.original,
+  token: state => state.token.decoded.data,
   hasRefreshToken: state => !!state.refreshToken,
   refreshToken: state => state.refreshToken,
   hasError: state => state.status === AuthenticationState.FAILED,
@@ -27,7 +28,8 @@ export const mutations = {
   login(state, token, refreshToken) {
     state.status = AuthenticationState.AUTHENTICATED;
     state.authenticated = true;
-    state.token = token;
+    state.token.original = token;
+    state.token.decoded = decode(token);
     state.refreshToken = refreshToken;
     state.error = { message: null, language: null };
   },
@@ -38,13 +40,13 @@ export const mutations = {
   logout(state) {
     state.status = AuthenticationState.LOGGED_OUT;
     state.authenticated = false;
-    state.token = null;
+    state.token = { original: null, decoded: null };
     state.error = { message: null, language: null };
   },
   error(state, error) {
     state.status = AuthenticationState.FAILED;
     state.authenticated = false;
-    state.token = null;
+    state.token = { original: null, decoded: null };
     state.error = { message: error.message, language: error.language };
   },
 };
