@@ -11,7 +11,7 @@
       <div class="block items-center lg:hidden py-2">
         <burger-menu />
       </div>
-      <div class="w-full items-center flex-grow hidden lg:flex lg:w-auto lg:justify-between"
+      <div class="w-full lg:flex lg:flex-row items-center flex-grow hidden lg:flex lg:w-auto lg:justify-between"
            desktop-navigation>
         <div class="hidden lg:inline-flex">
           <div v-if="!authenticated"
@@ -28,11 +28,18 @@
               BUSINESS
             </nuxt-link>
           </div>
-          <div v-if="authenticated"
-               class="navigation-link">
-            <nuxt-link to="/watch">
-              Watch
-            </nuxt-link>
+          <div v-if="authenticated">
+            <div class="navigation-link">
+              <nuxt-link to="/watch">
+                Watch
+              </nuxt-link>
+            </div>
+            <div v-if="isCustomer"
+                 class="navigation-link">
+              <nuxt-link to="/b2b/admin">
+                Admin
+              </nuxt-link>
+            </div>
           </div>
         </div>
         <div class="hidden lg:inline-flex">
@@ -64,9 +71,10 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex';
-import BurgerMenu from './BurgerMenu';
+import { RoleLevel } from '@/domain/role/role-level';
+import BurgerMenu from '@/components/layout/BurgerMenu';
 
-const { mapState } = createNamespacedHelpers('auth');
+const { mapState, mapGetters } = createNamespacedHelpers('auth');
 
 export default {
   name: 'Navbar',
@@ -80,6 +88,14 @@ export default {
     ...mapState({
       authenticated: state => state.authenticated,
     }),
+    isCustomer() {
+      return this.hasRoleAbove(RoleLevel.CUSTOMER);
+    },
+  },
+  methods: {
+    ...mapGetters([
+      'hasRoleAbove',
+    ]),
   },
 };
 </script>

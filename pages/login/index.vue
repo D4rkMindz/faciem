@@ -36,7 +36,7 @@
       </p>
       <div class="text-right">
         <button class="button"
-                :class="{'opacity-50 cursor-not-allowed': (isAuthenticating() === true)}"
+                :class="{'opacity-50 cursor-not-allowed': (disabled === true)}"
                 @click="authenticate">
           Login
         </button>
@@ -66,6 +66,15 @@ export default {
       username: '',
       password: '',
     };
+  },
+  computed: {
+    disabled() {
+      const formNotEmpty = !!this.username && !!this.password;
+      const x = !(formNotEmpty && this.isAuthenticating());
+      // eslint-disable-next-line no-console
+      console.log('disabled', x);
+      return x;
+    },
   },
   methods: {
     ...mapActions([

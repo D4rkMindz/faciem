@@ -14,7 +14,11 @@ export function state() {
 export const getters = {
   isAuthenticated: state => state.authenticated,
   hasToken: state => !!state.token.original,
-  token: state => state.token.decoded.data,
+  getToken: state => state.token.original,
+  hasRoleAbove: state => (level) => {
+    const token = state.token.decoded && 'data' in state.token.decoded ? state.token.decoded.data : null;
+    return (token && token.role && token.role.level >= level);
+  },
   hasRefreshToken: state => !!state.refreshToken,
   refreshToken: state => state.refreshToken,
   hasError: state => state.status === AuthenticationState.FAILED,
@@ -71,9 +75,13 @@ export const actions = {
         const token = response.data.access_token;
         const refreshToken = response.data.refresh_token;
         commit('login', token, refreshToken);
+      } else {
+        commit('error', { error: 'Something went wrong', language: 'en' });
       }
     } catch (e) {
-      commit('error', e.response.data);
+      if ('response' in e && 'data' in e.response) {
+        commit('error', e.response.data);
+      }
     }
   },
 

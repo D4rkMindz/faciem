@@ -394,7 +394,7 @@
 
     <script>
       export default {
-      name: 'business',
+      name: 'BusinessPage',
       };
     </script>
   </div>

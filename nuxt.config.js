@@ -39,6 +39,8 @@ const config = {
    */
   plugins: [
     { src: '~/plugins/localstorage.js', ssr: false },
+    { src: '~/plugins/interceptors.js', ssr: false },
+    { src: '~/plugins/notifications.js', ssr: false },
   ],
   /*
    ** Nuxt.js modules
@@ -47,6 +49,7 @@ const config = {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/eslint-module',
+    '@nuxtjs/toast',
   ],
   /*
    ** Axios module configuration
@@ -57,6 +60,17 @@ const config = {
     headers: {
       'Content-Type': 'application/json',
     },
+  },
+  toast: {
+    position: 'bottom-right',
+    type: 'default',
+    keepOnHover: true,
+    action: [{
+      text: 'OK',
+      onClick: (e, toast) => {
+        toast.goAway(0);
+      },
+    }],
   },
   /*
    ** Build configuration

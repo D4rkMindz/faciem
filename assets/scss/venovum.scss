@@ -85,7 +85,7 @@
 }
 
 .navigation-link {
-  @apply mx-5 py-2 items-center text-gray-500 cursor-pointer text-center;
+  @apply mx-5 py-2 items-center text-gray-500 cursor-pointer text-center inline;
 
   &:hover {
     @apply text-gray-900;
