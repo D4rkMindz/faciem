@@ -1,9 +1,7 @@
 <template>
   <div class="player">
-    <video autoplay>
-      <source :src="source"
-              :type="type" />
-    </video>
+    <video autoplay
+           :src="source" />
   </div>
 </template>
 

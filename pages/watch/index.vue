@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import NetworkSpeed from 'network-speed';
+import { SpeedLimits } from '~/domain/network/speed-limits';
 import Player from '~/components/Player';
 import Input from '~/components/form/Input';
 
@@ -32,8 +34,13 @@ export default {
   components: { Player, Input },
   data: () => {
     return {
-      source: 'https://venovum.dev/media/4dfb5192-7440-4bdc-8a8c-d3269eff07da/de/140/mp4',
+      speed: 0,
       type: 'video/mp4',
+      host: 'https://venovum.dev',
+      hash: '4dfb5192-7440-4bdc-8a8c-d3269eff07da',
+      language: 'de',
+      resolution: 144,
+      format: 'mp4',
       questions: [{
         id: 'q1',
         type: 'input',
@@ -57,6 +64,53 @@ export default {
         value: '',
       }],
     };
+  },
+  computed: {
+    source() {
+      const host = this.host;
+      const file = this.hash;
+      const lang = this.language;
+      const format = this.format;
+      const resolution = this.resolution;
+      return `${host}/media/${file}/${lang}/${resolution}/${format}`;
+      // https://venovum.dev/media/4dfb5192-7440-4bdc-8a8c-d3269eff07da/de/140/mp4
+    },
+  },
+  mounted() {
+    this.testNetwork();
+  },
+  methods: {
+    async testNetwork() {
+      const baseUrl = 'http://eu.httpbin.org/stream-bytes/500000';
+      const fileSize = 500000;
+      const testNetworkSpeed = new NetworkSpeed();
+      const speed = await testNetworkSpeed.checkDownloadSpeed(baseUrl, fileSize);
+      // eslint-disable-next-line no-console
+      console.log(speed);
+      this.speed = speed;
+
+      let resolution = 144;
+      if (speed.kbps <= SpeedLimits.LOW) {
+        resolution = 144;
+      }
+      if (speed.kbps > SpeedLimits.LOW && speed.kbps <= SpeedLimits.FWQVGA) {
+        resolution = 240;
+      }
+      if (speed.kbps > SpeedLimits.FWQVGA && speed.kbps <= SpeedLimits.nHD) {
+        resolution = 360;
+      }
+      if (speed.kbps > SpeedLimits.nHD && speed.kbps > SpeedLimits.FWVGA) {
+        resolution = 480;
+      }
+      if (speed.kbps > SpeedLimits.FWVGA && speed.kbps <= SpeedLimits.HD) {
+        resolution = 720;
+      }
+      if (speed.kbps > SpeedLimits.HD) {
+        resolution = 1080;
+      }
+
+      this.resolution = resolution;
+    },
   },
 };
 </script>

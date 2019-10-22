@@ -21,6 +21,8 @@ $ npm run generate
 
 For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
 
+Note: the officum server must be installed using [valet](https://laravel.com/docs/6.x/valet) on `venovum.dev`.
+
 ## Deployment
 
 The deployment is setup using [Serverless.com](https://serverless.com). 

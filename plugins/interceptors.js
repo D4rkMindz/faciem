@@ -14,6 +14,7 @@ export default function ({ $axios, store, $router, route, redirect }) {
       // eslint-disable-next-line no-console
       console.log(error);
       store.dispatch('auth/logout');
+      this.$toast.error('Session expired');
       return redirect('/login');
     }
     throw error;

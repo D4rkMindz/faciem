@@ -30,6 +30,7 @@
     "@nuxtjs/toast": "^3.2.1",
     "jwt-decode": "^2.2.0",
     "moment": "^2.24.0",
+    "network-speed": "^2.0.2",
     "nuxt": "^2.9.1",
     "nuxt-start": "^2.9.1",
     "serverless-apigw-binary": "^0.4.4",
