@@ -19,6 +19,12 @@ export const getters = {
     const token = state.token.decoded && 'data' in state.token.decoded ? state.token.decoded.data : null;
     return (token && token.role && token.role.level >= level);
   },
+  getUserId: (state) => {
+    if (state.token.decoded && 'data' in state.token.decoded && 'user_id' in state.token.decoded.data) {
+      return state.token.decoded.data.user_id;
+    }
+    return null;
+  },
   hasRefreshToken: state => !!state.refreshToken,
   refreshToken: state => state.refreshToken,
   hasError: state => state.status === AuthenticationState.FAILED,

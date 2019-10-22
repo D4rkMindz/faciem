@@ -37,10 +37,10 @@ export default {
       speed: 0,
       type: 'video/mp4',
       host: 'https://venovum.dev',
-      hash: '4dfb5192-7440-4bdc-8a8c-d3269eff07da',
-      language: 'de',
+      hash: 'b9f98d3b-dca6-4cda-b96e-f3c542fc0fcb',
+      language: 'en-GB',
       resolution: 144,
-      format: 'mp4',
+      format: 'mp4', // TODO change format to webm for chrome (browserdetection)
       questions: [{
         id: 'q1',
         type: 'input',

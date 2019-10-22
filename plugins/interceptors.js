@@ -1,4 +1,4 @@
-export default function ({ $axios, store, $router, route, redirect }) {
+export default function ({ $axios, store, $router, route, redirect, $toast }) {
   $axios.interceptors.request.use(function (config) {
     if (store.getters['auth/hasToken']) {
       config.headers.common.Authorization = store.getters['auth/getToken'];
@@ -14,7 +14,7 @@ export default function ({ $axios, store, $router, route, redirect }) {
       // eslint-disable-next-line no-console
       console.log(error);
       store.dispatch('auth/logout');
-      this.$toast.error('Session expired');
+      $toast.error('Session expired');
       return redirect('/login');
     }
     throw error;
