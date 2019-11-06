@@ -33,6 +33,7 @@ const config = {
   css: [
     '~/assets/css/tailwind.css',
     '~/assets/scss/venovum.scss',
+    'video.js/dist/video-js.css',
   ],
   /*
    ** Plugins to load before mounting the App

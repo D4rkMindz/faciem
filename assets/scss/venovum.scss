@@ -102,3 +102,14 @@
     @apply text-5xl;
   }
 }
+
+// videojs background fix
+.video-js,.vjs-poster {
+  background-color: transparent !important;
+}
+.vjs-paused.vjs-has-started .vjs-big-play-button {
+  display: block;
+}
+.video-js.vjs-ended .vjs-tech {
+  pointer-events: none;
+}

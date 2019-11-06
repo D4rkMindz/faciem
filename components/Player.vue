@@ -1,11 +1,13 @@
 <template>
   <div class="player">
-    <video autoplay
-           :src="source" />
+    <video ref="video"
+           class="video-js vjs-big-play-centered" />
   </div>
 </template>
 
 <script>
+import videojs from 'video.js';
+
 export default {
   name: 'Player',
   props: {
@@ -16,6 +18,58 @@ export default {
     type: {
       type: String,
       default: '',
+    },
+  },
+  data() {
+    return {
+      player: null,
+      options: {
+        autoplay: true,
+        controls: true,
+        loadingSpinner: false,
+        fluid: true,
+        sources: [
+          {
+            src: this.source,
+            type: this.type,
+          },
+        ],
+        controlBar: {
+          children: {
+            PlayToggle: {
+              replay: false,
+            },
+            VolumePanel: true,
+            RemainingTimeDisplay: true,
+            FullscreenToggle: true,
+          },
+        },
+      },
+    };
+  },
+  mounted() {
+    this.setup();
+  },
+  beforeDestroy() {
+    if (this.player) {
+      this.player.dispose();
+    }
+  },
+  methods: {
+    setup() {
+      this.player = videojs(this.$refs.video, this.options, function () {
+        videojs.log('Ready');
+        this.play();
+        // todo add play button component that plays and pauses the video.
+      });
+      this.player.on('play', function () {
+      });
+      this.player.on('ended', function () {
+        this.controlBar.dispose();
+        this.bigPlayButton.dispose();
+        // eslint-disable-next-line no-console
+        console.log('ended');
+      });
     },
   },
 };
