@@ -1,7 +1,7 @@
 <template>
   <div class="player">
     <video ref="video"
-           class="video-js vjs-big-play-centered" />
+           class="video-js vjs-big-play-centered vjs-waiting" />
   </div>
 </template>
 
@@ -23,6 +23,7 @@ export default {
   data() {
     return {
       player: null,
+      setupComplete: false,
       options: {
         autoplay: true,
         controls: true,
@@ -48,29 +49,24 @@ export default {
     };
   },
   mounted() {
-    this.setup();
+    const $this = this;
+    this.player = videojs(this.$refs.video, this.options, function () {
+      this.addClass('vjs-waiting');
+      this.one('timeupdate', () => {
+        this.removeClass('vjs-waiting');
+      });
+    });
+    this.player.on('ended', function () {
+      this.controlBar.dispose();
+      this.bigPlayButton.dispose();
+      $this.$emit('ended', { source: this.source });
+    });
+    this.setupComplete = true;
   },
   beforeDestroy() {
     if (this.player) {
       this.player.dispose();
     }
-  },
-  methods: {
-    setup() {
-      this.player = videojs(this.$refs.video, this.options, function () {
-        videojs.log('Ready');
-        this.play();
-        // todo add play button component that plays and pauses the video.
-      });
-      this.player.on('play', function () {
-      });
-      this.player.on('ended', function () {
-        this.controlBar.dispose();
-        this.bigPlayButton.dispose();
-        // eslint-disable-next-line no-console
-        console.log('ended');
-      });
-    },
   },
 };
 </script>

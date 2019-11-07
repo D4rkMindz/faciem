@@ -110,6 +110,9 @@
 .vjs-paused.vjs-has-started .vjs-big-play-button {
   display: block;
 }
+.vjs-waiting > .vjs-big-play-button {
+  display: none !important;
+}
 .video-js.vjs-ended .vjs-tech {
   pointer-events: none;
 }

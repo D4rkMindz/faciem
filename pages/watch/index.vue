@@ -4,19 +4,35 @@
       <div class="flex-row w-1/1 text-center p-2">
         Title of the campaign
       </div>
-      <div class="flex flex-col md:flex-row ">
-        <div class="sm:w-1/1 md:w-3/5 p-2">
-          <player :source="source"
-                  :type="type" />
-        </div>
-        <div class="sm:w-1/1 md:w-2/5 p-2">
-          <Input v-for="question in questions"
-                 :id="question.id"
-                 :key="question.id"
-                 v-model="question.value"
-                 :label="question.label"
-                 :placeholder="question.placeholder" />
-        </div>
+      <div class="flex flex-col">
+        <transition name="fade">
+          <div v-if="showPlayer"
+               class="w-1/1 p-2">
+            <player :source="source"
+                    :type="type"
+                    @ended="showPlayer = false" />
+          </div>
+        </transition>
+        <transition name="fade">
+          <div v-if="!showPlayer"
+               class="sm:w-1/1 md:w-3/5 p-2 ml-auto mr-auto">
+            <Input v-for="question in questions"
+                   :id="question.id"
+                   :key="question.id"
+                   v-model="question.value"
+                   :label="question.label"
+                   :placeholder="question.placeholder" />
+
+            <div class="text-right">
+              <button class="button"
+                      :class="{'opacity-50 cursor-not-allowed': (nextIsDisabled === true)}"
+                      :disabled="nextIsDisabled"
+                      @click="answer">
+                Send answers
+              </button>
+            </div>
+          </div>
+        </transition>
       </div>
     </div>
   </div>
@@ -41,6 +57,8 @@ export default {
       language: 'en-GB',
       resolution: 144,
       format: 'mp4', // TODO change format to webm for chrome (browserdetection)
+      showPlayer: true,
+      nextIsDisabled: true,
       questions: [{
         id: 'q1',
         type: 'input',
@@ -80,6 +98,9 @@ export default {
     this.testNetwork();
   },
   methods: {
+    answer() {
+
+    },
     async testNetwork() {
       const baseUrl = 'http://eu.httpbin.org/stream-bytes/500000';
       const fileSize = 500000;
@@ -114,3 +135,15 @@ export default {
   },
 };
 </script>
+
+<style>
+  .fade-enter-active{
+    transition: opacity 1.5s;
+  }
+  .fade-leave-active {
+    opacity: 0;
+  }
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
+  }
+</style>
