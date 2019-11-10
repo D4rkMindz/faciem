@@ -1,4 +1,7 @@
-export default function ({ $axios, store, $router, route, redirect, $toast }) {
+export default function (vue) {
+  const { $axios, store, route } = vue;
+  const $toast = vue.store.$toast;
+  const $router = vue.store.$router;
   $axios.interceptors.request.use(function (config) {
     if (store.getters['auth/hasToken']) {
       config.headers.common.Authorization = store.getters['auth/getToken'];
@@ -7,16 +10,15 @@ export default function ({ $axios, store, $router, route, redirect, $toast }) {
     return config;
   });
 
-  $axios.interceptors.response.use(function (config) {
-    return config;
-  }, function (error) {
+  $axios.interceptors.response.use(r => r, async function (error) {
     if (error.response.status === 401 && route.name !== 'login') {
       // eslint-disable-next-line no-console
       console.log(error);
       store.dispatch('auth/logout');
       $toast.error('Session expired');
-      return redirect('/login');
+      await $router.push({ name: 'login' });
     }
-    throw error;
+
+    return Promise.reject(error);
   });
 }

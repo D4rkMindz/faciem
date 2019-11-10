@@ -1,35 +1,14 @@
 <template>
   <div class="container mx-auto">
-    <H1>Media upload</H1>
-    <label>File
-      <input id="file"
-             ref="file"
-             type="file"
-             @change="handleFileUpload()" />
-    </label>
+    <input id="file"
+           ref="file"
+           class="button"
+           type="file"
+           @change="handleFileUpload()" />
     <button class="button"
             @click="submitFile()">
       Submit
     </button>
-    <div class="flex flex-col">
-      <div class="w-1/1 m-5">
-        <input v-model="filter"
-               class="input"
-               type="text"
-               placeholder="Filter for language, campaign, quality, or file name..."
-               @keyup="search" />
-      </div>
-      <div v-for="uploadedFile in files"
-           :key="uploadedFile.id"
-           class="sm:w-1/1 p-2">
-        <hr />
-        <h6>{{ uploadedFile.campaign_name }} ({{ uploadedFile.language_name }}) - {{ uploadedFile.quality }}p</h6>
-        <p>{{ uploadedFile.campaign_start }} - {{ uploadedFile.campaign_end }} ({{ uploadedFile.hash }}, {{ uploadedFile.file_name }})</p>
-        <p class="text-muted">
-          Diese Date wurde bereits verarbeitet
-        </p>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -117,7 +96,9 @@ export default {
           $this.$refs.file.value = null;
         })
         .catch(function (e) {
-          $this.$toast.error('An error occurred');
+          if (e.response.status !== 401) {
+            $this.$toast.error('An error occurred');
+          }
         });
     },
   },
