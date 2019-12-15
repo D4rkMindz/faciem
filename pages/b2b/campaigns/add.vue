@@ -7,11 +7,31 @@
       <div class="w-1/1 md:w-1/2 mx-3">
         <p>You can always create a campaign. A campaign consists of a video and a few questions. Three questions are free, any more will cost you. Please see our pricing model for further information.</p>
         <div class="form">
-          <div class="sm:w-1/1 md:w-2/3">
-            <FileInput v-model="file" />
+          <div class="my-12">
+            <div v-for="question in questions"
+                 class="w-1/1 m-4">
+              <Select :options="options"
+                      v-model="question.type"
+                      label="Question Type" />
+              <Input @validate="validateQuestion(question)"
+                     :errors="question.errors"
+                     v-model="question.value"
+                     label="Question"
+                     placeholder="Add a question" />
+            </div>
+
+            <div class="w-1/1 text-right m-4">
+              <button @click="addQuestion()"
+                      class="button sm:w-1/1 md:w-1/3">
+                Add Question
+              </button>
+            </div>
           </div>
 
-          <div class="w-1/1 text-right">
+          <div class="sm:w-1/1 md:w-2/3 m-4">
+            <FileInput v-model="file" />
+          </div>
+          <div class="w-1/1 text-right m-4">
             <button @click="submitFile()"
                     :class="{'loading': loading, 'disabled': !formValid}"
                     :disabled="!formValid"
@@ -36,7 +56,9 @@
 
 <script>
 import FileInput from '@/components/form/FileInput';
+import Input from '@/components/form/Input';
 import Player from '@/components/Player';
+import Select from '@/components/form/Select';
 
 export default {
   name: 'AddCapaignPage',
@@ -45,14 +67,19 @@ export default {
     'customer',
   ],
   components: {
+    Input,
     FileInput,
     Player,
+    Select,
   },
   data() {
     return {
       file: null,
       loading: false,
+      options: ['Question', 'Approval'],
       allowedFileTypes: ['video/mp4', 'video/webm'],
+      questions: [
+      ],
     };
   },
   computed: {
@@ -99,10 +126,17 @@ export default {
         this.$toast.error('An error occurred');
       }
     },
+    validateQuestion(question) {
+      question.errors = [];
+      if (question.value.trim().length <= 3) {
+        question.errors.push('Please enter at least a 3 characters long question');
+      }
+    },
+    addQuestion() {
+      this.questions.push(
+        { value: '', language: 'en-US', errors: [], type: 'question' },
+      );
+    },
   },
 };
 </script>
-
-<style scoped>
-
-</style>
