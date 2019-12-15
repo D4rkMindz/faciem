@@ -13,6 +13,8 @@
 
           <div class="w-1/1 text-right">
             <button @click="submitFile()"
+                    :class="{'loading': loading, 'disabled': !formValid}"
+                    :disabled="!formValid"
                     class="button">
               Submit
             </button>
@@ -49,6 +51,7 @@ export default {
   data() {
     return {
       file: null,
+      loading: false,
       allowedFileTypes: ['video/mp4', 'video/webm'],
     };
   },
@@ -62,35 +65,42 @@ export default {
     fileValid() {
       return this.file && this.allowedFileTypes.includes(this.file.type);
     },
+    formValid() {
+      return this.fileValid;
+    },
   },
   methods: {
-    submitFile() {
+    async submitFile() {
+      debugger;
       const formData = new FormData();
-      const $this = this;
 
       formData.append('video', this.file);
       formData.append('campaign_id', 1);
       formData.append('pricing_id', 1);
       formData.append('language', 'de-CH');
       formData.append('display_name', this.file.name);
-
-      this.$axios.post('/media',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'application/octet-stream',
-          },
-        }
-      )
-        .then(function () {
-          $this.$toast.info('File uploaded and enqueued for processing. This may take some time');
-          $this.$refs.file.value = null;
-        })
-        .catch(function (e) {
-          if (e.response.status !== 401) {
-            $this.$toast.error('An error occurred');
+      this.loading = true;
+      try {
+        const response = await this.$axios.post('/media',
+          formData,
+          {
+            headers: {
+              'Content-Type': 'application/octet-stream',
+            },
           }
-        });
+        );
+        if (response) {
+          // eslint-disable-next-line no-console
+          console.log(response);
+        }
+        this.loading = false;
+        this.$toast.info('File uploaded and enqueued for processing. This may take some time');
+        this.$refs.file.value = null;
+      } catch (e) {
+        if (e.response.status !== 401) {
+          this.$toast.error('An error occurred');
+        }
+      }
     },
   },
 };

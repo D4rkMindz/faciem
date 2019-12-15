@@ -25,7 +25,7 @@
         <div class="lg:w-2/3">
           <input id="password"
                  v-model="password"
-                 @keyup.enter.native="authenticate"
+                 @keyup.enter="authenticate"
                  class="input"
                  type="password" />
         </div>
