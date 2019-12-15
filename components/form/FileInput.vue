@@ -1,14 +1,14 @@
 <template>
-  <div class="file-input"
-       @click="select()">
+  <div @click="select()"
+       class="file-input">
     <div :class="css">
       <span v-if="value">Selected File: {{ value.name }}</span>
       <span v-else>Select File</span>
     </div>
     <input ref="file"
+           @change="handleFileChange"
            type="file"
-           class="hidden"
-           @change="handleFileChange" />
+           class="hidden" />
   </div>
 </template>
 

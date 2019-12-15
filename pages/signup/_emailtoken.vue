@@ -14,76 +14,76 @@
       </p>
 
       <div class="registration">
-        <transition name="fade"
-                    mode="out-in"
-                    :duration="500">
-          <div v-if="step === 1"
-               key="step-1"
+        <transition :duration="500"
+                    name="fade"
+                    mode="out-in">
+          <div key="step-1"
+               v-if="step === 1"
                class="step">
             <div class="form">
               <Input id="first-name"
                      v-model="firstname"
-                     placeholder="Required"
-                     label="First name"
                      :errors="errors.firstname"
-                     @validate="validateFirstname" />
+                     @validate="validateFirstname"
+                     placeholder="Required"
+                     label="First name" />
 
               <Input id="middle-name"
                      v-model="middlename"
-                     placeholder="Optional"
-                     label="Middle name"
                      :errors="errors.middlename"
-                     @validate="validateMiddlename" />
+                     @validate="validateMiddlename"
+                     placeholder="Optional"
+                     label="Middle name" />
 
               <Input id="last-name"
                      v-model="lastname"
-                     placeholder="Required"
-                     label="Last name"
                      :errors="errors.lastname"
-                     @validate="validateLastname" />
+                     @validate="validateLastname"
+                     placeholder="Required"
+                     label="Last name" />
 
               <Input id="birth-date"
                      v-model="birthdate"
                      :placeholder="minimumAge"
-                     label="Birthdate"
                      :errors="errors.birthdate"
-                     @validate="validateBirthdate" />
+                     @validate="validateBirthdate"
+                     label="Birthdate" />
             </div>
 
             <div class="flex flex-wrap">
-              <button class="button w-full lg:w-auto lg:ml-auto loading"
-                      @click="save">
+              <button @click="save"
+                      class="button w-full lg:w-auto lg:ml-auto loading">
                 Save
               </button>
             </div>
           </div>
 
-          <div v-else-if="step === 2"
-               key="step-2"
+          <div key="step-2"
+               v-else-if="step === 2"
                class="step">
             <div class="form">
               <Input id="username"
                      v-model="username"
-                     label="Username"
                      :errors="errors.username"
-                     @validate="validateUsername" />
+                     @validate="validateUsername"
+                     label="Username" />
 
               <Input id="password"
                      v-model="password"
-                     type="password"
-                     label="Password"
                      :errors="errors.password"
-                     @validate="validatePassword" />
+                     @validate="validatePassword"
+                     type="password"
+                     label="Password" />
             </div>
 
             <div class="flex flex-wrap flex-col-reverse lg:flex-row">
-              <button class="button outline w-full lg:w-auto mr-auto mt-6 lg:mt-0"
-                      @click="back">
+              <button @click="back"
+                      class="button outline w-full lg:w-auto mr-auto mt-6 lg:mt-0">
                 Back
               </button>
 
-              <button class="button w-full lg:w-auto"
-                      @click="finish">
+              <button @click="finish"
+                      class="button w-full lg:w-auto">
                 Finish
               </button>
             </div>

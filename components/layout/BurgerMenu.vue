@@ -1,57 +1,57 @@
 <template>
   <div>
-    <div class="burger"
-         :class="{open: menuOpen}"
-         @click="menuOpen = !menuOpen">
+    <div :class="{open: menuOpen}"
+         @click="menuOpen = !menuOpen"
+         class="burger">
       <span />
       <span />
     </div>
-    <div class="overlay"
-         :class="{shown: menuOpen}">
+    <div :class="{shown: menuOpen}"
+         class="overlay">
       <div class="flex justify-center items-center h-full w-full">
         <div>
-          <div class="py-3 text-center text-gray-500 hover:text-gray-900 cursor-pointer"
-               @click="menuOpen = false">
+          <div @click="menuOpen = false"
+               class="py-3 text-center text-gray-500 hover:text-gray-900 cursor-pointer">
             <nuxt-link to="/">
               PRIVATE
             </nuxt-link>
           </div>
-          <div class="py-3 text-center text-gray-500 hover:text-gray-900 cursor-pointer"
-               @click="menuOpen = false">
+          <div @click="menuOpen = false"
+               class="py-3 text-center text-gray-500 hover:text-gray-900 cursor-pointer">
             <nuxt-link to="/business">
               BUSINESS
             </nuxt-link>
           </div>
-          <div class="py-3 text-center text-gray-500 hover:text-gray-900 cursor-pointer"
-               @click="menuOpen = false">
+          <div @click="menuOpen = false"
+               class="py-3 text-center text-gray-500 hover:text-gray-900 cursor-pointer">
             <nuxt-link to="/">
               Home
             </nuxt-link>
           </div>
           <div v-if="!authenticated"
-               class="py-3 text-center text-gray-500 hover:text-gray-900 cursor-pointer"
-               @click="menuOpen = false">
+               @click="menuOpen = false"
+               class="py-3 text-center text-gray-500 hover:text-gray-900 cursor-pointer">
             <nuxt-link to="/login">
               Login
             </nuxt-link>
           </div>
           <div v-if="authenticated"
-               class="py-3 text-center text-gray-500 hover:text-gray-900 cursor-pointer"
-               @click="menuOpen = false">
+               @click="menuOpen = false"
+               class="py-3 text-center text-gray-500 hover:text-gray-900 cursor-pointer">
             <nuxt-link to="/watch">
               Watch
             </nuxt-link>
           </div>
           <div v-if="authenticated"
-               class="py-3 text-center text-gray-500 hover:text-gray-900 cursor-pointer"
-               @click="menuOpen = false">
+               @click="menuOpen = false"
+               class="py-3 text-center text-gray-500 hover:text-gray-900 cursor-pointer">
             <nuxt-link to="/logout">
               Logout
             </nuxt-link>
           </div>
           <div v-if="!authenticated"
-               class="py-3"
-               @click="menuOpen = false">
+               @click="menuOpen = false"
+               class="py-3">
             <nuxt-link to="/signup">
               <button class="bg-purple-500 text-white font-bold py-2 px-4 rounded-full hover:bg-purple-400">
                 Sign Up

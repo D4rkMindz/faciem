@@ -3,40 +3,63 @@
     <h1 class="title">
       Create campaign
     </h1>
-    <p>You can always create a campaign. A campaign consists of a video and a few questions. Three questions are free, any more will cost you. Please see our pricing model for further information.</p>
-    <div class="form">
-      <input id="file"
-             ref="file"
-             class="button"
-             type="file"
-             @change="handleFileUpload()" />
-      <button class="button"
-              @click="submitFile()">
-        Submit
-      </button>
+    <div class="flex flex-col-reverse md:flex-row">
+      <div class="w-1/1 md:w-1/2 mx-3">
+        <p>You can always create a campaign. A campaign consists of a video and a few questions. Three questions are free, any more will cost you. Please see our pricing model for further information.</p>
+        <div class="form">
+          <div class="sm:w-1/1 md:w-1/2">
+            <FileInput v-model="file" />
+          </div>
+
+          <div class="w-1/1 text-right">
+            <button @click="submitFile()"
+                    class="button">
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="w-1/1 md:w-1/2 mx-3">
+        <Player v-if="file"
+                :source="source" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import FileInput from '@/components/form/FileInput';
+import Player from '@/components/Player';
+
 export default {
   name: 'AddCapaignPage',
   middleware: [
     'auth',
     'customer',
   ],
+  components: {
+    FileInput,
+    Player,
+  },
   data() {
     return {
-      file: '',
-      files: [],
-      all: [],
-      filter: '',
+      file: null,
     };
   },
-  methods: {
-    handleFileUpload() {
-      this.file = this.$refs.file.files[0];
+  computed: {
+    source() {
+      return URL.createObjectURL(this.file);
     },
+  },
+  watch: {
+    file(value) {
+      this.file = null;
+      this.$nextTick(function () {
+        this.file = value;
+      });
+    },
+  },
+  methods: {
     submitFile() {
       const formData = new FormData();
       const $this = this;

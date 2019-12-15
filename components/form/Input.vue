@@ -1,17 +1,17 @@
 <template>
   <div>
-    <div class="lg:flex lg:items-center"
-         :class="{'my-6': errors.length === 0, 'mt-6': errors.length !== 0}">
+    <div :class="{'my-6': errors.length === 0, 'mt-6': errors.length !== 0}"
+         class="lg:flex lg:items-center">
       <div class="lg:w-1/3">
-        <label class="block text-gray-500 lg:text-right mb-1 lg:mb-0 pr-4"
-               :for="id">
+        <label :for="id"
+               class="block text-gray-500 lg:text-right mb-1 lg:mb-0 pr-4">
           {{ label }}
         </label>
       </div>
 
       <div class="lg:w-2/3">
-        <input :id="id"
-               ref="input"
+        <input ref="input"
+               :id="id"
                v-model="inputValue"
                :class="['input', classes]"
                :placeholder="placeholder"
@@ -23,8 +23,8 @@
     <div
       v-for="(error, i) in errors"
       :key="i"
-      class="flex"
-      :class="{'mb-6': (index === Object.keys(errors).length - 1)}">
+      :class="{'mb-6': (index === Object.keys(errors).length - 1)}"
+      class="flex">
       <div class="hidden lg:block lg:w-1/3">
         &nbsp;
       </div>

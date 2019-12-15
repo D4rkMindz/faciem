@@ -25,9 +25,9 @@
         <div class="lg:w-2/3">
           <input id="password"
                  v-model="password"
+                 @keyup.enter.native="authenticate"
                  class="input"
-                 type="password"
-                 @keyup.enter.native="authenticate" />
+                 type="password" />
         </div>
       </div>
       <p v-if="hasError"
@@ -35,10 +35,10 @@
         {{ errorMessage() }}
       </p>
       <div class="text-right">
-        <button class="button"
-                :class="{'opacity-50 cursor-not-allowed': (disabled === true)}"
+        <button :class="{'opacity-50 cursor-not-allowed': (disabled === true)}"
                 :disabled="disabled"
-                @click="authenticate">
+                @click="authenticate"
+                class="button">
           Login
         </button>
       </div>

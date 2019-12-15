@@ -24,10 +24,10 @@
                    :placeholder="question.placeholder" />
 
             <div class="text-right">
-              <button class="button"
+              <button :disabled="nextIsDisabled"
                       :class="{'opacity-50 cursor-not-allowed': (nextIsDisabled === true)}"
-                      :disabled="nextIsDisabled"
-                      @click="answer">
+                      @click="answer"
+                      class="button">
                 Send answers
               </button>
             </div>
@@ -41,8 +41,8 @@
 <script>
 import NetworkSpeed from 'network-speed';
 import { SpeedLimits } from '~/domain/network/speed-limits';
-import Player from '~/components/Player';
-import Input from '~/components/form/Input';
+import Player from '@/components/Player';
+import Input from '@/components/form/Input';
 
 export default {
   name: 'WatchPage',

@@ -22,21 +22,21 @@
         <div class="w-full lg:w-3/6 mb-3 lg:my-0">
           <input id="email"
                  v-model="email"
-                 class="input"
                  :class="emailClass"
-                 type="email"
                  @keydown="onEmailSignupInput"
-                 @input="onEmailSignupInput" />
+                 @input="onEmailSignupInput"
+                 type="email"
+                 class="input" />
         </div>
         <div v-if="hasErrors()"
              class="w-full text-center error block lg:hidden mb-3 error-mobile">
           {{ getMostCurrentError() }}
         </div>
         <div class="w-full lg:w-2/6 px-2">
-          <button class="button w-full"
-                  :class="signUpClass"
+          <button :class="signUpClass"
                   :disabled="isSignUpDisabled"
-                  @click="signUpWithEmail">
+                  @click="signUpWithEmail"
+                  class="button w-full">
             Sign Up
           </button>
         </div>
