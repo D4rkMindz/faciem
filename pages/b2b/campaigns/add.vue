@@ -71,7 +71,6 @@ export default {
   },
   methods: {
     async submitFile() {
-      debugger;
       const formData = new FormData();
 
       formData.append('video', this.file);
@@ -95,11 +94,9 @@ export default {
         }
         this.loading = false;
         this.$toast.info('File uploaded and enqueued for processing. This may take some time');
-        this.$refs.file.value = null;
+        this.file = null;
       } catch (e) {
-        if (e.response.status !== 401) {
-          this.$toast.error('An error occurred');
-        }
+        this.$toast.error('An error occurred');
       }
     },
   },
