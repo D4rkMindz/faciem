@@ -36,6 +36,8 @@
 </template>
 
 <script>
+import BaseInput from '@/components/form/BaseInput';
+
 /**
  * Input component
  *
@@ -49,75 +51,17 @@
  */
 export default {
   name: 'Input',
-  model: {
-    event: 'modified',
-  },
+  extends: BaseInput,
   props: {
-    id: {
-      default: 'input',
-      type: String,
-      required: true,
-    },
-    value: {
-      default: '',
-      type: [String, Number, Object],
-      required: true,
-    },
-    label: {
-      default: 'FORM INPUT',
-      type: String,
-      required: true,
-    },
     type: {
       default: 'text',
       type: String,
       require: false,
     },
-    validate: {
-      default: () => [],
-      type: Function,
-      required: false,
-    },
     placeholder: {
       default: '',
       type: String,
       required: false,
-    },
-    errors: {
-      default: () => [],
-      type: Array,
-      required: false,
-    },
-  },
-  data: function () {
-    return {
-      touched: false,
-      classes: '',
-      inputValue: this.value,
-    };
-  },
-  watch: {
-    errors: function () {
-      this.classes = this.errors.length === 0 ? 'ok' : 'error';
-    },
-  },
-  methods: {
-    onBlur() {
-      this.touched = true;
-      this.emit();
-    },
-    onInput(event) {
-      event.preventDefault();
-      this.$emit('modified', this.inputValue);
-
-      if (!this.touched) {
-        this.classes = '';
-        return;
-      }
-      this.emit();
-    },
-    emit() {
-      this.$emit('validate', this.inputValue);
     },
   },
 };
