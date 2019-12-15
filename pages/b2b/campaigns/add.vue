@@ -7,7 +7,7 @@
       <div class="w-1/1 md:w-1/2 mx-3">
         <p>You can always create a campaign. A campaign consists of a video and a few questions. Three questions are free, any more will cost you. Please see our pricing model for further information.</p>
         <div class="form">
-          <div class="sm:w-1/1 md:w-1/2">
+          <div class="sm:w-1/1 md:w-2/3">
             <FileInput v-model="file" />
           </div>
 
@@ -20,8 +20,13 @@
         </div>
       </div>
       <div class="w-1/1 md:w-1/2 mx-3">
-        <Player v-if="file"
-                :source="source" />
+        <Player v-if="fileValid"
+                :source="source"
+                :type="file.type" />
+        <p v-else-if="file && !fileValid"
+           class="error">
+          Please submit a correct file (.mp4 or .webm allowed)
+        </p>
       </div>
     </div>
   </div>
@@ -44,19 +49,18 @@ export default {
   data() {
     return {
       file: null,
+      allowedFileTypes: ['video/mp4', 'video/webm'],
     };
   },
   computed: {
     source() {
+      if (!this.fileValid) {
+        return null;
+      }
       return URL.createObjectURL(this.file);
     },
-  },
-  watch: {
-    file(value) {
-      this.file = null;
-      this.$nextTick(function () {
-        this.file = value;
-      });
+    fileValid() {
+      return this.file && this.allowedFileTypes.includes(this.file.type);
     },
   },
   methods: {
