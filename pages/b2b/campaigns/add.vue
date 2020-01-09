@@ -6,45 +6,51 @@
     <div class="flex flex-col-reverse md:flex-row">
       <div class="w-1/1 md:w-1/2 mx-3">
         <p>You can always create a campaign. A campaign consists of a video and a few questions. Three questions are free, any more will cost you. Please see our pricing model for further information.</p>
+
+        <div class="sm:w-1/1 m-4">
+          <FileInput v-model="file" />
+        </div>
+
         <div class="form">
-          <div class="my-12">
-            <div v-for="question in questions"
-                 class="w-1/1 m-4">
-              <Select :options="options"
-                      v-model="question.type"
-                      label="Question Type" />
-              <Input @validate="validateQuestion(question)"
-                     :errors="question.errors"
-                     v-model="question.value"
-                     label="Question"
-                     placeholder="Add a question" />
+          <div v-if="questions.length"
+               v-for="(question, i) in questions"
+               :key="question.id"
+               class="w-full flex flex-wrap">
+            <div class="w-11/12 inline-block p-4 mb-4">
+              <QuestionForm :value="question" />
             </div>
 
-            <div class="w-1/1 text-right m-4">
+            <div v-if="questions.length > 1"
+                 class="w-1/12 inline-block text-center flex justify-center flex-col mb-4">
+              <v-icon @click="removeQuestion(i)"
+                      name="trash-alt"
+                      class="icon-danger" />
+            </div>
+          </div>
+
+          <div class="w-full mb-12">
+            <div class="text-right m-4">
               <button @click="addQuestion()"
                       class="button sm:w-1/1 md:w-1/3">
                 Add Question
               </button>
             </div>
           </div>
+        </div>
 
-          <div class="sm:w-1/1 md:w-2/3 m-4">
-            <FileInput v-model="file" />
-          </div>
-          <div class="w-1/1 text-right m-4">
-            <button @click="submitFile()"
-                    :class="{'loading': loading, 'disabled': !formValid}"
-                    :disabled="!formValid"
-                    class="button">
-              Submit
-            </button>
-          </div>
+        <div class="w-1/1 text-right m-4">
+          <button @click="submitFile()"
+                  :class="{'loading': loading, 'disabled': !valid}"
+                  :disabled="!valid"
+                  class="button">
+            Save
+          </button>
         </div>
       </div>
       <div class="w-1/1 md:w-1/2 mx-3">
         <Player v-if="fileValid"
                 :source="source"
-                :type="file.type" />
+                :type="'video/mp4'" />
         <p v-else-if="file && !fileValid"
            class="error">
           Please submit a correct file (.mp4 or .webm allowed)
@@ -55,10 +61,11 @@
 </template>
 
 <script>
+import Vue from 'vue';
+import { Question } from '@/domain/campaign/question';
 import FileInput from '@/components/form/FileInput';
-import Input from '@/components/form/Input';
 import Player from '@/components/Player';
-import Select from '@/components/form/Select';
+import QuestionForm from '@/components/Campaign/QuestionForm';
 
 export default {
   name: 'AddCapaignPage',
@@ -67,19 +74,17 @@ export default {
     'customer',
   ],
   components: {
-    Input,
     FileInput,
     Player,
-    Select,
+    QuestionForm,
   },
   data() {
     return {
       file: null,
       loading: false,
-      options: ['Question', 'Approval'],
+      valid: false,
       allowedFileTypes: ['video/mp4', 'video/webm'],
-      questions: [
-      ],
+      questions: [new Question()],
     };
   },
   computed: {
@@ -92,8 +97,16 @@ export default {
     fileValid() {
       return this.file && this.allowedFileTypes.includes(this.file.type);
     },
-    formValid() {
-      return this.fileValid;
+  },
+  watch: {
+    questions: {
+      handler() {
+        this.valid = this.fileValid && this.isFormValid();
+      },
+      deep: true,
+    },
+    file() {
+      this.valid = this.fileValid && this.isFormValid();
     },
   },
   methods: {
@@ -126,16 +139,32 @@ export default {
         this.$toast.error('An error occurred');
       }
     },
-    validateQuestion(question) {
-      question.errors = [];
-      if (question.value.trim().length <= 3) {
-        question.errors.push('Please enter at least a 3 characters long question');
-      }
-    },
     addQuestion() {
-      this.questions.push(
-        { value: '', language: 'en-US', errors: [], type: 'question' },
-      );
+      Vue.set(this.questions, this.questions.length, new Question());
+    },
+    removeQuestion(index) {
+      this.questions.splice(index, 1);
+      // eslint-disable-next-line no-console
+      console.log(this.questions);
+    },
+    isFormValid() {
+      let formValid = true;
+      const BreakException = {};
+      try {
+        this.questions.forEach((q) => {
+          if (!q.valid) {
+            throw BreakException;
+          }
+          q.answer.forEach((a) => {
+            if (!a.valid) {
+              throw BreakException;
+            }
+          });
+        });
+      } catch (e) {
+        formValid = false;
+      }
+      return formValid;
     },
   },
 };

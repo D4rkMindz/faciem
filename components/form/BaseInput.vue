@@ -46,19 +46,19 @@ export default {
   methods: {
     onBlur() {
       this.touched = true;
-      this.emit();
+      this.emitValidation();
     },
-    onInput(event) {
-      event.preventDefault();
+    onInput() {
       this.$emit('modified', this.inputValue);
 
       if (!this.touched) {
         this.classes = '';
         return;
       }
-      this.emit();
+
+      this.emitValidation();
     },
-    emit() {
+    emitValidation() {
       this.$emit('validate', this.inputValue);
     },
   },

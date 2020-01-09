@@ -9,7 +9,7 @@
         </label>
       </div>
 
-      <div class="lg:w-2/3">
+      <div class="lg:w-7/12">
         <input ref="input"
                :id="id"
                v-model="inputValue"
@@ -19,9 +19,17 @@
                @input="onInput"
                @blur="onBlur" />
       </div>
+
+      <div @click="onAdd()"
+           :class="{'hidden': !showAdd}"
+           class="lg:w-1/12 text-center">
+        <v-icon name="plus" />
+      </div>
     </div>
+
     <div
       v-for="(error, i) in errors"
+      :key="i"
       :class="{'mb-6': (i === Object.keys(errors).length - 1 /* last element needs a margin bottom 6 */)}"
       class="flex">
       <div class="hidden lg:block lg:w-1/3">
@@ -61,6 +69,16 @@ export default {
       default: '',
       type: String,
       required: false,
+    },
+    showAdd: {
+      default: true,
+      type: Boolean,
+      required: false,
+    },
+  },
+  methods: {
+    onAdd() {
+      this.$emit('add');
     },
   },
 };

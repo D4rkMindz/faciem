@@ -59,6 +59,7 @@ export default {
     this.player.on('ended', function () {
       this.controlBar.dispose();
       this.bigPlayButton.dispose();
+      this.exitFullscreen();
       $this.$emit('ended', { source: this.source });
     });
     this.setupComplete = true;
@@ -74,7 +75,7 @@ export default {
 <style scoped>
   .player {
     width: 100%;
-    height: 100%;
+    height: auto;
     background-color: #efefef;
     background-image: url('/img/loading.svg');
     background-position: center;

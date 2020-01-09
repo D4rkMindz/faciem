@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div :class="{'my-6': errors.length === 0, 'mt-6': errors.length !== 0}"
+    <div :class="{'my-6': errors.length === 0 && !nomargin, 'mt-6': errors.length !== 0 && !nomargin}"
          class="lg:flex lg:items-center">
       <div class="lg:w-1/3">
         <label :for="id"
@@ -10,26 +10,25 @@
       </div>
 
       <div class="lg:w-2/3 relative">
-        <select class="input">
-          <option v-for="option in options">
-            {{ option }}
+        <select @change="onChange($event)"
+                class="input">
+          <option v-for="option in options"
+                  :key="getKey(option)"
+                  :value="getKey(option)"
+                  :selected="getKey(option) === inputValue">
+            {{ getDisplayValue(option) }}
           </option>
         </select>
 
-        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-          <svg class="fill-current h-4 w-4"
-               xmlns="http://www.w3.org/2000/svg"
-               viewBox="0 0 20 20">
-            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-          </svg>
+        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
+          <v-icon name="chevron-down" />
         </div>
       </div>
 
-      <div
-        v-for="(error, i) in errors"
-        :key="i"
-        :class="{'mb-6': (index === Object.keys(errors).length - 1)}"
-        class="flex">
+      <div v-for="(error, i) in errors"
+           :key="i"
+           :class="{'mb-6': (i === Object.keys(errors).length - 1) && !nomargin}"
+           class="flex">
         <div class="hidden lg:block lg:w-1/3">
           &nbsp;
         </div>
@@ -51,6 +50,37 @@ export default {
     options: {
       type: Array,
       required: true,
+    },
+    nomargin: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+  },
+  methods: {
+    onChange(event) {
+      this.inputValue = event.target.value;
+      this.onInput(event);
+    },
+    getDisplayValue(option) {
+      if (typeof option === 'string') {
+        return option;
+      }
+      if (typeof option === 'object' && 'translation' in option) {
+        return option.translation;
+      }
+
+      return 'TRANSLATION NOT FOUND';
+    },
+    getKey(option) {
+      if (typeof option === 'string') {
+        return option;
+      }
+      if (typeof option === 'object' && 'key' in option) {
+        return option.key;
+      }
+
+      return Math.random().toString(36).substring(7);
     },
   },
 };

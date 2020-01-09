@@ -42,6 +42,7 @@ const config = {
     { src: '~/plugins/localstorage.js', ssr: false },
     { src: '~/plugins/interceptors.js', ssr: false },
     { src: '~/plugins/notifications.js', ssr: false },
+    { src: '~/plugins/icons.js', ssr: false },
   ],
   /*
    ** Nuxt.js modules
@@ -77,6 +78,7 @@ const config = {
    ** Build configuration
    */
   build: {
+    transpile: [/^vue-awesome/],
     postcss: {
       plugins: {
         tailwindcss: './tailwind.config.js',
