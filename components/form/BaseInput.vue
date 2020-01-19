@@ -1,9 +1,6 @@
 <script>
 export default {
   name: 'BaseInput',
-  model: {
-    event: 'modified',
-  },
   props: {
     label: {
       default: 'FORM INPUT',
@@ -39,17 +36,20 @@ export default {
     };
   },
   watch: {
-    errors: function () {
-      this.classes = this.errors.length === 0 ? 'ok' : 'error';
-    },
+    errors() { this.setClasses(); },
   },
+  mounted() { this.setClasses(); },
   methods: {
     onBlur() {
       this.touched = true;
       this.emitValidation();
     },
     onInput() {
-      this.$emit('modified', this.inputValue);
+      this.$emit('input', this.inputValue);
+
+      if (this.inputValue.length >= 2) {
+        this.touched = true;
+      }
 
       if (!this.touched) {
         this.classes = '';
@@ -60,6 +60,9 @@ export default {
     },
     emitValidation() {
       this.$emit('validate', this.inputValue);
+    },
+    setClasses() {
+      this.classes = this.errors.length === 0 ? !!this.inputValue && this.inputValue.length > 0 ? 'ok' : '' : 'error';
     },
   },
 };

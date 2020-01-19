@@ -13,10 +13,12 @@
         <input ref="input"
                :id="id"
                v-model="inputValue"
+               :title="inputValue"
                :class="['input', classes]"
                :placeholder="placeholder"
                :type="type"
                @input="onInput"
+               @leave="onBlur"
                @blur="onBlur" />
       </div>
     </div>

@@ -9,14 +9,20 @@
         </label>
       </div>
 
-      <div class="lg:w-7/12">
+      <div :class="{
+        'lg:w-6/12': showAdd === true && showRemove === true,
+        'lg:w-7/12': (showAdd === false && showRemove === true) || (showAdd === true && showRemove === false),
+        'lg:w-8/12': showAdd === false && showRemove === false,
+      }">
         <input ref="input"
                :id="id"
                v-model="inputValue"
+               :title="inputValue"
                :class="['input', classes]"
                :placeholder="placeholder"
                :type="type"
                @input="onInput"
+               @leave="onBlur"
                @blur="onBlur" />
       </div>
 
@@ -24,6 +30,14 @@
            :class="{'hidden': !showAdd}"
            class="lg:w-1/12 text-center">
         <v-icon name="plus" />
+      </div>
+
+      <div @click="onRemove()"
+           :class="{'hidden': !showRemove}"
+           class="lg:w-1/12 text-center">
+        <v-icon
+          name="trash-alt"
+          class="icon-danger" />
       </div>
     </div>
 
@@ -75,10 +89,18 @@ export default {
       type: Boolean,
       required: false,
     },
+    showRemove: {
+      default: true,
+      type: Boolean,
+      required: false,
+    },
   },
   methods: {
     onAdd() {
       this.$emit('add');
+    },
+    onRemove() {
+      this.$emit('remove');
     },
   },
 };

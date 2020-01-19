@@ -13,6 +13,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'FileInput',
   props: {
@@ -21,6 +22,11 @@ export default {
       type: String,
       default: 'button',
     },
+  },
+  data() {
+    return {
+      error: null,
+    };
   },
   methods: {
     select() {

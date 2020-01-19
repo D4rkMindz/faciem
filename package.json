@@ -29,6 +29,7 @@
     "@nuxtjs/eslint-module": "^0.0.1",
     "@nuxtjs/toast": "^3.3.0",
     "jwt-decode": "^2.2.0",
+    "lodash.clonedeep": "^4.5.0",
     "moment": "^2.24.0",
     "network-speed": "^2.0.5",
     "nuxt": "^2.11.0",

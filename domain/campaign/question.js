@@ -1,4 +1,3 @@
-import { Answer } from '@/domain/campaign/answer';
 
 export class Question {
   id = null;
@@ -10,12 +9,10 @@ export class Question {
   answer = [];
 
   constructor() {
-    this.id = Math.random() * 1000;
-    this.answer.push(new Answer());
+    this.id = Math.round(Math.random() * 1000);
   }
 }
 
 export const TEXT = 'text';
 export const STARS = 'stars';
-export const APPROVAL = 'approval';
 export const MULTIPLE_CHOICE = 'multiple_choice';
