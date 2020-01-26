@@ -9,7 +9,7 @@ export const STATES = {
   INVALID: 'invalid',
   VALID: 'valid',
   SAVING: 'saving',
-  SAVED: 'saved,',
+  SAVED: 'saved',
 };
 
 export const TYPES_THAT_REQUIRE_QUESTION = [MULTIPLE_CHOICE, TEXT];

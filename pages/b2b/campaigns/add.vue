@@ -22,8 +22,8 @@
 
         <div class="w-1/1 text-right m-4">
           <button @click="save()"
-                  :class="{'loading': loading, 'disabled': !valid}"
-                  :disabled="!valid"
+                  :class="{'loading': saving, 'disabled': !valid}"
+                  :disabled="!valid || saving"
                   class="button">
             Save
           </button>
@@ -44,6 +44,7 @@ import FileInput from '@/components/form/FileInput';
 import Player from '@/components/Player';
 import { ALLOWED_FILE_TYPES } from '@/domain/file/allowed-file-types';
 import QuestionsForm from '@/components/campaign/QuestionsForm';
+import { STATES } from '@/store/forms/campaign/create';
 const { mapGetters, mapActions } = createNamespacedHelpers('forms/campaign/create');
 export default {
   name: 'AddCapaignPage',
@@ -61,7 +62,6 @@ export default {
       file: null,
       fileValid: false,
       fileError: '',
-      loading: false,
     };
   },
   computed: {
@@ -74,6 +74,9 @@ export default {
       }
 
       return null;
+    },
+    saving() {
+      return this.state() === STATES.SAVING;
     },
   },
   watch: {
@@ -89,6 +92,7 @@ export default {
   methods: {
     ...mapGetters([
       'isValid',
+      'state',
     ]),
     ...mapActions([
       'saveForm',

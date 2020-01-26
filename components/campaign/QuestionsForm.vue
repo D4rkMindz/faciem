@@ -77,6 +77,7 @@ import Input from '@/components/form/Input';
 import Select from '@/components/form/Select';
 import { TEXT, STARS, MULTIPLE_CHOICE } from '@/domain/campaign/question';
 import {
+  STATES,
   TYPES_THAT_REQUIRE_MULTIPLE_ANSWERS,
   TYPES_THAT_REQUIRE_QUESTION,
 } from '@/store/forms/campaign/create';
@@ -108,11 +109,20 @@ export default {
   computed: {
     questions() { return this.getQuestions(); },
   },
+  mounted() {
+    this.setState(STATES.UNTOUCHED);
+    this.setPricingId(1);
+    this.setLanguage('de-CH');
+  },
   methods: {
     ...mapGetters([
       'getQuestions',
     ]),
     ...mapMutations([
+      'setLanguage',
+      'setPricingId',
+      'setCampaignId',
+      'setState',
       'addQuestion',
       'removeQuestion',
       'setQuestion',

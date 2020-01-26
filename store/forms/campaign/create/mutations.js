@@ -4,6 +4,30 @@ import { Answer } from '@/domain/campaign/answer';
 
 export default {
   /**
+   * Set the pricing id
+   * @param state
+   * @param pricingId
+   */
+  setPricingId(state, pricingId) {
+    state.pricing_id = pricingId;
+  },
+  /**
+   * Set the campaign id
+   * @param state
+   * @param campaignId
+   */
+  setCampaignId(state, campaignId) {
+    state.campaign_id = campaignId;
+  },
+  /**
+   * Set language
+   * @param state
+   * @param language
+   */
+  setLanguage(state, language) {
+    state.language = language;
+  },
+  /**
    * Add a new question
    * @param state
    */
@@ -43,5 +67,13 @@ export default {
    */
   removeAnswer(state, { questionIndex, answerIndex }) {
     state.questions[questionIndex].answer.splice(answerIndex, 1);
+  },
+  /**
+   * Set the state
+   * @param state
+   * @param s STATES[x]
+   */
+  setState(state, s) {
+    state.state = s;
   },
 };

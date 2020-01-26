@@ -1,5 +1,6 @@
 import cloneDeep from 'lodash.clonedeep';
 import {
+  STATES,
   TYPES_THAT_REQUIRE_MULTIPLE_ANSWERS,
   TYPES_THAT_REQUIRE_NO_QUESTION,
   TYPES_THAT_REQUIRE_QUESTION,
@@ -8,18 +9,31 @@ import {
 export default {
   /**
    * Save the form
-   * @param getters
    * @return {Promise<void>}
    */
-  async saveForm({ getters }) {
+  async saveForm({ state, getters, rootGetters, commit }) {
     if (!getters.isValid) {
       return;
     }
+    const userId = rootGetters['auth/getUserId'];
 
-    // eslint-disable-next-line no-console
-    console.log('save form');
-
-    await this.$axios.post();
+    try {
+      commit('setState', STATES.SAVING);
+      const response = await this.$axios.post(
+      `/users/${userId}/campaigns`, {
+        name: 'campaign',
+        description: 'Some description',
+        start: null,
+        end: null,
+        pricing_id: state.pricing_id,
+        questions: state.questions,
+      });
+      if (response.status === 200) {
+        commit('setState', STATES.SAVED);
+      }
+    } catch (e) {
+      commit('setState', STATES.INVALID);
+    }
   },
   /**
    * Validate a question

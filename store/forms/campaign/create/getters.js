@@ -1,4 +1,5 @@
 export default {
+  state: state => state.state,
   /**
    * Get all questions
    * @param state
