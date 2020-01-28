@@ -23,8 +23,8 @@ export default {
       if (state.campaign_id === null) {
         const saveCampaignResponse = await this.$axios.post(
           `/users/${userId}/campaigns`, {
-            name: 'campaign',
-            description: 'Some description',
+            name: state.name,
+            description: state.description,
             start: moment().format('YYYY-MM-DD HH:mm:ss'),
             end: null,
             pricing_id: state.pricing_id,
@@ -40,7 +40,6 @@ export default {
 
       const formData = new FormData();
 
-      debugger;
       formData.append('video', file);
       formData.append('language', 'de');
       formData.append('display_name', file.name);
@@ -123,5 +122,40 @@ export default {
     answer.valid = answer.errors.length === 0;
 
     commit('setQuestion', { questionIndex, question });
+  },
+  validateName({ commit, state }, name) {
+    const errors = [];
+    if (!name) {
+      errors.push('A name is required');
+      commit('setNameErrors', errors);
+      return;
+    }
+
+    if (name.length < 3) {
+      errors.push('The name is too short');
+    }
+    if (name.length > 20) {
+      errors.push('The name is too long');
+    }
+
+    commit('setNameErrors', errors);
+  },
+  validateDescription({ commit, state }, description) {
+    const errors = [];
+
+    if (!description) {
+      errors.push('A description is required');
+      commit('setDescriptionErrors', errors);
+      return;
+    }
+
+    if (description.length < 10) {
+      errors.push('The description should be at least 10 characters long');
+    }
+    if (description.length > 200) {
+      errors.push('The description is too long');
+    }
+
+    commit('setDescriptionErrors', errors);
   },
 };

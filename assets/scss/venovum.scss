@@ -1,17 +1,9 @@
-.fa-icon {
-  width: auto;
-  height: 1em;
-  max-width: 100%;
-  max-height: 100%;
-  @apply text-gray-700;
+.disabled {
+  @apply opacity-50 cursor-not-allowed;
 }
 
-.icon-danger {
+.error {
   @apply text-red-500;
-}
-
-.icon-primary {
-  @apply text-purple-700;
 }
 
 .title {
@@ -54,14 +46,6 @@
 
 .outline {
   @apply bg-transparent border-2 border-purple-500 text-purple-500;
-}
-
-.disabled {
-  @apply opacity-50 cursor-not-allowed;
-}
-
-.error {
-  @apply text-red-500;
 }
 
 .border-default {
@@ -138,6 +122,25 @@
   }
 }
 
+.fa-icon {
+  width: auto;
+  height: 1em;
+  max-width: 100%;
+  max-height: 100%;
+  @apply text-gray-700;
+}
+
+.icon-danger {
+  @apply error;
+}
+
+.icon-disabled {
+  @apply text-gray-500 disabled;
+}
+
+.icon-primary {
+  @apply text-purple-700;
+}
 
 @screen lg {
   .title {

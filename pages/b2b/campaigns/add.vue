@@ -16,7 +16,7 @@
           </div>
         </div>
 
-        <div class="form">
+        <div class="form mt-12">
           <QuestionsForm />
         </div>
 
@@ -100,33 +100,6 @@ export default {
     save() {
       this.saveForm({ file: this.file });
     },
-    // addQuestion() {
-    //   Vue.set(this.questions, this.questions.length, new Question());
-    // },
-    // removeQuestion(index) {
-    //   this.questions.splice(index, 1);
-    //   // eslint-disable-next-line no-console
-    //   console.log(this.questions);
-    // },
-    // isFormValid() {
-    //   let formValid = true;
-    //   const BreakException = {};
-    //   try {
-    //     this.questions.forEach((q) => {
-    //       if (!q.valid) {
-    //         throw BreakException;
-    //       }
-    //       q.answer.forEach((a) => {
-    //         if (!a.valid) {
-    //           throw BreakException;
-    //         }
-    //       });
-    //     });
-    //   } catch (e) {
-    //     formValid = false;
-    //   }
-    //   return formValid;
-    // },
   },
 };
 </script>

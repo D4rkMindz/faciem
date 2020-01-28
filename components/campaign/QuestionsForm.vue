@@ -1,5 +1,25 @@
 <template>
   <div>
+    <div class="pr-5">
+      <Input id="name"
+             :value="name"
+             @input="setName($event)"
+             @validate="validateName($event)"
+             :errors="nameErrors"
+             label="Name"
+             placeholder="My Campaign"
+             class="mt-6" />
+
+      <Input id="description"
+             :value="description"
+             @input="setDescription($event)"
+             @validate="validateDescription($event)"
+             :errors="descriptionErrors"
+             label="Description"
+             placeholder="What is it all about?"
+             class="mt-6" />
+    </div>
+
     <div v-if="questions.length"
          v-for="(question, i) in questions"
          :key="question.id"
@@ -28,7 +48,7 @@
           :id="id('question')"
           :errors="question.errors"
           :value="question.value"
-          @input="setQuestionValue(i, 'value', $event)"
+          @input="setQuestionValue({questionIndex: i, property: 'value', value: $event})"
           @validate="validateQuestion({ questionIndex: i })"
           label="Question"
           placeholder="Add a question" />
@@ -45,16 +65,15 @@
           :show-add="answerIndex === question.answer.length - 1"
           :show-remove="question.answer.length > 1"
           :value="answer.value"
-          @input="setAnswerValue(i, answerIndex, 'value', $event)"
+          @input="setAnswerValue({questionIndex: i, answerIndex: answerIndex, property: 'value', value: $event})"
           label="Answer"
           placeholder="Your answer" />
       </div>
 
-      <div v-if="questions.length > 1"
-           class="w-1/12 inline-block text-center flex justify-center flex-col mb-4">
-        <v-icon @click="removeQuestion({ questionIndex: i })"
-                name="trash-alt"
-                class="icon-danger" />
+      <div class="w-1/12 inline-block text-center flex justify-center flex-col mb-4">
+        <v-icon @click.prevent="removeQuestionFromForm({ questionIndex: i })"
+                :class="{'icon-danger': questions.length > 1, 'icon-disabled': questions.length < 2}"
+                name="trash-alt" />
       </div>
     </div>
 
@@ -71,14 +90,13 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex';
-import cloneDeep from 'lodash.clonedeep';
 import AddeableInput from '@/components/form/AddeableInput';
 import Input from '@/components/form/Input';
 import Select from '@/components/form/Select';
 import { TEXT, STARS, MULTIPLE_CHOICE } from '@/domain/campaign/question';
 import {
   STATES,
-  TYPES_THAT_REQUIRE_MULTIPLE_ANSWERS,
+  TYPES_THAT_REQUIRE_MULTIPLE_ANSWERS, TYPES_THAT_REQUIRE_NO_QUESTION,
   TYPES_THAT_REQUIRE_QUESTION,
 } from '@/store/forms/campaign/create';
 const { mapGetters, mapMutations, mapActions } = createNamespacedHelpers('forms/campaign/create');
@@ -107,28 +125,12 @@ export default {
     };
   },
   computed: {
+    name() { return this.getName(); },
+    nameErrors() { return this.getNameErrors(); },
+    description() { return this.getDescription(); },
+    descriptionErrors() { return this.getDescriptionErrors(); },
     questions() { return this.getQuestions(); },
     state() { return this.getState(); },
-  },
-  watch: {
-    state() {
-      if (!this.state === STATES.INVALID) {
-        return;
-      }
-      const $this = this;
-      this.questions.forEach((question, i) => {
-        const questionErrors = [];
-        questionErrors.push(...$this.getError(question.id + '.value'));
-        questionErrors.push(...$this.getError(question.id + '.type'));
-        questionErrors.push(...$this.getError(question.id + '.language'));
-        $this.setQuestionValue(i, 'errors', questionErrors);
-        question.answer.forEach((answer, key) => {
-          const answerErrors = [];
-          answerErrors.push(...$this.getError(question.id + '.answer.' + key));
-          $this.setAnswerValue(i, key, 'errors', answerErrors);
-        });
-      });
-    },
   },
   mounted() {
     this.setState(STATES.UNTOUCHED);
@@ -137,11 +139,16 @@ export default {
   },
   methods: {
     ...mapGetters([
+      'getName',
+      'getNameErrors',
+      'getDescription',
+      'getDescriptionErrors',
       'getQuestions',
-      'getErrorForField',
       'getState',
     ]),
     ...mapMutations([
+      'setName',
+      'setDescription',
       'setLanguage',
       'setPricingId',
       'setCampaignId',
@@ -149,12 +156,16 @@ export default {
       'addQuestion',
       'removeQuestion',
       'setQuestion',
+      'setQuestionValue',
       'addAnswer',
+      'setAnswerValue',
       'removeAnswer',
     ]),
     ...mapActions([
       'validateQuestion',
       'validateAnswer',
+      'validateName',
+      'validateDescription',
     ]),
     onAdd(i, answerIndex) {
       this.addAnswer({ questionIndex: i });
@@ -172,30 +183,24 @@ export default {
         this.addAnswer({ questionIndex: index });
       }
       if (!TYPES_THAT_REQUIRE_MULTIPLE_ANSWERS.includes(type)) {
-        this.setQuestionValue(index, 'answer', []);
+        this.setQuestionValue({ questionIndex: index, property: 'answer', value: [] });
+      }
+      if (TYPES_THAT_REQUIRE_NO_QUESTION.includes(type)) {
+        this.setQuestionValue({ questionIndex: index, property: 'valid', value: true });
+        this.setQuestionValue({ questionIndex: index, property: 'value', value: null });
+        this.setQuestionValue({ questionIndex: index, property: 'errors', value: [] });
       }
 
-      this.setQuestionValue(index, 'type', type);
+      this.setQuestionValue({ questionIndex: index, property: 'type', value: type });
     },
-    setQuestionValue(index, property, value) {
-      // TODO move this hack into store
-      const question = cloneDeep(this.getQuestions()[index]);
-      question[property] = value;
-      this.setQuestion({ questionIndex: index, question: question });
-    },
-    setAnswerValue(questionIndex, answerIndex, property, value) {
-      const question = cloneDeep(this.getQuestions()[questionIndex]);
-      question.answer[answerIndex][property] = value;
-      this.setQuestion({ questionIndex: questionIndex, question: question });
+    removeQuestionFromForm(id) {
+      if (this.questions.length < 2) {
+        return;
+      }
+      this.removeQuestion(id);
     },
     id(name) {
       return name + '-' + Math.round(Math.random() * 100);
-    },
-    hasError(field) {
-      return !!this.getError(field);
-    },
-    getError(field) {
-      return this.getErrorForField()(field);
     },
   },
 };
