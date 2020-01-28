@@ -2,7 +2,7 @@
 export class Question {
   id = null;
   value = null;
-  language = 'en-US';
+  language = 'en';
   errors = [];
   valid = false;
   type = 'text';
@@ -15,4 +15,4 @@ export class Question {
 
 export const TEXT = 'text';
 export const STARS = 'stars';
-export const MULTIPLE_CHOICE = 'multiple_choice';
+export const MULTIPLE_CHOICE = 'multiple-choice';

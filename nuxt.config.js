@@ -64,6 +64,8 @@ const config = {
     },
   },
   toast: {
+    duration: 3000,
+    theme: 'outline',
     position: 'bottom-right',
     type: 'default',
     keepOnHover: true,

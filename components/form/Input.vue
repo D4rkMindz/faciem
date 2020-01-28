@@ -29,7 +29,7 @@
       <div class="hidden lg:block lg:w-1/3">
         &nbsp;
       </div>
-      <div class="w-full lg:w-2/3 text-center error text-xs">
+      <div class="w-full lg:w-2/3 px-3 error text-xs">
         {{ error }}
       </div>
     </div>

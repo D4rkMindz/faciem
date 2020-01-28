@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import { Question } from '@/domain/campaign/question';
 import { Answer } from '@/domain/campaign/answer';
+import { STATES } from '@/store/forms/campaign/create/index';
 
 export default {
   /**
@@ -75,5 +76,28 @@ export default {
    */
   setState(state, s) {
     state.state = s;
+  },
+  /**
+   * Set errors
+   * @param state
+   * @param errors
+   * @param message
+   */
+  setErrors(state, { errors, message }) {
+    state.errors = errors;
+    state.message = message;
+  },
+  /**
+   * Reset
+   * @param state
+   */
+  reset(state) {
+    state.campaign_id = null;
+    state.pricing_id = null;
+    state.language = null;
+    state.questions = [new Question()];
+    state.state = STATES.UNTOUCHED;
+    state.errors = [];
+    state.message = null;
   },
 };

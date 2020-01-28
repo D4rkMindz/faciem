@@ -11,11 +11,7 @@ export default function (vue) {
   });
 
   $axios.interceptors.response.use(r => r, async function (error) {
-    // eslint-disable-next-line no-console
-    console.log(1);
     if (error.response.status === 401 && route.name !== 'login') {
-      // eslint-disable-next-line no-console
-      console.log(error);
       store.dispatch('auth/logout');
       $toast.error('Session expired');
       await $router.push({ name: 'login' });

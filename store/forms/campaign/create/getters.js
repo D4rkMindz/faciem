@@ -1,5 +1,5 @@
 export default {
-  state: state => state.state,
+  getState: state => state.state,
   /**
    * Get all questions
    * @param state
@@ -29,5 +29,19 @@ export default {
       formValid = false;
     }
     return formValid;
+  },
+  /**
+   * Get a error for a field
+   * @param state
+   */
+  getErrorForField: state => (field) => {
+    const errors = [];
+    state.errors.forEach((error) => {
+      if (error.field === field) {
+        errors.push(error.message);
+      }
+    });
+
+    return errors;
   },
 };

@@ -54,7 +54,7 @@ export default {
       type: 'video/mp4',
       host: 'https://venovum.dev',
       hash: 'ffe05fb6-c5ea-4cf0-88fd-2461d8c29cb6',
-      language: 'en-GB',
+      language: 'en',
       resolution: 144,
       format: 'mp4', // TODO change format to webm for chrome (browserdetection)
       showPlayer: true,
@@ -106,8 +106,6 @@ export default {
       const fileSize = 500000;
       const testNetworkSpeed = new NetworkSpeed();
       const speed = await testNetworkSpeed.checkDownloadSpeed(baseUrl, fileSize);
-      // eslint-disable-next-line no-console
-      console.log(speed);
       this.speed = speed;
 
       let resolution = 144;

@@ -76,7 +76,7 @@ export default {
       return null;
     },
     saving() {
-      return this.state() === STATES.SAVING;
+      return this.getState() === STATES.SAVING;
     },
   },
   watch: {
@@ -92,49 +92,13 @@ export default {
   methods: {
     ...mapGetters([
       'isValid',
-      'state',
+      'getState',
     ]),
     ...mapActions([
       'saveForm',
     ]),
     save() {
-      this.saveForm();
-    //   const formData = new FormData();
-    //
-    //   // formData.append('video', this.file);
-    //   formData.append('campaign_id', id);
-    //   formData.append('pricing_id', 1);
-    //   formData.append('language', 'de-CH');
-    //   formData.append('display_name', this.file.name);
-    //   formData.append('questions', JSON.stringify(this.questions));
-    //   const data = {
-    //     pricing_id: 1,
-    //     language: 'de-CH',
-    //     display_name: this.file.name,
-    //   };
-    //   this.loading = true;
-    //   const url = `/users/${this.getUserId()}/campaigns`;
-    //   try {
-    //     const response = await this.$axios.post(
-    //       url,
-    //       formData,
-    //       {
-    //         headers: {
-    //           'Content-Type': 'application/octet-stream',
-    //         },
-    //       }
-    //     );
-    //     if (response) {
-    //       // eslint-disable-next-line no-console
-    //       console.log(response);
-    //     }
-    //     this.loading = false;
-    //     this.$toast.info('File uploaded and enqueued for processing. This may take some time');
-    //     // TODO upload file to server
-    //     // this.file = null;
-    //   } catch (e) {
-    //     this.$toast.error('An error occurred');
-    //   }
+      this.saveForm({ file: this.file });
     },
     // addQuestion() {
     //   Vue.set(this.questions, this.questions.length, new Question());

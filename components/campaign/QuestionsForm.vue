@@ -108,15 +108,38 @@ export default {
   },
   computed: {
     questions() { return this.getQuestions(); },
+    state() { return this.getState(); },
+  },
+  watch: {
+    state() {
+      if (!this.state === STATES.INVALID) {
+        return;
+      }
+      const $this = this;
+      this.questions.forEach((question, i) => {
+        const questionErrors = [];
+        questionErrors.push(...$this.getError(question.id + '.value'));
+        questionErrors.push(...$this.getError(question.id + '.type'));
+        questionErrors.push(...$this.getError(question.id + '.language'));
+        $this.setQuestionValue(i, 'errors', questionErrors);
+        question.answer.forEach((answer, key) => {
+          const answerErrors = [];
+          answerErrors.push(...$this.getError(question.id + '.answer.' + key));
+          $this.setAnswerValue(i, key, 'errors', answerErrors);
+        });
+      });
+    },
   },
   mounted() {
     this.setState(STATES.UNTOUCHED);
     this.setPricingId(1);
-    this.setLanguage('de-CH');
+    this.setLanguage('de');
   },
   methods: {
     ...mapGetters([
       'getQuestions',
+      'getErrorForField',
+      'getState',
     ]),
     ...mapMutations([
       'setLanguage',
@@ -167,6 +190,12 @@ export default {
     },
     id(name) {
       return name + '-' + Math.round(Math.random() * 100);
+    },
+    hasError(field) {
+      return !!this.getError(field);
+    },
+    getError(field) {
+      return this.getErrorForField()(field);
     },
   },
 };

@@ -8,5 +8,7 @@ export default function () {
     language: null,
     questions: [new Question()],
     state: STATES.UNTOUCHED,
+    errors: [],
+    message: null,
   };
 };
