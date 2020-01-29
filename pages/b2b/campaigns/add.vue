@@ -44,7 +44,7 @@ import FileInput from '@/components/form/FileInput';
 import Player from '@/components/Player';
 import { ALLOWED_FILE_TYPES } from '@/domain/file/allowed-file-types';
 import QuestionsForm from '@/components/campaign/QuestionsForm';
-import { STATES } from '@/store/forms/campaign/create';
+import { CAMPAIGN_CREATE_STATES } from '@/store/forms/campaign/create';
 const { mapGetters, mapActions } = createNamespacedHelpers('forms/campaign/create');
 export default {
   name: 'AddCapaignPage',
@@ -76,7 +76,7 @@ export default {
       return null;
     },
     saving() {
-      return this.getState() === STATES.SAVING;
+      return this.getState() === CAMPAIGN_CREATE_STATES.SAVING;
     },
   },
   watch: {

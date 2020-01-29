@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import { Question } from '@/domain/campaign/question';
 import { Answer } from '@/domain/campaign/answer';
-import { STATES } from '@/store/forms/campaign/create/index';
+import { CAMPAIGN_CREATE_STATES } from '@/store/forms/campaign/create/index';
 
 export default {
   /**
@@ -176,7 +176,7 @@ export default {
     state.pricing_id = null;
     state.language = null;
     state.questions = [new Question()];
-    state.state = STATES.UNTOUCHED;
+    state.state = CAMPAIGN_CREATE_STATES.UNTOUCHED;
     state.errors = [];
     state.message = null;
   },

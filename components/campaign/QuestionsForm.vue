@@ -95,7 +95,7 @@ import Input from '@/components/form/Input';
 import Select from '@/components/form/Select';
 import { TEXT, STARS, MULTIPLE_CHOICE } from '@/domain/campaign/question';
 import {
-  STATES,
+  CAMPAIGN_CREATE_STATES,
   TYPES_THAT_REQUIRE_MULTIPLE_ANSWERS, TYPES_THAT_REQUIRE_NO_QUESTION,
   TYPES_THAT_REQUIRE_QUESTION,
 } from '@/store/forms/campaign/create';
@@ -133,7 +133,7 @@ export default {
     state() { return this.getState(); },
   },
   mounted() {
-    this.setState(STATES.UNTOUCHED);
+    this.setState(CAMPAIGN_CREATE_STATES.UNTOUCHED);
     this.setPricingId(1);
     this.setLanguage('de');
   },

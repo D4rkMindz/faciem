@@ -1,5 +1,5 @@
 import { Question } from '@/domain/campaign/question';
-import { STATES } from '@/store/forms/campaign/create';
+import { CAMPAIGN_CREATE_STATES } from '@/store/forms/campaign/create';
 
 export default function () {
   return {
@@ -12,7 +12,7 @@ export default function () {
     pricing_id: null,
     language: null,
     questions: [new Question()],
-    state: STATES.UNTOUCHED,
+    state: CAMPAIGN_CREATE_STATES.UNTOUCHED,
     errors: [],
     message: null,
   };

@@ -1,7 +1,7 @@
 import cloneDeep from 'lodash.clonedeep';
 import moment from 'moment';
 import {
-  STATES,
+  CAMPAIGN_CREATE_STATES,
   TYPES_THAT_REQUIRE_MULTIPLE_ANSWERS,
   TYPES_THAT_REQUIRE_NO_QUESTION,
   TYPES_THAT_REQUIRE_QUESTION,
@@ -12,14 +12,14 @@ export default {
    * Save the form
    * @return {Promise<void>}
    */
-  async saveForm({ state, getters, rootGetters, commit }, { file }) {
+  async saveForm({ state, getters, rootGetters, commit, dispatch }, { file }) {
     if (!getters.isValid) {
       return;
     }
     const userId = rootGetters['auth/getUserId'];
 
     try {
-      commit('setState', STATES.SAVING);
+      commit('setState', CAMPAIGN_CREATE_STATES.SAVING);
       if (state.campaign_id === null) {
         const saveCampaignResponse = await this.$axios.post(
           `/users/${userId}/campaigns`, {
@@ -31,7 +31,7 @@ export default {
             questions: state.questions,
           });
         if (saveCampaignResponse.status !== 200) {
-          commit('setState', STATES.INVALID);
+          commit('setState', CAMPAIGN_CREATE_STATES.INVALID);
           commit('setErrors', { errors: [], message: 'Something went wrong. Please try again' });
           return;
         }
@@ -55,15 +55,16 @@ export default {
         }
       );
       if (saveMediaResponse.status !== 200) {
-        commit('setState', STATES.INVALID);
+        commit('setState', CAMPAIGN_CREATE_STATES.INVALID);
         commit('setErrors', { errors: [], message: 'Something went wrong. Please try again' });
         return;
       }
       this.$toast.info('File uploaded and enqueued for processing. This may take some time');
       commit('reset');
+      dispatch('campaigns/update', null, { root: true });
       this.$router.replace('/b2b/campaigns');
     } catch (e) {
-      commit('setState', STATES.INVALID);
+      commit('setState', CAMPAIGN_CREATE_STATES.INVALID);
       if ('response' in e && 'errors' in e.response.data) {
         const data = e.response.data;
         commit('setErrors', { errors: data.errors, message: data.message });

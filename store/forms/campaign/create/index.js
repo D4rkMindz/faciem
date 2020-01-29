@@ -4,7 +4,7 @@ import mutations from '@/store/forms/campaign/create/mutations';
 import actions from '@/store/forms/campaign/create/actions';
 import { MULTIPLE_CHOICE, STARS, TEXT } from '@/domain/campaign/question';
 
-export const STATES = {
+export const CAMPAIGN_CREATE_STATES = {
   UNTOUCHED: 'untouched',
   INVALID: 'invalid',
   VALID: 'valid',
