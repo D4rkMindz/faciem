@@ -99,8 +99,6 @@ export default {
   },
   watch: {
     mediaState() {
-      // eslint-disable-next-line no-console
-      console.log('Media state', this.mediaState);
       if (this.mediaState === WATCH_STATE.LOADED) {
         this.hash = this.getMedia().hash;
 
@@ -110,9 +108,6 @@ export default {
         const format = this.format;
         const resolution = this.resolution;
         this.source = `${host}/media/${file}/${lang}/${resolution}/${format}`;
-        // https://venovum.dev/media/4dfb5192-7440-4bdc-8a8c-d3269eff07da/de/140/mp4
-        // eslint-disable-next-line no-console
-        console.log(this.source);
         this.showPlayer = true;
         return;
       }
