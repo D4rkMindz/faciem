@@ -66,7 +66,7 @@ export default {
       hash: null,
       source: null,
       language: 'de',
-      resolution: 144,
+      resolution: null,
       format: 'mp4', // TODO change format to webm for chrome (browserdetection)
       showPlayer: true,
       nextIsDisabled: true,
@@ -98,18 +98,14 @@ export default {
     mediaState() { return this.getState(); },
   },
   watch: {
+    resolution() {
+      if (this.mediaState === WATCH_STATE.LOADED && this.resolution) {
+        this.setSource();
+      }
+    },
     mediaState() {
-      if (this.mediaState === WATCH_STATE.LOADED) {
-        this.hash = this.getMedia().hash;
-
-        const host = this.host;
-        const file = this.hash;
-        const lang = this.language;
-        const format = this.format;
-        const resolution = this.resolution;
-        this.source = `${host}/media/${file}/${lang}/${resolution}/${format}`;
-        this.showPlayer = true;
-        return;
+      if (this.mediaState === WATCH_STATE.LOADED && this.resolution) {
+        this.setSource();
       }
       this.source = null;
     },
@@ -157,6 +153,20 @@ export default {
       }
 
       this.resolution = resolution;
+    },
+    setSource() {
+      if (this.source !== null) {
+        return;
+      }
+      this.hash = this.getMedia().hash;
+
+      const host = this.host;
+      const file = this.hash;
+      const lang = this.language;
+      const format = this.format;
+      const resolution = this.resolution;
+      this.source = `${host}/media/${file}/${lang}/${resolution}/${format}`;
+      this.showPlayer = true;
     },
   },
 };
