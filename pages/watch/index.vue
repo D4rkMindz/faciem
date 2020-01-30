@@ -6,7 +6,7 @@
       </div>
       <div class="flex flex-col">
         <transition name="fade">
-          <div v-if="showPlayer"
+          <div v-if="showPlayer && source"
                class="w-1/1 p-2">
             <player :source="source"
                     :type="type"
@@ -14,7 +14,13 @@
           </div>
         </transition>
         <transition name="fade">
-          <div v-if="!showPlayer"
+          <div v-if="!showPlayer && !source"
+               class="text-center">
+            <h3>Loading ...</h3>
+          </div>
+        </transition>
+        <transition name="fade">
+          <div v-if="!showPlayer && source"
                class="sm:w-1/1 md:w-3/5 p-2 ml-auto mr-auto">
             <Input v-for="question in questions"
                    :id="question.id"
@@ -40,9 +46,13 @@
 
 <script>
 import NetworkSpeed from 'network-speed';
+import { createNamespacedHelpers } from 'vuex';
 import { SpeedLimits } from '~/domain/network/speed-limits';
 import Player from '@/components/Player';
 import Input from '@/components/form/Input';
+import { WATCH_STATE } from '@/store/watch/media';
+const mediaStore = createNamespacedHelpers('watch/media');
+// const questionsStore = createNamespacedHelpers('watch/questoins');
 
 export default {
   name: 'WatchPage',
@@ -53,8 +63,9 @@ export default {
       speed: 0,
       type: 'video/mp4',
       host: 'https://venovum.dev',
-      hash: 'ffe05fb6-c5ea-4cf0-88fd-2461d8c29cb6',
-      language: 'en',
+      hash: null,
+      source: null,
+      language: 'de',
       resolution: 144,
       format: 'mp4', // TODO change format to webm for chrome (browserdetection)
       showPlayer: true,
@@ -84,20 +95,42 @@ export default {
     };
   },
   computed: {
-    source() {
-      const host = this.host;
-      const file = this.hash;
-      const lang = this.language;
-      const format = this.format;
-      const resolution = this.resolution;
-      return `${host}/media/${file}/${lang}/${resolution}/${format}`;
-      // https://venovum.dev/media/4dfb5192-7440-4bdc-8a8c-d3269eff07da/de/140/mp4
+    mediaState() { return this.getState(); },
+  },
+  watch: {
+    mediaState() {
+      // eslint-disable-next-line no-console
+      console.log('Media state', this.mediaState);
+      if (this.mediaState === WATCH_STATE.LOADED) {
+        this.hash = this.getMedia().hash;
+
+        const host = this.host;
+        const file = this.hash;
+        const lang = this.language;
+        const format = this.format;
+        const resolution = this.resolution;
+        this.source = `${host}/media/${file}/${lang}/${resolution}/${format}`;
+        // https://venovum.dev/media/4dfb5192-7440-4bdc-8a8c-d3269eff07da/de/140/mp4
+        // eslint-disable-next-line no-console
+        console.log(this.source);
+        this.showPlayer = true;
+        return;
+      }
+      this.source = null;
     },
   },
   mounted() {
+    this.loadNextMedia();
     this.testNetwork();
   },
   methods: {
+    ...mediaStore.mapActions([
+      'loadNextMedia',
+    ]),
+    ...mediaStore.mapGetters([
+      'getMedia',
+      'getState',
+    ]),
     answer() {
 
     },
