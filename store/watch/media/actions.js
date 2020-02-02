@@ -11,10 +11,7 @@ export default {
         commit('setState', WATCH_STATE.ERROR);
         return;
       }
-      const media = {
-        hash: response.data.hash,
-      };
-      commit('setMedia', media);
+      commit('setMedia', response.data.media);
       commit('setState', WATCH_STATE.LOADED);
     } catch (e) {
       commit('setState', WATCH_STATE.ERROR);

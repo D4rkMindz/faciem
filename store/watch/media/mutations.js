@@ -1,3 +1,5 @@
+import { WATCH_STATE } from '@/store/watch/media/index';
+
 export default {
   /**
    * Set the video
@@ -14,5 +16,13 @@ export default {
    */
   setState(state, s) {
     state.state = s;
+  },
+  /**
+   * Reset the store
+   * @param state
+   */
+  reset(state) {
+    state.state = WATCH_STATE.INITIAL;
+    state.media = null;
   },
 };

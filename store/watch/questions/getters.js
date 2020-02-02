@@ -4,11 +4,11 @@ export default {
    * @param state
    * @return {*}
    */
-  getVideo: state => state.video,
+  getQuestions: state => state.questions,
   /**
    * Get the campaigns state
    * @param state
    * @return {*}
    */
-  getState: state => state.state,
+  getQuestionsState: state => state.state,
 };

@@ -1,7 +1,7 @@
-import state from '@/store/watch/media/state';
-import getters from '@/store/watch/media/getters';
-import mutations from '@/store/watch/media/mutations';
-import actions from '@/store/watch/media/actions';
+import state from '@/store/watch/questions/state';
+import getters from '@/store/watch/questions/getters';
+import mutations from '@/store/watch/questions/mutations';
+import actions from '@/store/watch/questions/actions';
 
 export const QUESTIONS_STATE = {
   INITIAL: 'initial',

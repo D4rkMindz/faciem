@@ -14,6 +14,12 @@
           </div>
         </transition>
         <transition name="fade">
+          <div v-if="showPlayer && !source"
+               class="text-center">
+            <h3>Loading ...</h3>
+          </div>
+        </transition>
+        <transition name="fade">
           <div v-if="!showPlayer && !source"
                class="text-center">
             <h3>Loading ...</h3>
@@ -22,12 +28,7 @@
         <transition name="fade">
           <div v-if="!showPlayer && source"
                class="sm:w-1/1 md:w-3/5 p-2 ml-auto mr-auto">
-            <Input v-for="question in questions"
-                   :id="question.id"
-                   :key="question.id"
-                   v-model="question.value"
-                   :label="question.label"
-                   :placeholder="question.placeholder" />
+            {{ questionsState }}
 
             <div class="text-right">
               <button :disabled="nextIsDisabled"
@@ -49,15 +50,15 @@ import NetworkSpeed from 'network-speed';
 import { createNamespacedHelpers } from 'vuex';
 import { SpeedLimits } from '~/domain/network/speed-limits';
 import Player from '@/components/Player';
-import Input from '@/components/form/Input';
 import { WATCH_STATE } from '@/store/watch/media';
+import { QUESTIONS_STATE } from '@/store/watch/questions';
+const questionsStore = createNamespacedHelpers('watch/questions');
 const mediaStore = createNamespacedHelpers('watch/media');
-// const questionsStore = createNamespacedHelpers('watch/questoins');
 
 export default {
   name: 'WatchPage',
   middleware: 'auth',
-  components: { Player, Input },
+  components: { Player },
   data: () => {
     return {
       speed: 0,
@@ -70,37 +71,24 @@ export default {
       format: 'mp4', // TODO change format to webm for chrome (browserdetection)
       showPlayer: true,
       nextIsDisabled: true,
-      questions: [{
-        id: 'q1',
-        type: 'input',
-        label: 'Question 1',
-        placeholder: 'Type something here',
-        required: true,
-        value: '',
-      }, {
-        id: 'q2',
-        type: 'input',
-        label: 'Question 2',
-        placeholder: 'Type something here',
-        required: true,
-        value: '',
-      }, {
-        id: 'q3',
-        type: 'input',
-        label: 'Question 3',
-        placeholder: 'Type something here',
-        required: true,
-        value: '',
-      }],
     };
   },
   computed: {
     mediaState() { return this.getState(); },
+    questions() { return this.getQuestions(); },
+    questionsState() { return this.getQuestionsState(); },
   },
   watch: {
     resolution() {
       if (this.mediaState === WATCH_STATE.LOADED && this.resolution) {
         this.setSource();
+      }
+    },
+    source() {
+      if (this.mediaState === WATCH_STATE.LOADED && this.questionsState === QUESTIONS_STATE.INITIAL) {
+        // eslint-disable-next-line no-console
+        console.log('loading questions for ', this.getMedia().campaign_id);
+        this.getQuestionsForMedia(this.getMedia().campaign_id);
       }
     },
     mediaState() {
@@ -109,6 +97,12 @@ export default {
       }
       this.source = null;
     },
+  },
+  destroyed() {
+    // eslint-disable-next-line no-console
+    console.log('resetting');
+    this.$store.commit('watch/questions/reset', null);
+    this.$store.commit('watch/media/reset', null);
   },
   mounted() {
     this.loadNextMedia();
@@ -122,8 +116,20 @@ export default {
       'getMedia',
       'getState',
     ]),
+    ...questionsStore.mapActions([
+      'getQuestionsForMedia',
+    ]),
+    ...questionsStore.mapGetters([
+      'getQuestions',
+      'getQuestionsState',
+    ]),
     answer() {
+      if (this.questionsState === QUESTIONS_STATE.INITIAL) {
+        return;
+      }
 
+      // eslint-disable-next-line no-console
+      console.log('log');
     },
     async testNetwork() {
       const baseUrl = 'http://eu.httpbin.org/stream-bytes/500000';

@@ -1,23 +1,19 @@
-import { WATCH_STATE } from '@/store/watch/media';
+import { QUESTIONS_STATE } from '@/store/watch/questions/index';
 
 export default {
-  async getQuestionsForMedia({ commit, rootGetters }, hash) {
-    commit('setState', WATCH_STATE.LOADING);
+  async getQuestionsForMedia({ commit, rootGetters }, campaignId) {
+    commit('setState', QUESTIONS_STATE.LOADING);
     try {
-      const userId = rootGetters['auth/getUserId'];
-      const url = `/users/${userId}/next`;
+      const url = `/campaigns/${campaignId}/questions`;
       const response = await this.$axios.get(url);
       if (response.status !== 200) {
-        commit('setState', WATCH_STATE.ERROR);
+        commit('setState', QUESTIONS_STATE.ERROR);
         return;
       }
-      const media = {
-        hash: response.data.hash,
-      };
-      commit('setMedia', media);
-      commit('setState', WATCH_STATE.LOADED);
+      commit('setQuestions', response.data.questions);
+      commit('setState', QUESTIONS_STATE.LOADED);
     } catch (e) {
-      commit('setState', WATCH_STATE.ERROR);
+      commit('setState', QUESTIONS_STATE.ERROR);
     }
   },
 };
