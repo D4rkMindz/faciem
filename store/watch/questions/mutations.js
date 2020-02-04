@@ -1,4 +1,5 @@
 import { QUESTIONS_STATE } from '@/store/watch/questions/index';
+// import { Question } from '@/domain/campaign/question';
 
 export default {
   /**

@@ -39,6 +39,7 @@ const config = {
    ** Plugins to load before mounting the App
    */
   plugins: [
+    { src: '~/plugins/global-components.js', ssr: false },
     { src: '~/plugins/localstorage.js', ssr: false },
     { src: '~/plugins/interceptors.js', ssr: false },
     { src: '~/plugins/notifications.js', ssr: false },

@@ -8,7 +8,7 @@
         <p>You can always create a campaign. A campaign consists of a video and a few questions. Three questions are free, any more will cost you. Please see our pricing model for further information.</p>
 
         <div class="sm:w-1/1 m-4">
-          <FileInput v-model="file" />
+          <file-input v-model="file" />
 
           <div v-if="!fileValid"
                class="text-center error text-xs">
@@ -30,7 +30,7 @@
         </div>
       </div>
       <div class="w-1/1 md:w-1/2 mx-3">
-        <Player v-if="file && fileValid"
+        <player v-if="file && fileValid"
                 :source="source"
                 :type="'video/mp4'" />
       </div>
@@ -40,8 +40,6 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex';
-import FileInput from '@/components/form/FileInput';
-import Player from '@/components/Player';
 import { ALLOWED_FILE_TYPES } from '@/domain/file/allowed-file-types';
 import QuestionsForm from '@/components/campaign/QuestionsForm';
 import { CAMPAIGN_CREATE_STATES } from '@/store/forms/campaign/create';
@@ -53,8 +51,6 @@ export default {
     'customer',
   ],
   components: {
-    FileInput,
-    Player,
     QuestionsForm,
   },
   data() {

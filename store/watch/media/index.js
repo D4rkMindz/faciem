@@ -7,6 +7,7 @@ export const WATCH_STATE = {
   INITIAL: 'initial',
   LOADING: 'loading',
   LOADED: 'loaded',
+  ALL_WATCHED: 'all-watched',
   ERROR: 'error',
 };
 

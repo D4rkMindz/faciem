@@ -1,23 +1,23 @@
 <template>
   <div>
     <div class="pr-5">
-      <Input id="name"
-             :value="name"
-             @input="setName($event)"
-             @validate="validateName($event)"
-             :errors="nameErrors"
-             label="Name"
-             placeholder="My Campaign"
-             class="mt-6" />
+      <v-input id="name"
+               :value="name"
+               @input="setName($event)"
+               @validate="validateName($event)"
+               :errors="nameErrors"
+               label="Name"
+               placeholder="My Campaign"
+               class="mt-6" />
 
-      <Input id="description"
-             :value="description"
-             @input="setDescription($event)"
-             @validate="validateDescription($event)"
-             :errors="descriptionErrors"
-             label="Description"
-             placeholder="What is it all about?"
-             class="mt-6" />
+      <v-input id="description"
+               :value="description"
+               @input="setDescription($event)"
+               @validate="validateDescription($event)"
+               :errors="descriptionErrors"
+               label="Description"
+               placeholder="What is it all about?"
+               class="mt-6" />
     </div>
 
     <div v-if="questions.length"
@@ -25,7 +25,7 @@
          :key="question.id"
          class="w-full flex flex-wrap">
       <div class="w-11/12 inline-block p-4 mb-4">
-        <Select
+        <v-select
           :options="options"
           :value="question.type"
           @input="setType(i, $event)"
@@ -43,7 +43,7 @@
           </p>
         </div>
 
-        <Input
+        <v-input
           v-if="typesThatRequireQuestion.includes(question.type)"
           :id="id('question')"
           :errors="question.errors"
@@ -53,7 +53,7 @@
           label="Question"
           placeholder="Add a question" />
 
-        <AddeableInput
+        <addeable-input
           v-if="typesThatRequireMultipleAnswers.includes(question.type)"
           v-for="(answer, answerIndex) in question.answer"
           :key="answerIndex"
@@ -90,9 +90,6 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex';
-import AddeableInput from '@/components/form/AddeableInput';
-import Input from '@/components/form/Input';
-import Select from '@/components/form/Select';
 import { TEXT, STARS, MULTIPLE_CHOICE } from '@/domain/campaign/question';
 import {
   CAMPAIGN_CREATE_STATES,
@@ -103,11 +100,6 @@ const { mapGetters, mapMutations, mapActions } = createNamespacedHelpers('forms/
 
 export default {
   name: 'QuestionsForm',
-  components: {
-    AddeableInput,
-    Input,
-    Select,
-  },
   data() {
     return {
       typesThatRequireQuestion: TYPES_THAT_REQUIRE_QUESTION,

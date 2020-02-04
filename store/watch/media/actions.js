@@ -11,8 +11,12 @@ export default {
         commit('setState', WATCH_STATE.ERROR);
         return;
       }
-      commit('setMedia', response.data.media);
-      commit('setState', WATCH_STATE.LOADED);
+      if (response.data.found) {
+        commit('setMedia', response.data.media);
+        commit('setState', WATCH_STATE.LOADED);
+      } else {
+        commit('setState', WATCH_STATE.ALL_WATCHED);
+      }
     } catch (e) {
       commit('setState', WATCH_STATE.ERROR);
     }

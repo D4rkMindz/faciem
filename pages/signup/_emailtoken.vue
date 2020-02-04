@@ -21,33 +21,33 @@
                v-if="step === 1"
                class="step">
             <div class="form">
-              <Input id="first-name"
-                     v-model="firstname"
-                     :errors="errors.firstname"
-                     @validate="validateFirstname"
-                     placeholder="Required"
-                     label="First name" />
+              <v-input id="first-name"
+                       v-model="firstname"
+                       :errors="errors.firstname"
+                       @validate="validateFirstname"
+                       placeholder="Required"
+                       label="First name" />
 
-              <Input id="middle-name"
-                     v-model="middlename"
-                     :errors="errors.middlename"
-                     @validate="validateMiddlename"
-                     placeholder="Optional"
-                     label="Middle name" />
+              <v-input id="middle-name"
+                       v-model="middlename"
+                       :errors="errors.middlename"
+                       @validate="validateMiddlename"
+                       placeholder="Optional"
+                       label="Middle name" />
 
-              <Input id="last-name"
-                     v-model="lastname"
-                     :errors="errors.lastname"
-                     @validate="validateLastname"
-                     placeholder="Required"
-                     label="Last name" />
+              <v-input id="last-name"
+                       v-model="lastname"
+                       :errors="errors.lastname"
+                       @validate="validateLastname"
+                       placeholder="Required"
+                       label="Last name" />
 
-              <Input id="birth-date"
-                     v-model="birthdate"
-                     :placeholder="minimumAge"
-                     :errors="errors.birthdate"
-                     @validate="validateBirthdate"
-                     label="Birthdate" />
+              <v-input id="birth-date"
+                       v-model="birthdate"
+                       :placeholder="minimumAge"
+                       :errors="errors.birthdate"
+                       @validate="validateBirthdate"
+                       label="Birthdate" />
             </div>
 
             <div class="flex flex-wrap">
@@ -62,18 +62,18 @@
                v-else-if="step === 2"
                class="step">
             <div class="form">
-              <Input id="username"
-                     v-model="username"
-                     :errors="errors.username"
-                     @validate="validateUsername"
-                     label="Username" />
+              <v-input id="username"
+                       v-model="username"
+                       :errors="errors.username"
+                       @validate="validateUsername"
+                       label="Username" />
 
-              <Input id="password"
-                     v-model="password"
-                     :errors="errors.password"
-                     @validate="validatePassword"
-                     type="password"
-                     label="Password" />
+              <v-input id="password"
+                       v-model="password"
+                       :errors="errors.password"
+                       @validate="validatePassword"
+                       type="password"
+                       label="Password" />
             </div>
 
             <div class="flex flex-wrap flex-col-reverse lg:flex-row">
@@ -97,14 +97,10 @@
 <script>
 import { createNamespacedHelpers } from 'vuex';
 import moment from 'moment';
-import Input from '@/components/form/Input';
 
 const { mapActions, mapGetters } = createNamespacedHelpers('registration');
 export default {
   name: 'EmailTokenPage',
-  components: {
-    Input,
-  },
   data() {
     return {
       step: 1,

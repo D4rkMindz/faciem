@@ -1,9 +1,9 @@
 import { shallowMount } from '@vue/test-utils';
-import Input from '@/components/form/Input';
+import VInput from '@/components/form/VInput';
 
-describe('Input', () => {
+describe('VInput', () => {
   it('is a Vue instance', () => {
-    const wrapper = shallowMount(Input, {
+    const wrapper = shallowMount(VInput, {
       propsData: {
         value: 'value',
         id: 'some-id',

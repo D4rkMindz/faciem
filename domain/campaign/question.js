@@ -8,8 +8,17 @@ export class Question {
   type = 'text';
   answer = [];
 
-  constructor() {
-    this.id = Math.round(Math.random() * 1000);
+  constructor(data = { id: null, value: null, language: 'en', errors: [], valid: false, type: 'text', answer: [] }) {
+    if (data.id === null) {
+      data.id = Math.round(Math.random() * 1000);
+    }
+    this.id = data.id;
+    this.value = data.value;
+    this.language = data.language;
+    this.errors = data.errors;
+    this.valid = data.valid;
+    this.type = data.type;
+    this.answer = data.answer;
   }
 }
 

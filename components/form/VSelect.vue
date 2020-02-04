@@ -44,7 +44,7 @@
 import BaseInput from '@/components/form/BaseInput';
 
 export default {
-  name: 'Select',
+  name: 'VSelect',
   extends: BaseInput,
   props: {
     options: {

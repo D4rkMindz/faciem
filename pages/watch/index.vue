@@ -16,7 +16,7 @@
         <transition name="fade">
           <div v-if="showPlayer && !source"
                class="text-center">
-            <h3>Loading ...</h3>
+            <h3>{{ message }}</h3>
           </div>
         </transition>
         <transition name="fade">
@@ -49,7 +49,6 @@
 import NetworkSpeed from 'network-speed';
 import { createNamespacedHelpers } from 'vuex';
 import { SpeedLimits } from '~/domain/network/speed-limits';
-import Player from '@/components/Player';
 import { WATCH_STATE } from '@/store/watch/media';
 import { QUESTIONS_STATE } from '@/store/watch/questions';
 const questionsStore = createNamespacedHelpers('watch/questions');
@@ -58,10 +57,11 @@ const mediaStore = createNamespacedHelpers('watch/media');
 export default {
   name: 'WatchPage',
   middleware: 'auth',
-  components: { Player },
   data: () => {
     return {
+      stars: 0,
       speed: 0,
+      message: 'Loading ...',
       type: 'video/mp4',
       host: 'https://venovum.dev',
       hash: null,
@@ -85,7 +85,10 @@ export default {
       }
     },
     source() {
-      if (this.mediaState === WATCH_STATE.LOADED && this.questionsState === QUESTIONS_STATE.INITIAL) {
+      if (
+        this.mediaState === WATCH_STATE.LOADED &&
+        (this.questionsState === QUESTIONS_STATE.INITIAL || this.questionsState === QUESTIONS_STATE.ERROR)
+      ) {
         // eslint-disable-next-line no-console
         console.log('loading questions for ', this.getMedia().campaign_id);
         this.getQuestionsForMedia(this.getMedia().campaign_id);
@@ -94,6 +97,9 @@ export default {
     mediaState() {
       if (this.mediaState === WATCH_STATE.LOADED && this.resolution) {
         this.setSource();
+      }
+      if (this.mediaState === WATCH_STATE.ALL_WATCHED) {
+        this.message = 'All campaigns watched. We will inform you, if there are any other campaigns available for you.';
       }
       this.source = null;
     },
