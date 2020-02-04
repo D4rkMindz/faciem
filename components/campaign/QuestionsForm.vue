@@ -55,15 +55,15 @@
 
         <addeable-input
           v-if="typesThatRequireMultipleAnswers.includes(question.type)"
-          v-for="(answer, answerIndex) in question.answer"
+          v-for="(answer, answerIndex) in question.answers"
           :key="answerIndex"
           @add="onAdd(i, answerIndex)"
           @remove="onRemove(i, answerIndex)"
           @validate="validateAnswer({ questionIndex: i, answerIndex: answerIndex })"
           :id="id('add')"
           :errors="answer.errors"
-          :show-add="answerIndex === question.answer.length - 1"
-          :show-remove="question.answer.length > 1"
+          :show-add="answerIndex === question.answers.length - 1"
+          :show-remove="question.answers.length > 1"
           :value="answer.value"
           @input="setAnswerValue({questionIndex: i, answerIndex: answerIndex, property: 'value', value: $event})"
           label="Answer"
@@ -171,11 +171,11 @@ export default {
     },
     setType(index, type) {
       const question = this.getQuestions()[index];
-      if (TYPES_THAT_REQUIRE_MULTIPLE_ANSWERS.includes(type) && question.answer.length === 0) {
+      if (TYPES_THAT_REQUIRE_MULTIPLE_ANSWERS.includes(type) && question.answers.length === 0) {
         this.addAnswer({ questionIndex: index });
       }
       if (!TYPES_THAT_REQUIRE_MULTIPLE_ANSWERS.includes(type)) {
-        this.setQuestionValue({ questionIndex: index, property: 'answer', value: [] });
+        this.setQuestionValue({ questionIndex: index, property: 'answers', value: [] });
       }
       if (TYPES_THAT_REQUIRE_NO_QUESTION.includes(type)) {
         this.setQuestionValue({ questionIndex: index, property: 'valid', value: true });

@@ -100,7 +100,7 @@ export default {
    * @param questionIndex
    */
   addAnswer(state, { questionIndex }) {
-    state.questions[questionIndex].answer.push(new Answer());
+    state.questions[questionIndex].answers.push(new Answer());
   },
   /**
    * Remove an answer
@@ -109,7 +109,7 @@ export default {
    * @param answerIndex
    */
   removeAnswer(state, { questionIndex, answerIndex }) {
-    state.questions[questionIndex].answer.splice(answerIndex, 1);
+    state.questions[questionIndex].answers.splice(answerIndex, 1);
   },
   /**
    * Set an answer value
@@ -120,7 +120,7 @@ export default {
    * @param value
    */
   setAnswerValue(state, { questionIndex, answerIndex, property, value }) {
-    state.questions[questionIndex].answer[answerIndex][property] = value;
+    state.questions[questionIndex].answers[answerIndex][property] = value;
   },
   /**
    * Set the state
@@ -157,7 +157,7 @@ export default {
       question.errors.push(...getErrors(question.id + '.type'));
       question.errors.push(...getErrors(question.id + '.language'));
 
-      question.answer.forEach((answer, key) => {
+      question.answers.forEach((answer, key) => {
         answer.errors = [];
         answer.errors.push(...getErrors(question.id + '.answer.' + key));
       });

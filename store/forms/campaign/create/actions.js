@@ -89,7 +89,7 @@ export default {
     }
 
     if (TYPES_THAT_REQUIRE_NO_QUESTION.includes(question.type)) {
-      question.answer = [];
+      question.answers = [];
     }
 
     if (!question.value || question.value.trim().length < 3) {
@@ -108,13 +108,13 @@ export default {
    */
   validateAnswer({ commit, state }, { questionIndex, answerIndex }) {
     const question = cloneDeep(state.questions[questionIndex]);
-    const answer = question.answer[answerIndex];
+    const answer = question.answers[answerIndex];
 
     answer.errors = [];
 
-    if (TYPES_THAT_REQUIRE_MULTIPLE_ANSWERS.includes(question.type) && question.answer.length <= 1) {
-      question.answer[question.answer.length - 1].errors.push('Please add more than one answer option');
-      question.answer[question.answer.length - 1].valid = false;
+    if (TYPES_THAT_REQUIRE_MULTIPLE_ANSWERS.includes(question.type) && question.answers.length <= 1) {
+      question.answers[question.answers.length - 1].errors.push('Please add more than one answer option');
+      question.answers[question.answers.length - 1].valid = false;
     }
 
     if (!answer.value || answer.value.trim().length < 1) {

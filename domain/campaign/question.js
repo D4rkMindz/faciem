@@ -6,9 +6,9 @@ export class Question {
   errors = [];
   valid = false;
   type = 'text';
-  answer = [];
+  answers = [];
 
-  constructor(data = { id: null, value: null, language: 'en', errors: [], valid: false, type: 'text', answer: [] }) {
+  constructor(data = { id: null, value: null, language: 'en', errors: [], valid: false, type: 'text', answers: [] }) {
     if (data.id === null) {
       data.id = Math.round(Math.random() * 1000);
     }
@@ -18,7 +18,7 @@ export class Question {
     this.errors = data.errors;
     this.valid = data.valid;
     this.type = data.type;
-    this.answer = data.answer;
+    this.answers = data.answers;
   }
 }
 

@@ -5,13 +5,19 @@ export default {
   /**
    * Get the video
    * @param state
-   * @return {*}
+   * @return {Question[]}
    */
   getQuestions: (state) => {
+    if (!state.questions) {
+      return [];
+    }
     const questions = [];
-    state.questions.forEach((question, i) => {
-      question.answer.forEach((answer, i) => {
-        question.answer[i] = new Answer(answer);
+    state.questions.forEach((question) => {
+      if (!question.answers) {
+        return;
+      }
+      question.answers.forEach((answer, i) => {
+        question.answers[i] = new Answer(answer);
       });
       questions.push(new Question(question));
     });

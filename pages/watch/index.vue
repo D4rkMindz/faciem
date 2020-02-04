@@ -22,22 +22,13 @@
         <transition name="fade">
           <div v-if="!showPlayer && !source"
                class="text-center">
-            <h3>Loading ...</h3>
+            <h3>{{ message }}</h3>
           </div>
         </transition>
         <transition name="fade">
           <div v-if="!showPlayer && source"
                class="sm:w-1/1 md:w-3/5 p-2 ml-auto mr-auto">
-            {{ questionsState }}
-
-            <div class="text-right">
-              <button :disabled="nextIsDisabled"
-                      :class="{'opacity-50 cursor-not-allowed': (nextIsDisabled === true)}"
-                      @click="answer"
-                      class="button">
-                Send answers
-              </button>
-            </div>
+            <AnswerForm />
           </div>
         </transition>
       </div>
@@ -48,6 +39,7 @@
 <script>
 import NetworkSpeed from 'network-speed';
 import { createNamespacedHelpers } from 'vuex';
+import AnswerForm from '@/components/campaign/AnswerForm';
 import { SpeedLimits } from '~/domain/network/speed-limits';
 import { WATCH_STATE } from '@/store/watch/media';
 import { QUESTIONS_STATE } from '@/store/watch/questions';
@@ -57,6 +49,9 @@ const mediaStore = createNamespacedHelpers('watch/media');
 export default {
   name: 'WatchPage',
   middleware: 'auth',
+  components: {
+    AnswerForm,
+  },
   data: () => {
     return {
       stars: 0,
@@ -70,7 +65,6 @@ export default {
       resolution: null,
       format: 'mp4', // TODO change format to webm for chrome (browserdetection)
       showPlayer: true,
-      nextIsDisabled: true,
     };
   },
   computed: {

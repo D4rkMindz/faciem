@@ -51,7 +51,7 @@ export default {
         if (!q.valid) {
           throw BreakException;
         }
-        q.answer.forEach((a) => {
+        q.answers.forEach((a) => {
           if (!a.valid) {
             throw BreakException;
           }
