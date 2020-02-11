@@ -4,7 +4,7 @@
          class="lg:flex lg:items-center">
       <div class="lg:w-1/3">
         <label :for="id"
-               class="block text-gray-500 lg:text-right mb-1 lg:mb-0 pr-4">
+               class="block text lg:text-right mb-1 lg:mb-0 pr-4">
           {{ label }}
         </label>
       </div>

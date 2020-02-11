@@ -1,0 +1,58 @@
+<template>
+  <div v-if="value"
+       class="flex flex-col md:flex-row mt-8">
+    <p class="w-1/1 md:w-2/5 mb-4 md:mt-0 text md:text-right pr-4">
+      {{ value.text }}
+    </p>
+    <div class="flex-col w-1/1 md:w-3/5">
+      <div v-for="(answer, i) in value.answers"
+           :key="i"
+           @click="$refs[value.id + '-answer-' + answer.id][0].click()"
+           class="hover py-3 md:py-0">
+        <v-radio-input :name="value.id"
+                       :ref="value.id + '-answer-' + answer.id"
+                       :id="value.id + '-answer-'+ answer.id"
+                       :label="answer.text"
+                       :errors="answer.errors"
+                       @avalidate="validate($event)" />
+      </div>
+
+      <div v-for="(error, i) in value.errors"
+           :class="{'mb-6': (i === Object.keys(errors).length - 1 /* last element needs a margin bottom 6 */)}"
+           class="flex">
+        <div class="hidden lg:block lg:w-1/3">
+          &nbsp;
+        </div>
+        <div class="w-full lg:w-2/3 px-3 error text-xs">
+          {{ error }}
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import BaseAnswer from '@/components/campaign/answer/BaseAnswer';
+export default {
+  name: 'MultipleChoiceAnswer',
+  extends: BaseAnswer,
+  mounted() {
+    // eslint-disable-next-line no-console
+    console.log(this.$refs);
+    // eslint-disable-next-line no-console
+    console.log(this.value.answers);
+  },
+  methods: {
+    validate(event) {
+      // eslint-disable-next-line no-console
+      console.log('validate', event);
+    },
+  },
+};
+</script>
+
+<style>
+  .hover:hover {
+    cursor: pointer;
+  }
+</style>

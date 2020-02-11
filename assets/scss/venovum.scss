@@ -11,7 +11,7 @@
 }
 
 .text {
-  @apply text-gray-500 text-sm;
+  @apply text-gray-700 leading-normal;
 }
 
 .text-primary {
@@ -99,6 +99,23 @@
       border-top-color: #222;
       animation: spinner .6s linear infinite;
     }
+  }
+}
+.radio {
+  touch-action: manipulation;
+  transition: background .2s, transform .2s;
+  & + label span:hover,
+  & + label:hover span{
+    transform: scale(1.2);
+  }
+
+  &:checked + label span {
+    @apply bg-purple-700;
+    box-shadow: 0 0 0 2px white inset;
+  }
+
+  &:checked + label{
+    @apply text-purple-700;
   }
 }
 

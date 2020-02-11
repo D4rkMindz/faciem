@@ -14,6 +14,7 @@ module.exports = {
   extends: ['@nuxtjs', 'plugin:nuxt/recommended', 'plugin:cypress/recommended'],
   // add your custom rules here
   rules: {
+    'vue/require-component-is': 'off',
     'semi': [2, 'always'],
     'comma-dangle': [2, 'always-multiline'],
     'vue/max-attributes-per-line': ['error', {

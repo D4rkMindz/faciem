@@ -1,31 +1,23 @@
 <template>
-  <div>
-    <div :class="{'my-6': errors.length === 0, 'mt-6': errors.length !== 0}"
-         class="flex flex-col md:flex-row lg:items-center">
-      <div class="w-1/1 md:w-2/5">
-        <label :for="id"
-               class="block md:text-right mb-1 lg:mb-0 pr-4 text">
-          {{ label }}
-        </label>
-      </div>
-
-      <div class="w-1/1 md:w-3/5">
-        <input ref="input"
-               :id="id"
-               v-model="inputValue"
-               :title="inputValue"
-               :class="['input', classes]"
-               :placeholder="placeholder"
-               :type="type"
-               @input="onInput"
-               @leave="onBlur"
-               @blur="onBlur" />
-      </div>
+  <div class="pb-2">
+    <div>
+      <input ref="input"
+             :id="id"
+             :name="name"
+             :title="inputValue"
+             :class="['radio', classes]"
+             @input="inputValue = id;onInput()"
+             @leave="onBlur"
+             @blur="onBlur"
+             type="radio" />
+      <label :for="id"
+             class="inline ml-2 text">
+        {{ label }}
+      </label>
     </div>
-    <div
-      v-for="(error, i) in errors"
-      :class="{'mb-6': (i === Object.keys(errors).length - 1 /* last element needs a margin bottom 6 */)}"
-      class="flex">
+    <div v-for="(error, i) in errors"
+         :class="{'mb-6': (i === Object.keys(errors).length - 1 /* last element needs a margin bottom 6 */)}"
+         class="flex">
       <div class="hidden lg:block lg:w-1/3">
         &nbsp;
       </div>
@@ -54,6 +46,11 @@ export default {
   name: 'Input',
   extends: BaseInput,
   props: {
+    name: {
+      default: 'radio-input',
+      type: String,
+      required: true,
+    },
     type: {
       default: 'text',
       type: String,
@@ -65,5 +62,16 @@ export default {
       required: false,
     },
   },
+  methods: {
+    click() {
+      this.$refs.input.click();
+    },
+  },
 };
 </script>
+
+<style>
+  .radio {
+    color: #3d2dda;
+  }
+</style>
