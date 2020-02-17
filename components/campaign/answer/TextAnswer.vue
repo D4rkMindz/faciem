@@ -17,16 +17,20 @@ export default {
   extends: BaseAnswer,
   methods: {
     validateText(value) {
-      this.value.errors = [];
+      const errors = [];
       if (!value) {
-        this.value.errors.push('Please answer the question');
+        errors.push('Please answer the question');
       }
       if (value.trim().length <= 2) {
-        this.value.errors.push('Your answer must be longer than 3 characters');
+        errors.push('Your answer must be longer than 3 characters');
       }
       if (value.trim().length >= 80) {
-        this.value.errors.push('Your answer cannot be longer than 150 characters');
+        errors.push('Your answer cannot be longer than 150 characters');
       }
+
+      this.$set(this.value, 'errors', errors);
+      this.$set(this.value, 'valid', errors.length === 0);
+      this.$forceUpdate();
     },
   },
 };

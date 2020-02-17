@@ -14,16 +14,16 @@
                        :id="value.id + '-answer-'+ answer.id"
                        :label="answer.text"
                        :errors="answer.errors"
-                       @avalidate="validate($event)" />
+                       @validate="validate($event)" />
       </div>
 
       <div v-for="(error, i) in value.errors"
            :class="{'mb-6': (i === Object.keys(errors).length - 1 /* last element needs a margin bottom 6 */)}"
            class="flex">
-        <div class="hidden lg:block lg:w-1/3">
+        <div class="hidden md:block w-0 md:w-2/5">
           &nbsp;
         </div>
-        <div class="w-full lg:w-2/3 px-3 error text-xs">
+        <div class="w-full md:w-3/5 px-3 error text-xs">
           {{ error }}
         </div>
       </div>
@@ -44,8 +44,6 @@ export default {
   },
   methods: {
     validate(event) {
-      // eslint-disable-next-line no-console
-      console.log('validate', event);
     },
   },
 };

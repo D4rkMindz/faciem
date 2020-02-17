@@ -26,10 +26,10 @@
       v-for="(error, i) in errors"
       :class="{'mb-6': (i === Object.keys(errors).length - 1 /* last element needs a margin bottom 6 */)}"
       class="flex">
-      <div class="hidden lg:block lg:w-1/3">
+      <div class="hidden md:block w-0 md:w-2/5">
         &nbsp;
       </div>
-      <div class="w-full lg:w-2/3 px-3 error text-xs">
+      <div class="w-full lg:w-3/5 px-3 error text-xs">
         {{ error }}
       </div>
     </div>

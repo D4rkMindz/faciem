@@ -1,6 +1,6 @@
 <template>
   <div class="pb-2">
-    <div>
+    <div class="hover">
       <input ref="input"
              :id="id"
              :name="name"
@@ -9,9 +9,10 @@
              @input="inputValue = id;onInput()"
              @leave="onBlur"
              @blur="onBlur"
+             class="radio"
              type="radio" />
       <label :for="id"
-             class="inline ml-2 text">
+             class="inline ml-2 text hover">
         {{ label }}
       </label>
     </div>
@@ -73,5 +74,8 @@ export default {
 <style>
   .radio {
     color: #3d2dda;
+  }
+  .hover:hover {
+    cursor: pointer;
   }
 </style>

@@ -5,7 +5,7 @@ export default {
   name: 'BaseAnswer',
   props: {
     value: {
-      type: Question,
+      type: [Object, Question],
       required: true,
     },
   },

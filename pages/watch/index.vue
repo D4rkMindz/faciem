@@ -5,32 +5,33 @@
         Title of the campaign
       </div>
       <div class="flex flex-col">
-        <transition name="fade">
-          <div v-if="showPlayer && source"
-               class="w-1/1 p-2">
-            <player :source="source"
-                    :type="type"
-                    @ended="showPlayer = false" />
-          </div>
-        </transition>
-        <transition name="fade">
-          <div v-if="showPlayer && !source"
-               class="text-center">
-            <h3>{{ message }}</h3>
-          </div>
-        </transition>
-        <transition name="fade">
-          <div v-if="!showPlayer && !source"
-               class="text-center">
-            <h3>{{ message }}</h3>
-          </div>
-        </transition>
-        <transition name="fade">
-          <div v-if="!showPlayer && source"
-               class="sm:w-1/1 md:w-3/5 p-2 ml-auto mr-auto">
-            <AnswerForm />
-          </div>
-        </transition>
+        <AnswerForm />
+        <!--        <transition name="fade">-->
+        <!--          <div v-if="showPlayer && source"-->
+        <!--               class="w-1/1 p-2">-->
+        <!--            <player :source="source"-->
+        <!--                    :type="type"-->
+        <!--                    @ended="showPlayer = false" />-->
+        <!--          </div>-->
+        <!--        </transition>-->
+        <!--        <transition name="fade">-->
+        <!--          <div v-if="showPlayer && !source"-->
+        <!--               class="text-center">-->
+        <!--            <h3>{{ message }}</h3>-->
+        <!--          </div>-->
+        <!--        </transition>-->
+        <!--        <transition name="fade">-->
+        <!--          <div v-if="!showPlayer && !source"-->
+        <!--               class="text-center">-->
+        <!--            <h3>{{ message }}</h3>-->
+        <!--          </div>-->
+        <!--        </transition>-->
+        <!--        <transition name="fade">-->
+        <!--          <div v-if="!showPlayer && source"-->
+        <!--               class="sm:w-1/1 md:w-3/5 p-2 ml-auto mr-auto">-->
+        <!--            <AnswerForm />-->
+        <!--          </div>-->
+        <!--        </transition>-->
       </div>
     </div>
   </div>
@@ -83,8 +84,6 @@ export default {
         this.mediaState === WATCH_STATE.LOADED &&
         (this.questionsState === QUESTIONS_STATE.INITIAL || this.questionsState === QUESTIONS_STATE.ERROR)
       ) {
-        // eslint-disable-next-line no-console
-        console.log('loading questions for ', this.getMedia().campaign_id);
         this.getQuestionsForMedia(this.getMedia().campaign_id);
       }
     },
@@ -99,8 +98,6 @@ export default {
     },
   },
   destroyed() {
-    // eslint-disable-next-line no-console
-    console.log('resetting');
     this.$store.commit('watch/questions/reset', null);
     this.$store.commit('watch/media/reset', null);
   },

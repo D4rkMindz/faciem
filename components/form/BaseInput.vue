@@ -5,7 +5,7 @@ export default {
     label: {
       default: 'FORM INPUT',
       type: String,
-      required: true,
+      required: false,
     },
     id: {
       default: 'input',

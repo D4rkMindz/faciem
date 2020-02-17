@@ -1,18 +1,4 @@
 import cloneDeep from 'lodash.clonedeep';
-import { Answer } from '@/domain/campaign/answer';
-import { Question } from '@/domain/campaign/question';
-import StarsAnswer from '@/components/campaign/answer/StarsAnswer';
-import MultipleChoiceAnswer from '@/components/campaign/answer/MultipleChoiceAnswer';
-import TextAnswer from '@/components/campaign/answer/TextAnswer';
-
-function extractType(type) {
-  const map = {
-    stars: StarsAnswer.name,
-    'multiple-choice': MultipleChoiceAnswer.name,
-    text: TextAnswer.name,
-  };
-  return map[type.toLowerCase()];
-}
 
 export default {
   /**
@@ -20,39 +6,39 @@ export default {
    * @param state
    * @return {Question[]}
    */
-  getQuestions: (state) => {
-    if (!state.questions) {
-      return [];
-    }
-    const questions = [];
-    state.questions.forEach((q) => {
-      const question = cloneDeep(q);
-      if (question.answers) {
-        question.answers.forEach((a, i) => {
-          const answer = {
-            id: a.id,
-            text: a.answer,
-            value: a.value,
-            valid: true,
-          };
-          question.answers[i] = new Answer(answer);
-        });
-      }
-      const data = {};
-      data.id = question.id;
-      data.type = extractType(question.question_type);
-      data.text = question.question;
-      data.value = '';
-      data.answers = question.answers;
-      questions.push(new Question(data));
-    });
-
-    return questions;
-  },
+  getQuestions: state => cloneDeep(state.questions),
   /**
-   * Get the campaigns state
+   * Get the campaigns answer state
    * @param state
    * @return {*}
    */
   getQuestionsState: state => state.state,
+  /**
+   * Check if the form is valid
+   * @param state
+   * @return {boolean}
+   */
+  isValid: (state) => {
+    let formValid = true;
+    const BreakException = {};
+    try {
+      if (state.questions.length <= 0) {
+        throw BreakException;
+      }
+      state.questions.forEach((q) => {
+        if (!q.valid) {
+          throw BreakException;
+        }
+        q.answers.forEach((a) => {
+          if (!a.valid) {
+            throw BreakException;
+          }
+        });
+      });
+    } catch (e) {
+      formValid = false;
+    }
+
+    return formValid;
+  },
 };

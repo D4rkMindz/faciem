@@ -25,6 +25,12 @@ export default {
       type: Number,
     },
   },
+  watch: {
+    value(n) {
+      // eslint-disable-next-line no-console
+      console.log('value stars changed to:', n);
+    },
+  },
 };
 </script>
 

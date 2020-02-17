@@ -23,7 +23,7 @@
 import { createNamespacedHelpers } from 'vuex';
 import { QUESTIONS_STATE } from '@/store/watch/questions';
 
-const questions = createNamespacedHelpers('watch/questions');
+const { mapGetters, mapMutations } = createNamespacedHelpers('watch/questions');
 export default {
   name: 'AnswerForm',
   data() {
@@ -36,13 +36,30 @@ export default {
      * Get all questions
      * @return {Question[]}
      */
-    questions() { return this.getQuestions(); },
+    questions: {
+      get() { return this.getQuestions(); },
+      set(questions) { this.setQuestions(questions); },
+    },
     questionsAvailable() { return this.getState() === QUESTIONS_STATE.LOADED; },
   },
+  mounted() {
+    this.$watch(
+      () => this.questions,
+      (n) => {
+        // eslint-disable-next-line no-console
+        console.log('questions changed to', n);
+      },
+      { deep: true }
+    );
+  },
   methods: {
-    ...questions.mapGetters([
+    ...mapGetters([
       'getQuestions',
       'getState',
+      'isValid',
+    ]),
+    ...mapMutations([
+      'setQuestions',
     ]),
     answer() {
       if (QUESTIONS_STATE.ERROR) {

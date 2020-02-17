@@ -124,6 +124,12 @@ export default {
 
     commit('setQuestion', { questionIndex, question });
   },
+  /**
+   * Validate the name
+   * @param commit
+   * @param state
+   * @param name
+   */
   validateName({ commit, state }, name) {
     const errors = [];
     if (!name) {
