@@ -31,7 +31,7 @@ export default {
 
       this.$set(this.value, 'errors', errors);
       this.$set(this.value, 'valid', errors.length === 0);
-      this.$forceUpdate();
+      this.emit();
     },
   },
 };

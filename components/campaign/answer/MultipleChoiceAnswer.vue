@@ -39,6 +39,7 @@ export default {
   extends: BaseAnswer,
   methods: {
     validate(event) {
+      this.emit();
     },
     setValue(index) {
       const refId = this.value.id + '-answer-' + this.value.answers[index].id;

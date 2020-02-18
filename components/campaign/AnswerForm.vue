@@ -60,8 +60,6 @@ export default {
     setValue(key, value) {
       this.questions[key] = value;
       this.setQuestions(cloneDeep(this.questions));
-
-      this.$forceUpdate();
     },
   },
 };
