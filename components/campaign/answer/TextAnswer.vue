@@ -25,7 +25,7 @@ export default {
       if (value.trim().length <= 2) {
         errors.push('Your answer must be longer than 3 characters');
       }
-      if (value.trim().length >= 80) {
+      if (value.trim().length >= 150) {
         errors.push('Your answer cannot be longer than 150 characters');
       }
 

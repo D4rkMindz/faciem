@@ -5,45 +5,43 @@
         Title of the campaign
       </div>
       <div class="flex flex-col">
-        <AnswerForm />
-        <!--        <transition name="fade">-->
-        <!--          <div v-if="showPlayer && source"-->
-        <!--               class="w-1/1 p-2">-->
-        <!--            <player :source="source"-->
-        <!--                    :type="type"-->
-        <!--                    @ended="showPlayer = false" />-->
-        <!--          </div>-->
-        <!--        </transition>-->
-        <!--        <transition name="fade">-->
-        <!--          <div v-if="showPlayer && !source"-->
-        <!--               class="text-center">-->
-        <!--            <h3>{{ message }}</h3>-->
-        <!--          </div>-->
-        <!--        </transition>-->
-        <!--        <transition name="fade">-->
-        <!--          <div v-if="!showPlayer && !source"-->
-        <!--               class="text-center">-->
-        <!--            <h3>{{ message }}</h3>-->
-        <!--          </div>-->
-        <!--        </transition>-->
-        <!--        <transition name="fade">-->
-        <!--          <div v-if="!showPlayer && source"-->
-        <!--               class="sm:w-1/1 md:w-3/5 p-2 ml-auto mr-auto">-->
-        <!--            <AnswerForm />-->
-        <!--          </div>-->
-        <!--        </transition>-->
+        <transition name="fade">
+          <div v-if="showPlayer && source"
+               class="w-1/1 p-2">
+            <player :source="source"
+                    :type="type"
+                    @ended="showPlayer = false" />
+          </div>
+        </transition>
+        <transition name="fade">
+          <div v-if="showPlayer && !source"
+               class="text-center">
+            <h3>{{ message }}</h3>
+          </div>
+        </transition>
+        <transition name="fade">
+          <div v-if="!showPlayer && !source"
+               class="text-center">
+            <h3>{{ message }}</h3>
+          </div>
+        </transition>
+        <transition name="fade">
+          <div v-if="!showPlayer && source"
+               class="sm:w-1/1 md:w-3/5 p-2 ml-auto mr-auto">
+            <AnswerForm />
+          </div>
+        </transition>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import NetworkSpeed from 'network-speed';
 import { createNamespacedHelpers } from 'vuex';
 import AnswerForm from '@/components/campaign/AnswerForm';
-import { SpeedLimits } from '~/domain/network/speed-limits';
 import { WATCH_STATE } from '@/store/watch/media';
 import { QUESTIONS_STATE } from '@/store/watch/questions';
+import { ResolutionEvaluator } from '@/domain/network/resolution-evaluator';
 const questionsStore = createNamespacedHelpers('watch/questions');
 const mediaStore = createNamespacedHelpers('watch/media');
 
@@ -55,8 +53,7 @@ export default {
   },
   data: () => {
     return {
-      stars: 0,
-      speed: 0,
+      maxTimeout: 5000,
       message: 'Loading ...',
       type: 'video/mp4',
       host: 'https://venovum.dev',
@@ -74,36 +71,45 @@ export default {
     questionsState() { return this.getQuestionsState(); },
   },
   watch: {
-    resolution() {
+    resolution(n, o) {
       if (this.mediaState === WATCH_STATE.LOADED && this.resolution) {
         this.setSource();
       }
     },
     source() {
-      if (
-        this.mediaState === WATCH_STATE.LOADED &&
-        (this.questionsState === QUESTIONS_STATE.INITIAL || this.questionsState === QUESTIONS_STATE.ERROR)
-      ) {
+      if (this.mediaState === WATCH_STATE.LOADED && (this.questionsState === QUESTIONS_STATE.INITIAL || this.questionsState === QUESTIONS_STATE.ERROR)) {
         this.getQuestionsForMedia(this.getMedia().campaign_id);
       }
     },
-    mediaState() {
-      if (this.mediaState === WATCH_STATE.LOADED && this.resolution) {
-        this.setSource();
-      }
-      if (this.mediaState === WATCH_STATE.ALL_WATCHED) {
-        this.message = 'All campaigns watched. We will inform you, if there are any other campaigns available for you.';
-      }
-      this.source = null;
+    mediaState: {
+      immediate: true,
+      handler() {
+        if (this.mediaState === WATCH_STATE.INITIAL) {
+          this.next();
+        }
+        if (this.mediaState === WATCH_STATE.LOADED && this.resolution) {
+          this.setSource();
+        }
+        if (this.mediaState === WATCH_STATE.ALL_WATCHED) {
+          this.message = 'All campaigns watched. We will inform you, if there are any other campaigns available for you.';
+        }
+        this.source = null;
+      },
+    },
+    questionsState: {
+      immediate: true,
+      handler() {
+        if (this.questionsState === QUESTIONS_STATE.SAVED) {
+          this.reset();
+        }
+      },
     },
   },
   destroyed() {
-    this.$store.commit('watch/questions/reset', null);
-    this.$store.commit('watch/media/reset', null);
+    this.reset();
   },
-  mounted() {
-    this.loadNextMedia();
-    this.testNetwork();
+  async mounted() {
+    this.resolution = await new ResolutionEvaluator().getBestResolution();
   },
   methods: {
     ...mediaStore.mapActions([
@@ -113,6 +119,9 @@ export default {
       'getMedia',
       'getState',
     ]),
+    ...mediaStore.mapMutations([
+      'setState',
+    ]),
     ...questionsStore.mapActions([
       'getQuestionsForMedia',
     ]),
@@ -120,42 +129,9 @@ export default {
       'getQuestions',
       'getQuestionsState',
     ]),
-    answer() {
-      if (this.questionsState === QUESTIONS_STATE.INITIAL) {
-        return;
-      }
-
-      // eslint-disable-next-line no-console
-      console.log('log');
-    },
-    async testNetwork() {
-      const baseUrl = 'http://eu.httpbin.org/stream-bytes/500000';
-      const fileSize = 500000;
-      const testNetworkSpeed = new NetworkSpeed();
-      const speed = await testNetworkSpeed.checkDownloadSpeed(baseUrl, fileSize);
-      this.speed = speed;
-
-      let resolution = 144;
-      if (speed.kbps <= SpeedLimits.LOW) {
-        resolution = 144;
-      }
-      if (speed.kbps > SpeedLimits.LOW && speed.kbps <= SpeedLimits.FWQVGA) {
-        resolution = 240;
-      }
-      if (speed.kbps > SpeedLimits.FWQVGA && speed.kbps <= SpeedLimits.nHD) {
-        resolution = 360;
-      }
-      if (speed.kbps > SpeedLimits.nHD && speed.kbps > SpeedLimits.FWVGA) {
-        resolution = 480;
-      }
-      if (speed.kbps > SpeedLimits.FWVGA && speed.kbps <= SpeedLimits.HD) {
-        resolution = 720;
-      }
-      if (speed.kbps > SpeedLimits.HD) {
-        resolution = 1080;
-      }
-
-      this.resolution = resolution;
+    async next() {
+      this.loadNextMedia();
+      this.resolution = await new ResolutionEvaluator().getBestResolution();
     },
     setSource() {
       if (this.source !== null) {
@@ -170,6 +146,12 @@ export default {
       const resolution = this.resolution;
       this.source = `${host}/media/${file}/${lang}/${resolution}/${format}`;
       this.showPlayer = true;
+    },
+    reset() {
+      this.$store.commit('watch/questions/reset', null);
+      this.$store.commit('watch/media/reset', null);
+      this.source = null;
+      this.resolution = null;
     },
   },
 };

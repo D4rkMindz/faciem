@@ -1,23 +1,6 @@
 import { QUESTIONS_STATE } from '@/store/watch/questions/index';
 import { Answer } from '@/domain/campaign/answer';
 import { Question } from '@/domain/campaign/question';
-import StarsAnswer from '@/components/campaign/answer/StarsAnswer';
-import MultipleChoiceAnswer from '@/components/campaign/answer/MultipleChoiceAnswer';
-import TextAnswer from '@/components/campaign/answer/TextAnswer';
-
-/**
- * Extract the type
- * @param type
- * @return {*}
- */
-function extractType(type) {
-  const map = {
-    stars: StarsAnswer.name,
-    'multiple-choice': MultipleChoiceAnswer.name,
-    text: TextAnswer.name,
-  };
-  return map[type.toLowerCase()];
-}
 
 /**
  * Parse questions
@@ -43,7 +26,7 @@ function parseQuestions(q) {
     }
     const data = {};
     data.id = question.id;
-    data.type = extractType(question.question_type);
+    data.type = question.question_type;
     data.text = question.question;
     data.value = null;
     data.answers = question.answers;
@@ -98,7 +81,7 @@ export default {
         commit('setState', QUESTIONS_STATE.ERROR);
         return;
       }
-      commit('setQuestions', null);
+      commit('setQuestions', []);
       commit('setState', QUESTIONS_STATE.SAVED);
     } catch (e) {
       commit('setState', QUESTIONS_STATE.ERROR);

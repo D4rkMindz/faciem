@@ -22,7 +22,7 @@ export default {
    * @param state
    */
   reset(state) {
-    state.state = WATCH_STATE.INITIAL;
     state.media = null;
+    state.state = WATCH_STATE.INITIAL;
   },
 };

@@ -22,7 +22,7 @@ export default {
    * @param state
    */
   reset(state) {
-    state.state = QUESTIONS_STATE.INITIAL;
     state.questions = [];
+    state.state = QUESTIONS_STATE.INITIAL;
   },
 };

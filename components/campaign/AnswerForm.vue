@@ -3,7 +3,7 @@
     <div v-for="(_, i) in questions"
          :key="i"
          class="my-4">
-      <component :is="questions[i].type"
+      <component :is="toComponent(questions[i].type)"
                  :value="questions[i]"
                  @input="setValue(i, $event)">
         <slot />
@@ -23,6 +23,9 @@
 <script>
 import { createNamespacedHelpers } from 'vuex';
 import cloneDeep from 'lodash.clonedeep';
+import StarsAnswer from '@/components/campaign/answer/StarsAnswer';
+import MultipleChoiceAnswer from '@/components/campaign/answer/MultipleChoiceAnswer';
+import TextAnswer from '@/components/campaign/answer/TextAnswer';
 
 const { mapGetters, mapMutations, mapActions } = createNamespacedHelpers('watch/questions');
 export default {
@@ -42,7 +45,6 @@ export default {
   methods: {
     ...mapGetters([
       'getQuestions',
-      'getState',
       'isValid',
     ]),
     ...mapMutations([
@@ -66,6 +68,19 @@ export default {
     setValue(key, value) {
       this.questions[key] = value;
       this.setQuestions(cloneDeep(this.questions));
+    },
+    /**
+     * Convert the type to a component
+     * @param type
+     * @return {*}
+     */
+    toComponent(type) {
+      const map = {
+        stars: StarsAnswer.name,
+        'multiple-choice': MultipleChoiceAnswer.name,
+        text: TextAnswer.name,
+      };
+      return map[type.toLowerCase()];
     },
   },
 };
