@@ -9,5 +9,14 @@ export default {
       required: true,
     },
   },
+  methods: {
+    /**
+     * Emit
+     * @param value
+     */
+    emit(value = null) {
+      this.$emit('input', this.value);
+    },
+  },
 };
 </script>

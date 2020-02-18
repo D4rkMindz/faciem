@@ -4,7 +4,8 @@
          :key="i"
          class="my-4">
       <component :is="questions[i].type"
-                 v-model="questions[i]">
+                 :value="questions[i]"
+                 @input="setValue(i, $event)">
         <slot />
       </component>
     </div>
@@ -38,19 +39,13 @@ export default {
      */
     questions: {
       get() { return this.getQuestions(); },
-      set(questions) { this.setQuestions(questions); },
+      set(questions) {
+        // eslint-disable-next-line no-console
+        console.log('setting questions', questions);
+        this.setQuestions(questions);
+      },
     },
     questionsAvailable() { return this.getState() === QUESTIONS_STATE.LOADED; },
-  },
-  mounted() {
-    this.$watch(
-      () => this.questions,
-      (n) => {
-        // eslint-disable-next-line no-console
-        console.log('questions changed to', n);
-      },
-      { deep: true }
-    );
   },
   methods: {
     ...mapGetters([
@@ -67,6 +62,11 @@ export default {
       }
       // eslint-disable-next-line no-console
       console.log('answer');
+    },
+    setValue(key, value) {
+      this.questions[key] = value;
+
+      this.$forceUpdate();
     },
   },
 };

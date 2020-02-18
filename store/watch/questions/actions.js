@@ -1,4 +1,3 @@
-import cloneDeep from 'lodash.clonedeep';
 import { QUESTIONS_STATE } from '@/store/watch/questions/index';
 import { Answer } from '@/domain/campaign/answer';
 import { Question } from '@/domain/campaign/question';
@@ -19,8 +18,7 @@ function parseQuestions(q) {
     return [];
   }
   const questions = [];
-  q.forEach((q) => {
-    const question = cloneDeep(q);
+  q.forEach((question) => {
     if (question.answers) {
       question.answers.forEach((a, i) => {
         const answer = {

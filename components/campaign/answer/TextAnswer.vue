@@ -3,6 +3,7 @@
        class="mt-8">
     <v-input :id="value.id"
              v-model="value.value"
+             @input="emit()"
              @validate="validateText($event)"
              :errors="value.errors"
              :label="value.text"

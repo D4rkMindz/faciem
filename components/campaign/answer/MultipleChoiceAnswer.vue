@@ -7,7 +7,7 @@
     <div class="flex-col w-1/1 md:w-3/5">
       <div v-for="(answer, i) in value.answers"
            :key="i"
-           @click="$refs[value.id + '-answer-' + answer.id][0].click()"
+           @click="setValue(i)"
            class="hover py-3 md:py-0">
         <v-radio-input :name="value.id"
                        :ref="value.id + '-answer-' + answer.id"
@@ -36,14 +36,14 @@ import BaseAnswer from '@/components/campaign/answer/BaseAnswer';
 export default {
   name: 'MultipleChoiceAnswer',
   extends: BaseAnswer,
-  mounted() {
-    // eslint-disable-next-line no-console
-    console.log(this.$refs);
-    // eslint-disable-next-line no-console
-    console.log(this.value.answers);
-  },
   methods: {
     validate(event) {
+    },
+    setValue(index) {
+      this.$refs[this.value.id + '-answer-' + this.value.answers[index].id][0].click();
+      this.value.answers.forEach((a) => { a.value = false; });
+      this.value.answers[index].value = true;
+      this.emit();
     },
   },
 };
