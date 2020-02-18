@@ -38,7 +38,8 @@ export default {
   name: 'MultipleChoiceAnswer',
   extends: BaseAnswer,
   methods: {
-    validate(event) {
+    validate(value) {
+      // TODO validate
       this.emit();
     },
     setValue(index) {
