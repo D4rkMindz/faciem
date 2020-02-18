@@ -29,11 +29,13 @@ export default {
         if (!q.valid) {
           throw BreakException;
         }
-        q.answers.forEach((a) => {
-          if (!a.valid) {
-            throw BreakException;
-          }
-        });
+        if (q.answers && q.answers.length > 0) {
+          q.answers.forEach((a) => {
+            if (!a.valid) {
+              throw BreakException;
+            }
+          });
+        }
       });
     } catch (e) {
       formValid = false;

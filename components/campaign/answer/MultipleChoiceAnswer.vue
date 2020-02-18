@@ -43,11 +43,12 @@ export default {
       this.emit();
     },
     setValue(index) {
-      const refId = this.value.id + '-answer-' + this.value.answers[index].id;
-      this.$refs[refId][0].click();
       this.value.answers.forEach((a) => { a.value = false; });
       this.value.answers[index].value = true;
+      this.value.valid = true;
       this.emit();
+      const refId = this.value.id + '-answer-' + this.value.answers[index].id;
+      this.$refs[refId][0].click();
     },
   },
 };

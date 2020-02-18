@@ -3,7 +3,7 @@
     <div class="flex">
       <button v-for="i in 5"
               :class="{ 'mr-1': i < 5 }"
-              @click="$emit('input', i)"
+              @click="$emit('input', i);$emit('validate', i)"
               type="button"
               class="focus:outline-none">
         <svg :class="[ value >= i ? 'text-primary': 'text-muted']"

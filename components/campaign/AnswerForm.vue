@@ -10,8 +10,8 @@
       </component>
     </div>
     <div class="text-right">
-      <button :disabled="nextIsDisabled"
-              :class="{'opacity-50 cursor-not-allowed': (nextIsDisabled === true)}"
+      <button :disabled="valid === false"
+              :class="{'opacity-50 cursor-not-allowed': (valid === false)}"
               @click.prevent="answer"
               class="button">
         Send answers
@@ -28,12 +28,12 @@ import { QUESTIONS_STATE } from '@/store/watch/questions';
 const { mapGetters, mapMutations } = createNamespacedHelpers('watch/questions');
 export default {
   name: 'AnswerForm',
-  data() {
-    return {
-      nextIsDisabled: true,
-    };
-  },
   computed: {
+    /**
+     * Check if the form is valid
+     * @return {Boolean}
+     */
+    valid() { return this.isValid(); },
     /**
      * Get all questions
      * @return {Question[]}
@@ -51,7 +51,7 @@ export default {
       'setQuestions',
     ]),
     answer() {
-      if (QUESTIONS_STATE.ERROR) {
+      if (!this.valid) {
         return;
       }
       // eslint-disable-next-line no-console

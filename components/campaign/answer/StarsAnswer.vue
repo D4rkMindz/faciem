@@ -6,6 +6,7 @@
     </div>
     <div class="w-1/1 mt-4 md:w-3/5 md:mt-0">
       <v-stars v-model="value.value"
+               @validate="validate"
                @input="emit()" />
     </div>
     <div v-if="!value.valid"
@@ -24,7 +25,20 @@ export default {
   mounted() {
     if (!this.value.value) {
       this.value.value = 0;
+      this.value.valid = false;
     }
+  },
+  methods: {
+    validate(value) {
+      const errors = [];
+      if (value > 5 || value <= 0) {
+        errors.push('Please set a star rating between one and five stars');
+      }
+
+      this.value.errors = errors;
+      this.value.valid = errors.length === 0;
+      this.emit();
+    },
   },
 };
 </script>
