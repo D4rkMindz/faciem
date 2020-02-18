@@ -7,13 +7,14 @@
     <div class="flex-col w-1/1 md:w-3/5">
       <div v-for="(answer, i) in value.answers"
            :key="i"
-           @click="setValue(i)"
+           @click.prevent="setValue(i)"
            class="hover py-3 md:py-0">
         <v-radio-input :name="value.id"
                        :ref="value.id + '-answer-' + answer.id"
                        :id="value.id + '-answer-'+ answer.id"
                        :label="answer.text"
                        :errors="answer.errors"
+                       :selected="answer.value === true"
                        @validate="validate($event)" />
       </div>
 
@@ -40,7 +41,8 @@ export default {
     validate(event) {
     },
     setValue(index) {
-      this.$refs[this.value.id + '-answer-' + this.value.answers[index].id][0].click();
+      const refId = this.value.id + '-answer-' + this.value.answers[index].id;
+      this.$refs[refId][0].click();
       this.value.answers.forEach((a) => { a.value = false; });
       this.value.answers[index].value = true;
       this.emit();

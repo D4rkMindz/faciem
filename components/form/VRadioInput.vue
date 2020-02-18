@@ -6,6 +6,8 @@
              :name="name"
              :title="inputValue"
              :class="['radio', classes]"
+             :checked="selected"
+             @click="$event.stopPropagation()"
              @input="inputValue = id;onInput()"
              @leave="onBlur"
              @blur="onBlur"
@@ -60,6 +62,11 @@ export default {
     placeholder: {
       default: '',
       type: String,
+      required: false,
+    },
+    selected: {
+      default: false,
+      type: Boolean,
       required: false,
     },
   },

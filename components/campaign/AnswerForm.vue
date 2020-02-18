@@ -22,6 +22,7 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex';
+import cloneDeep from 'lodash.clonedeep';
 import { QUESTIONS_STATE } from '@/store/watch/questions';
 
 const { mapGetters, mapMutations } = createNamespacedHelpers('watch/questions');
@@ -37,14 +38,7 @@ export default {
      * Get all questions
      * @return {Question[]}
      */
-    questions: {
-      get() { return this.getQuestions(); },
-      set(questions) {
-        // eslint-disable-next-line no-console
-        console.log('setting questions', questions);
-        this.setQuestions(questions);
-      },
-    },
+    questions() { return this.getQuestions(); },
     questionsAvailable() { return this.getState() === QUESTIONS_STATE.LOADED; },
   },
   methods: {
@@ -65,6 +59,7 @@ export default {
     },
     setValue(key, value) {
       this.questions[key] = value;
+      this.setQuestions(cloneDeep(this.questions));
 
       this.$forceUpdate();
     },
