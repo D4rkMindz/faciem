@@ -57,11 +57,10 @@ export default {
   /**
    * Get questions for a media
    * @param commit
-   * @param rootGetters
    * @param campaignId
    * @return {Promise<void>}
    */
-  async getQuestionsForMedia({ commit, rootGetters }, campaignId) {
+  async getQuestionsForMedia({ commit }, campaignId) {
     commit('setState', QUESTIONS_STATE.LOADING);
     try {
       const url = `/campaigns/${campaignId}/questions`;
@@ -72,6 +71,35 @@ export default {
       }
       commit('setQuestions', parseQuestions(response.data.questions));
       commit('setState', QUESTIONS_STATE.LOADED);
+    } catch (e) {
+      commit('setState', QUESTIONS_STATE.ERROR);
+    }
+  },
+  /**
+   * Save questions
+   * @param commit
+   * @param getters
+   * @param rootGetters
+   * @param campaignId
+   * @return {Promise<void>}
+   */
+  async saveQuestions({ commit, getters, rootGetters }) {
+    commit('setState', QUESTIONS_STATE.SAVING);
+    try {
+      const userId = rootGetters['auth/getUserId'];
+      const media = rootGetters['watch/media/getMedia'];
+      const questions = rootGetters['watch/questions/getQuestions'];
+      const url = `/campaigns/${media.campaign_id}/users/${userId}/answers`;
+      const data = {
+        questions: questions,
+      };
+      const response = await this.$axios.post(url, data);
+      if (response.status !== 200) {
+        commit('setState', QUESTIONS_STATE.ERROR);
+        return;
+      }
+      commit('setQuestions', null);
+      commit('setState', QUESTIONS_STATE.SAVED);
     } catch (e) {
       commit('setState', QUESTIONS_STATE.ERROR);
     }

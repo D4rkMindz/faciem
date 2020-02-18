@@ -23,9 +23,8 @@
 <script>
 import { createNamespacedHelpers } from 'vuex';
 import cloneDeep from 'lodash.clonedeep';
-import { QUESTIONS_STATE } from '@/store/watch/questions';
 
-const { mapGetters, mapMutations } = createNamespacedHelpers('watch/questions');
+const { mapGetters, mapMutations, mapActions } = createNamespacedHelpers('watch/questions');
 export default {
   name: 'AnswerForm',
   computed: {
@@ -39,7 +38,6 @@ export default {
      * @return {Question[]}
      */
     questions() { return this.getQuestions(); },
-    questionsAvailable() { return this.getState() === QUESTIONS_STATE.LOADED; },
   },
   methods: {
     ...mapGetters([
@@ -50,13 +48,21 @@ export default {
     ...mapMutations([
       'setQuestions',
     ]),
+    ...mapActions([
+      'saveQuestions',
+    ]),
     answer() {
       if (!this.valid) {
         return;
       }
-      // eslint-disable-next-line no-console
-      console.log('answer');
+
+      this.saveQuestions();
     },
+    /**
+     * Set the value
+     * @param key
+     * @param value
+     */
     setValue(key, value) {
       this.questions[key] = value;
       this.setQuestions(cloneDeep(this.questions));
