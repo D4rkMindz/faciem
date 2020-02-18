@@ -5,6 +5,11 @@ import StarsAnswer from '@/components/campaign/answer/StarsAnswer';
 import MultipleChoiceAnswer from '@/components/campaign/answer/MultipleChoiceAnswer';
 import TextAnswer from '@/components/campaign/answer/TextAnswer';
 
+/**
+ * Extract the type
+ * @param type
+ * @return {*}
+ */
 function extractType(type) {
   const map = {
     stars: StarsAnswer.name,
@@ -13,6 +18,12 @@ function extractType(type) {
   };
   return map[type.toLowerCase()];
 }
+
+/**
+ * Parse questions
+ * @param q
+ * @return {[]|*[]}
+ */
 function parseQuestions(q) {
   if (!q) {
     return [];
@@ -34,7 +45,7 @@ function parseQuestions(q) {
     data.id = question.id;
     data.type = extractType(question.question_type);
     data.text = question.question;
-    data.value = '';
+    data.value = null;
     data.answers = question.answers;
     questions.push(new Question(data));
   });
