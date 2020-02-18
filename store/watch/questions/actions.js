@@ -54,6 +54,13 @@ function parseQuestions(q) {
 }
 
 export default {
+  /**
+   * Get questions for a media
+   * @param commit
+   * @param rootGetters
+   * @param campaignId
+   * @return {Promise<void>}
+   */
   async getQuestionsForMedia({ commit, rootGetters }, campaignId) {
     commit('setState', QUESTIONS_STATE.LOADING);
     try {
