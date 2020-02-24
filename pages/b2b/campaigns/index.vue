@@ -42,10 +42,10 @@
               {{ campaign.name }}
             </td>
             <td class="border px-4 py-2">
-              {{ toMoment(campaign.started_at).format('DD.MM.YYYY') }}
+              {{ toMoment(campaign.start_at).format('DD.MM.YYYY') }}
             </td>
             <td class="border px-4 py-2">
-              {{ campaign.ends_at ? toMoment(campaign.ends_at).format('DD.MM.YYYY'): 'Open end' }}
+              {{ campaign.end_at ? toMoment(campaign.end_at).format('DD.MM.YYYY'): 'Open end' }}
             </td>
             <td class="border px-4 py-2">
               {{ campaign.pricing_name }}
@@ -90,7 +90,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-
-</style>
