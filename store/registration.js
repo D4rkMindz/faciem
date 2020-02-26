@@ -118,16 +118,6 @@ export const actions = {
       commit('ERROR', error);
     };
     try {
-      // eslint-disable-next-line no-console
-      console.table([
-        ['token', emailToken],
-        ['first name', firstName],
-        ['middle name', middleName],
-        ['last name', lastName],
-        ['birthDate', birthDate],
-        ['username', username],
-        ['password', password],
-      ]);
       commit('REGISTERING');
       const response = await this.$axios.post(
         '/users',

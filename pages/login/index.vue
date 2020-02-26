@@ -89,7 +89,7 @@ export default {
     async authenticate() {
       await this.login({ username: this.username, password: this.password });
       if (!this.hasError()) {
-        this.$router.push('/watch');
+        await this.$router.push('/watch');
       }
     },
   },

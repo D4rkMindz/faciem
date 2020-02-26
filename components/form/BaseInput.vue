@@ -37,6 +37,7 @@ export default {
   },
   watch: {
     errors() { this.setClasses(); },
+    touched() { this.$emit('touched', this.touched); },
   },
   mounted() { this.setClasses(); },
   methods: {

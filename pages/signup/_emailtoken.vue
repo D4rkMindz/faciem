@@ -25,6 +25,7 @@
                        v-model="firstname"
                        :errors="errors.firstname"
                        @validate="validateFirstname"
+                       @touched="touched.firstname = $event"
                        placeholder="Required"
                        label="First name" />
 
@@ -32,6 +33,7 @@
                        v-model="middlename"
                        :errors="errors.middlename"
                        @validate="validateMiddlename"
+                       @touched="touched.middlename = $event"
                        placeholder="Optional"
                        label="Middle name" />
 
@@ -39,6 +41,7 @@
                        v-model="lastname"
                        :errors="errors.lastname"
                        @validate="validateLastname"
+                       @touched="touched.lastname = $event"
                        placeholder="Required"
                        label="Last name" />
 
@@ -47,12 +50,15 @@
                        :placeholder="minimumAge"
                        :errors="errors.birthdate"
                        @validate="validateBirthdate"
+                       @touched="touched.birthdate = $event"
                        label="Birthdate" />
             </div>
 
             <div class="flex flex-wrap">
               <button @click="save"
-                      class="button w-full lg:w-auto lg:ml-auto loading">
+                      :disabled="!firstStepValid"
+                      :class="{'disabled': !firstStepValid, 'loading': saving}"
+                      class="button w-full lg:w-auto lg:ml-auto">
                 Save
               </button>
             </div>
@@ -66,12 +72,14 @@
                        v-model="username"
                        :errors="errors.username"
                        @validate="validateUsername"
+                       @touched="touched.username = $event"
                        label="Username" />
 
               <v-input id="password"
                        v-model="password"
                        :errors="errors.password"
                        @validate="validatePassword"
+                       @touched="touched.password = $event"
                        type="password"
                        label="Password" />
             </div>
@@ -104,6 +112,7 @@ export default {
   data() {
     return {
       step: 1,
+      saving: false,
       emailtoken: null,
       firstname: '',
       middlename: '',
@@ -119,11 +128,25 @@ export default {
         username: [],
         password: [],
       },
+      touched: {
+        firstname: false,
+        middlename: false,
+        lastname: false,
+        birthdate: false,
+        username: false,
+        password: false,
+      },
     };
   },
   computed: {
-    minimumAge: function () {
+    minimumAge() {
       return moment().subtract(18, 'years').format('DD.MM.YYYY');
+    },
+    firstStepValid() {
+      return this.isValid(['firstname', 'middlename', 'lastname', 'birthdate']);
+    },
+    secondStepValid() {
+      return this.isValid(['firstname', 'middlename', 'lastname', 'birthdate', 'username', 'password']);
     },
   },
   created() {
@@ -144,13 +167,10 @@ export default {
       'user',
     ]),
     async finish() {
-      // validate all fields from the first page again
-      const fields = ['firstname', 'middlename', 'lastname', 'birthdate', 'username', 'password'];
-
-      if (!this.isValid(fields)) {
+      if (!this.secondStepValid) {
         return;
       }
-
+      this.saving = true;
       this.saveCredentials({ username: this.username });
       this.populate();
       await this.register({
@@ -164,8 +184,10 @@ export default {
         birthDate: moment(this.birthdate).format('YYYY-MM-DD[T]HH:mm:ssZ'),
       });
 
+      this.saving = false;
       if (this.isRegistered()) {
-        this.$router.push('/login');
+        this.$toast.info('You can now login with your created credentials');
+        await this.$router.replace('/login');
         return;
       }
 
@@ -184,10 +206,7 @@ export default {
       }
     },
     save() {
-      // validate all fields from the first page again
-      const fields = ['firstname', 'middlename', 'lastname', 'birthdate'];
-
-      if (!this.isValid(fields)) {
+      if (!this.firstStepValid) {
         return;
       }
 
@@ -216,6 +235,9 @@ export default {
     },
     isValid(fields) {
       fields.forEach((field) => {
+        if (!this.touched[field]) {
+          return;
+        }
         const validator = 'validate' + field.charAt(0).toUpperCase() + field.slice(1);
 
         this[validator]();
