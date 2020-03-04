@@ -15,8 +15,7 @@ describe('/login', () => {
     });
   });
 
-  it('does not redirect after unsuccessful authenticatoin', () => {
-    store.modules.auth.getters.hasError = () => true;
+  it('does not redirect after unsuccessful authentication', () => {
     const wrapper = mount(LoginPage, store);
     wrapper.vm.authenticate().then(() => {
       expect(wrapper.vm.$router.push).toBeCalledTimes(0);

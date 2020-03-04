@@ -1,7 +1,9 @@
 <template>
-  <div class="bg-gray-100">
+  <div>
     <navbar />
-    <nuxt />
+    <div class="mt-8">
+      <nuxt />
+    </div>
   </div>
 </template>
 <script>
@@ -11,3 +13,13 @@ export default {
   components: { Navbar },
 };
 </script>
+
+<style scoped>
+  body, html {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    min-height: 80vh;
+  }
+</style>

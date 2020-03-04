@@ -3,7 +3,7 @@ const env = require('./nuxt.config.' + stage + '.js');
 const colors = require('./tailwind.config').theme;
 
 const config = {
-  mode: 'universal',
+  mode: 'spa',
   /*
    ** Headers of the page
    */
@@ -26,15 +26,25 @@ const config = {
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: colors.primary },
+  loading: { color: 'white' },
   /*
    ** Global CSS
    */
-  css: ['~/assets/css/tailwind.css'],
+  css: [
+    '~/assets/css/tailwind.css',
+    '~/assets/scss/venovum.scss',
+    'video.js/dist/video-js.css',
+  ],
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: [
+    { src: '~/plugins/global-components.js', ssr: false },
+    { src: '~/plugins/localstorage.js', ssr: false },
+    { src: '~/plugins/interceptors.js', ssr: false },
+    { src: '~/plugins/notifications.js', ssr: false },
+    { src: '~/plugins/icons.js', ssr: false },
+  ],
   /*
    ** Nuxt.js modules
    */
@@ -42,6 +52,7 @@ const config = {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/eslint-module',
+    '@nuxtjs/toast',
   ],
   /*
    ** Axios module configuration
@@ -53,10 +64,24 @@ const config = {
       'Content-Type': 'application/json',
     },
   },
+  toast: {
+    duration: 3000,
+    theme: 'outline',
+    position: 'bottom-right',
+    type: 'default',
+    keepOnHover: true,
+    action: [{
+      text: 'OK',
+      onClick: (e, toast) => {
+        toast.goAway(0);
+      },
+    }],
+  },
   /*
    ** Build configuration
    */
   build: {
+    transpile: [/^vue-awesome/],
     postcss: {
       plugins: {
         tailwindcss: './tailwind.config.js',

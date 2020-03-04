@@ -1,0 +1,8 @@
+{
+  "email_token": "test_token",
+  "email": "test@email.com",
+  "message": "You're successfully signed up. Please have a look in your email inbox to complete the process",
+  "success": true,
+  "status": 200,
+  "language": "en_GB"
+}

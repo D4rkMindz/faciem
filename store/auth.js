@@ -1,9 +1,10 @@
+import decode from 'jwt-decode';
 import { AuthenticationState } from '@/domain/auth/authentication-state';
 
 export function state() {
   return {
     authenticated: false,
-    token: null,
+    token: { original: null, decoded: null },
     refreshToken: null,
     status: null,
     error: { message: null, language: null },
@@ -12,21 +13,33 @@ export function state() {
 
 export const getters = {
   isAuthenticated: state => state.authenticated,
-  hasToken: state => !!state.token,
-  token: state => state.token,
+  hasToken: state => !!state.token.original,
+  getToken: state => state.token.original,
+  hasRoleAbove: state => (level) => {
+    const token = state.token.decoded && 'data' in state.token.decoded ? state.token.decoded.data : null;
+    return (token && token.role && token.role.level >= level);
+  },
+  getUserId: (state) => {
+    if (state.token.decoded && 'data' in state.token.decoded && 'user_id' in state.token.decoded.data) {
+      return state.token.decoded.data.user_id;
+    }
+    return null;
+  },
   hasRefreshToken: state => !!state.refreshToken,
   refreshToken: state => state.refreshToken,
   hasError: state => state.status === AuthenticationState.FAILED,
   errorMessage: state => state.error.message,
   errorLanguage: state => state.error.language,
   status: state => state.status,
+  isAuthenticating: state => state.status === AuthenticationState.AUTHENTICATING,
 };
 
 export const mutations = {
   login(state, token, refreshToken) {
     state.status = AuthenticationState.AUTHENTICATED;
     state.authenticated = true;
-    state.token = token;
+    state.token.original = token;
+    state.token.decoded = decode(token);
     state.refreshToken = refreshToken;
     state.error = { message: null, language: null };
   },
@@ -37,13 +50,13 @@ export const mutations = {
   logout(state) {
     state.status = AuthenticationState.LOGGED_OUT;
     state.authenticated = false;
-    state.token = null;
+    state.token = { original: null, decoded: null };
     state.error = { message: null, language: null };
   },
   error(state, error) {
     state.status = AuthenticationState.FAILED;
     state.authenticated = false;
-    state.token = null;
+    state.token = { original: null, decoded: null };
     state.error = { message: error.message, language: error.language };
   },
 };
@@ -68,9 +81,13 @@ export const actions = {
         const token = response.data.access_token;
         const refreshToken = response.data.refresh_token;
         commit('login', token, refreshToken);
+      } else {
+        commit('error', { error: 'Something went wrong', language: 'en' });
       }
     } catch (e) {
-      commit('error', e.response.data);
+      if ('response' in e && 'data' in e.response) {
+        commit('error', e.response.data);
+      }
     }
   },
 

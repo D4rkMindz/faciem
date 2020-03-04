@@ -1,0 +1,12 @@
+{
+  "status": 422,
+  "message": "Your email is not valid",
+  "errors": [
+    {
+      "field": "email",
+      "message": "Email already registered"
+    }
+  ],
+  "success": false,
+  "language": "en_GB"
+}

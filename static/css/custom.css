@@ -1,0 +1,12 @@
+.hero .hero-right-decoration {
+}
+
+.m-0 > a > img {
+
+    height: 100px;
+}
+
+/* login link */
+#__layout > div > div:nth-child(1) > nav > div.w-full.items-center.flex-grow.hidden.lg\:flex.lg\:w-auto.lg\:justify-between > div:nth-child(2) > div:nth-child(2) > a {
+  color: white;
+}

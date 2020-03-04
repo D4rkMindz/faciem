@@ -14,7 +14,7 @@ export function mount(Instance, storeModule) {
   localVue.use(Vuex);
   const store = new Vuex.Store(storeModule);
 
-  return shallowMount(Instance, {
+  const wrapper = shallowMount(Instance, {
     localVue,
     stubs: {
       NuxtLink: RouterLinkStub,
@@ -22,8 +22,18 @@ export function mount(Instance, storeModule) {
     mocks: {
       $router: {
         push: jest.fn(),
+        currentRoute: {
+          params: {
+            emailtoken: 'test-token',
+          },
+        },
       },
     },
     store: store,
   });
+  wrapper.commit = function (method, value) {
+    this.vm.$store.commit(method, value);
+  };
+
+  return wrapper;
 }
