@@ -5,7 +5,7 @@
   "description": "The Frontend of the venovum application",
   "author": "Björn Pfoster",
   "scripts": {
-    "build": "nuxt build",
+    "build": "nuxt build --pwa",
     "test": "npm run test:unit && npm run test:e2e",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "dev": "nuxt",
@@ -17,7 +17,7 @@
     "test:e2e": "npm run build && npx start-test start:ci :3000 test:e2e:cypress",
     "test:e2e:cypress": "cypress run",
     "test:e2e:cypress:record": "cypress run --record --key $CYPRESS_KEY",
-    "test:unit": "jest",
+    "test:unit": "jest"
   },
   "dependencies": {
     "@ky-is/tailwind-color-palette": "^1.0.0",

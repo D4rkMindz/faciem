@@ -92,7 +92,7 @@ const config = {
      */
     extend(config, { isDev }) {
       if (!isDev) {
-        config.output.publicPath = './_nuxt/';
+        config.output.publicPath = '/_nuxt/';
       }
 
       return config;
