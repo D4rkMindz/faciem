@@ -28,6 +28,19 @@
               Home
             </nuxt-link>
           </div>
+          <div @click="menuOpen = false"
+               class="py-3 text-center text-gray-500 hover:text-gray-900 cursor-pointer">
+            <nuxt-link to="/watch">
+              Watch
+            </nuxt-link>
+          </div>
+          <div v-if="isCustomer"
+               @click="menuOpen = false"
+               class="py-3 text-center text-gray-500 hover:text-gray-900 cursor-pointer">
+            <nuxt-link to="/b2b/admin">
+              Admin
+            </nuxt-link>
+          </div>
           <div v-if="!authenticated"
                @click="menuOpen = false"
                class="py-3 text-center text-gray-500 hover:text-gray-900 cursor-pointer">
@@ -66,8 +79,9 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex';
+import { RoleLevel } from '@/domain/role/role-level';
 
-const { mapState } = createNamespacedHelpers('auth');
+const { mapState, mapGetters } = createNamespacedHelpers('auth');
 
 export default {
   name: 'BurgerMenu',
@@ -80,6 +94,21 @@ export default {
     ...mapState({
       authenticated: state => state.authenticated,
     }),
+
+    isUser() {
+      return this.hasRoleAbove()(RoleLevel.USER);
+    },
+    isCustomer() {
+      return this.hasRoleAbove()(RoleLevel.CUSTOMER);
+    },
+    isAdmin() {
+      return this.hasRoleAbove()(RoleLevel.ADMIN);
+    },
+  },
+  methods: {
+    ...mapGetters([
+      'hasRoleAbove',
+    ]),
   },
 }
 ;

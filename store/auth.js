@@ -17,7 +17,7 @@ export const getters = {
   getToken: state => state.token.original,
   hasRoleAbove: state => (level) => {
     const token = state.token.decoded && 'data' in state.token.decoded ? state.token.decoded.data : null;
-    return (token && token.role && token.role.level >= level);
+    return (token && token.role && parseInt(token.role.level) >= level);
   },
   getUserId: (state) => {
     if (state.token.decoded && 'data' in state.token.decoded && 'user_id' in state.token.decoded.data) {

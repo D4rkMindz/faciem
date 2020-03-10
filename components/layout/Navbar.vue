@@ -88,8 +88,14 @@ export default {
     ...mapState({
       authenticated: state => state.authenticated,
     }),
+    isUser() {
+      return this.hasRoleAbove()(RoleLevel.USER);
+    },
     isCustomer() {
-      return this.hasRoleAbove(RoleLevel.CUSTOMER);
+      return this.hasRoleAbove()(RoleLevel.CUSTOMER);
+    },
+    isAdmin() {
+      return this.hasRoleAbove()(RoleLevel.ADMIN);
     },
   },
   methods: {
