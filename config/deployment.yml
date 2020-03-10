@@ -27,6 +27,8 @@ spec:
               cpu: 100m
             limits:
               cpu: 100m
+      imagePullSecrets:
+        - name: dockerhub-secret
 ---
 apiVersion: v1
 kind: Service

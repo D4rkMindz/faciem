@@ -25,20 +25,15 @@ Note: the officum server must be installed using [valet](https://laravel.com/doc
 
 ## Deployment
 
-The deployment is setup using [Serverless.com](https://serverless.com). 
-It is required to set up a AWS account and then add a Serverless user via the [Console](http://console.aws.amazon.com). A tutorial can be found on [serverless.com](https://serverless.com/framework/docs/providers/aws/guide/credentials/).
+The deployment is setup using [Digital Ocean](https://digital-ocean.com). 
+There is a kubernetes cluster running on digital ocean.
+If you want to setup another cluster, dont forget to set the secret.
 
-Don't forget to add a `secrets.json` file containing:
-```json
-{
-  "NODE_ENV": "prod",
-  "DOMAIN": "test.example.com",
-  "CERT": "*.example.com",
-  "CFN_ROLE": "arn:aws:iam::<ID>:role/<project>"
-}
-```
-
-After that, you should be able to run a deployment
 ```bash
-npm run deploy
+DOCKER_USERNAME=myname
+DOCKER_PASSWORD=password
+# Receive the configuration
+doctl kubernetes cluster kubeconfig show venovum-faciem-de-1 > .kubeconfig
+# Set the secret
+kubectl create secret docker-registry dockerhub-secret --kubeconfig=.kubeconfig --docker-server=https://index.docker.io/v2/ --docker-username=$DOCKER_USERNAME --docker-password=$DOCKER_PASSWORD
 ```
