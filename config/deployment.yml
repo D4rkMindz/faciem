@@ -27,21 +27,21 @@ spec:
               cpu: 100m
             limits:
               cpu: 100m
-#---
-#apiVersion: v1
-#kind: Service
-#metadata:
-#  name: faciem-service
-#  annotations:
-#    external-dns.alpha.kubernetes.io/hostname: "venovum.com"
-#    service.beta.kubernetes.io/do-loadbalancer-certificate-id: "249acd4f-a9a9-45d3-b862-864c5707f79b"
-#    service.beta.kubernetes.io/do-loadbalancer-redirect-http-to-https: "true"
-#spec:
-#  type: LoadBalancer
-#  ports:
-#    - name: https
-#      protocol: TCP
-#      port: 443
-#      targetPort: 5000
-#  selector:
-#    app: faciem
+---
+apiVersion: apps/v1
+kind: Service
+metadata:
+  name: faciem-loadbalancer
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: "venovum.com"
+    service.beta.kubernetes.io/do-loadbalancer-certificate-id: "5f6474fe-bbc5-4934-9998-db1e15a07bdd"
+    service.beta.kubernetes.io/do-loadbalancer-redirect-http-to-https: "true"
+spec:
+  type: LoadBalancer
+  ports:
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 5000
+  selector:
+    app: faciem
