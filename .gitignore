@@ -14,8 +14,7 @@ jspm_packages
 # Nuxt generated files
 .nuxt
 
-# Serverless directories
-.serverless
+.kubeconfig
 /secrets.json
 
 # Webpack directories
