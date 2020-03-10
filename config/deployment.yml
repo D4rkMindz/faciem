@@ -6,7 +6,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      name: faciem
+      app: faciem
   strategy:
     rollingUpdate:
       maxSurge: 1
