@@ -15,9 +15,9 @@ export const getters = {
   isAuthenticated: state => state.authenticated,
   hasToken: state => !!state.token.original,
   getToken: state => state.token.original,
-  hasRoleAbove: state => (level) => {
+  hasRole: state => (role) => {
     const token = state.token.decoded && 'data' in state.token.decoded ? state.token.decoded.data : null;
-    return (token && token.role && parseInt(token.role.level) >= level);
+    return (token && token.roles.includes(role));
   },
   getUserId: (state) => {
     if (state.token.decoded && 'data' in state.token.decoded && 'user_id' in state.token.decoded.data) {

@@ -48,7 +48,7 @@ export default {
   name: 'AddCapaignPage',
   middleware: [
     'auth',
-    'customer',
+    'campaign/create',
   ],
   components: {
     QuestionsForm,

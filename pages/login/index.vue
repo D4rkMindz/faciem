@@ -57,6 +57,7 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex';
+import { WATCH_ROLES } from '@/domain/auth/authorization/user/watch-roles';
 
 const { mapActions, mapGetters } = createNamespacedHelpers('auth');
 
@@ -80,6 +81,7 @@ export default {
       'login',
     ]),
     ...mapGetters([
+      'hasRole',
       'hasError',
       'errorMessage',
       'errorLanguage',
@@ -89,7 +91,11 @@ export default {
     async authenticate() {
       await this.login({ username: this.username, password: this.password });
       if (!this.hasError()) {
-        await this.$router.push('/watch');
+        if (this.hasRole()(WATCH_ROLES.WATCH)) {
+          await this.$router.push('/watch');
+        } else {
+          await this.$router.push('/b2b/admin');
+        }
       }
     },
   },

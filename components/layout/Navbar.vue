@@ -29,12 +29,13 @@
             </nuxt-link>
           </div>
           <div v-if="authenticated">
-            <div class="navigation-link">
+            <div v-if="canSeeWatch"
+                 class="navigation-link">
               <nuxt-link to="/watch">
                 Watch
               </nuxt-link>
             </div>
-            <div v-if="isCustomer"
+            <div v-if="canSeeAdmin"
                  class="navigation-link">
               <nuxt-link to="/b2b/admin">
                 Admin
@@ -71,8 +72,9 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex';
-import { RoleLevel } from '@/domain/role/role-level';
 import BurgerMenu from '@/components/layout/BurgerMenu';
+import { CAMPAIGN_ROLES } from '@/domain/auth/authorization/customer/campaign-roles';
+import { WATCH_ROLES } from '@/domain/auth/authorization/user/watch-roles';
 
 const { mapState, mapGetters } = createNamespacedHelpers('auth');
 
@@ -88,19 +90,16 @@ export default {
     ...mapState({
       authenticated: state => state.authenticated,
     }),
-    isUser() {
-      return this.hasRoleAbove()(RoleLevel.USER);
+    canSeeAdmin() {
+      return this.hasRole()(CAMPAIGN_ROLES.VIEW);
     },
-    isCustomer() {
-      return this.hasRoleAbove()(RoleLevel.CUSTOMER);
-    },
-    isAdmin() {
-      return this.hasRoleAbove()(RoleLevel.ADMIN);
+    canSeeWatch() {
+      return this.hasRole()(WATCH_ROLES.WATCH);
     },
   },
   methods: {
     ...mapGetters([
-      'hasRoleAbove',
+      'hasRole',
     ]),
   },
 };

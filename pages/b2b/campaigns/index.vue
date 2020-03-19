@@ -68,6 +68,10 @@ import { CAMPAIGNS_STATE } from '@/store/campaigns';
 const { mapGetters, mapActions } = createNamespacedHelpers('campaigns');
 export default {
   name: 'CampaignPage',
+  middleware: [
+    'auth',
+    'campaign/view',
+  ],
   computed: {
     updatingState() {
       return CAMPAIGNS_STATE.UPDATING;
