@@ -1,3 +1,11 @@
+html, body {
+  outline: none !important;
+}
+
+* {
+  outline:none !important;
+}
+
 .disabled {
   @apply opacity-50 cursor-not-allowed;
 }
