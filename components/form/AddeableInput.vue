@@ -9,11 +9,7 @@
         </label>
       </div>
 
-      <div :class="{
-        'lg:w-6/12': showAdd === true && showRemove === true,
-        'lg:w-7/12': (showAdd === false && showRemove === true) || (showAdd === true && showRemove === false),
-        'lg:w-8/12': showAdd === false && showRemove === false,
-      }">
+      <div :class="inputWidthClass">
         <input ref="input"
                :id="id"
                v-model="inputValue"
@@ -28,16 +24,24 @@
 
       <div @click="onAdd()"
            :class="{'hidden': !showAdd}"
-           class="lg:w-1/12 text-center">
+           class="lg:w-1/12 text-center cursor-pointer">
         <v-icon name="plus" />
       </div>
 
       <div @click="onRemove()"
            :class="{'hidden': !showRemove}"
-           class="lg:w-1/12 text-center">
+           class="lg:w-1/12 text-center cursor-pointer">
         <v-icon
           name="trash-alt"
           class="icon-danger" />
+      </div>
+
+      <div @click="onCorrect()"
+           :class="{'hidden': !showCorrect}"
+           class="lg:w-1/12 text-center cursor-pointer">
+        <v-icon
+          :class="{'icon-ok': correct}"
+          name="check" />
       </div>
     </div>
 
@@ -94,6 +98,33 @@ export default {
       type: Boolean,
       required: false,
     },
+    showCorrect: {
+      default: true,
+      type: Boolean,
+      required: false,
+    },
+    correct: {
+      default: false,
+      type: Boolean,
+      required: false,
+    },
+  },
+  computed: {
+    inputWidthClass() {
+      let counter = 0;
+      if (this.showAdd === true) {
+        counter++;
+      }
+      if (this.showRemove === true) {
+        counter++;
+      }
+      if (this.showCorrect === true) {
+        counter++;
+      }
+      const width = 8 - counter;
+
+      return `lg:w-${width}/12`;
+    },
   },
   methods: {
     onAdd() {
@@ -101,6 +132,9 @@ export default {
     },
     onRemove() {
       this.$emit('remove');
+    },
+    onCorrect() {
+      this.$emit('correct', !this.correct);
     },
   },
 };

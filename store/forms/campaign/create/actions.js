@@ -61,6 +61,7 @@ export default {
       }
       this.$toast.info('File uploaded and enqueued for processing. This may take some time');
       commit('reset');
+      file = null;
       dispatch('campaigns/update', null, { root: true });
       this.$router.replace('/b2b/campaigns');
     } catch (e) {

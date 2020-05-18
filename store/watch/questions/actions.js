@@ -74,7 +74,7 @@ export default {
       const questions = rootGetters['watch/questions/getQuestions'];
       const url = `/campaigns/${media.campaign_id}/users/${userId}/answers`;
       const data = {
-        questions: questions,
+        answers: questions,
       };
       const response = await this.$axios.post(url, data);
       if (response.status !== 200) {

@@ -27,3 +27,4 @@ export class Question {
 export const TEXT = 'text';
 export const STARS = 'stars';
 export const MULTIPLE_CHOICE = 'multiple-choice';
+export const VALIDATION = 'validation';

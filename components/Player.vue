@@ -1,5 +1,6 @@
 <template>
-  <div class="player">
+  <div v-if="source"
+       class="player">
     <video ref="video"
            class="video-js vjs-big-play-centered vjs-waiting" />
   </div>

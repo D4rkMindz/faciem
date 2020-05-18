@@ -29,7 +29,8 @@
           </button>
         </div>
       </div>
-      <div class="w-1/1 md:w-1/2 mx-3">
+      <div v-if="!saved"
+           class="w-1/1 md:w-1/2 mx-3">
         <player v-if="file && fileValid"
                 :source="source"
                 :type="'video/mp4'" />
@@ -73,6 +74,9 @@ export default {
     },
     saving() {
       return this.getState() === CAMPAIGN_CREATE_STATES.SAVING;
+    },
+    saved() {
+      return this.getState() === CAMPAIGN_CREATE_STATES.SAVED;
     },
   },
   watch: {

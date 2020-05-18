@@ -59,7 +59,7 @@ const config = {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: 'https://venovum.dev/',
+    baseURL: 'https://api.test.venovum.com',
     headers: {
       'Content-Type': 'application/json',
     },

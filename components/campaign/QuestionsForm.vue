@@ -53,26 +53,31 @@
           label="Question"
           placeholder="Add a question" />
 
-        <addeable-input
-          v-if="typesThatRequireMultipleAnswers.includes(question.type)"
-          v-for="(answer, answerIndex) in question.answers"
-          :key="answerIndex"
-          @add="onAdd(i, answerIndex)"
-          @remove="onRemove(i, answerIndex)"
-          @validate="validateAnswer({ questionIndex: i, answerIndex: answerIndex })"
-          :id="id('add')"
-          :errors="answer.errors"
-          :show-add="answerIndex === question.answers.length - 1"
-          :show-remove="question.answers.length > 1"
-          :value="answer.value"
-          @input="setAnswerValue({questionIndex: i, answerIndex: answerIndex, property: 'value', value: $event})"
-          label="Answer"
-          placeholder="Your answer" />
+        <div v-for="(answer, answerIndex) in question.answers">
+          <addeable-input
+            v-if="typesThatRequireMultipleAnswers.includes(question.type)"
+            :key="answerIndex"
+            @add="onAdd(i, answerIndex)"
+            @remove="onRemove(i, answerIndex)"
+            @validate="validateAnswer({ questionIndex: i, answerIndex: answerIndex })"
+            :id="id('add')"
+            :errors="answer.errors"
+            :show-add="answerIndex === question.answers.length - 1"
+            :show-remove="question.answers.length > 1"
+            :show-correct="question.type === validation"
+            :correct="answer.correct"
+            :value="answer.value"
+            @input="setAnswerValue({questionIndex: i, answerIndex: answerIndex, property: 'value', value: $event})"
+            @correct="setAnswerValue({questionIndex: i, answerIndex: answerIndex, property: 'correct', value: $event})"
+            label="Answer"
+            placeholder="Your answer" />
+        </div>
       </div>
 
       <div class="w-1/12 inline-block text-center flex justify-center flex-col mb-4">
         <v-icon @click.prevent="removeQuestionFromForm({ questionIndex: i })"
                 :class="{'icon-danger': questions.length > 1, 'icon-disabled': questions.length < 2}"
+                class="cursor-pointer"
                 name="trash-alt" />
       </div>
     </div>
@@ -90,7 +95,7 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex';
-import { TEXT, STARS, MULTIPLE_CHOICE } from '@/domain/campaign/question';
+import { TEXT, STARS, MULTIPLE_CHOICE, VALIDATION } from '@/domain/campaign/question';
 import {
   CAMPAIGN_CREATE_STATES,
   TYPES_THAT_REQUIRE_MULTIPLE_ANSWERS, TYPES_THAT_REQUIRE_NO_QUESTION,
@@ -104,14 +109,17 @@ export default {
     return {
       typesThatRequireQuestion: TYPES_THAT_REQUIRE_QUESTION,
       typesThatRequireMultipleAnswers: TYPES_THAT_REQUIRE_MULTIPLE_ANSWERS,
+      validation: VALIDATION,
       options: [
         { key: STARS, translation: 'Stars' },
         { key: MULTIPLE_CHOICE, translation: 'Multiple choice' },
+        { key: VALIDATION, translation: 'Validation' },
         { key: TEXT, translation: 'Text' },
       ],
       descriptions: {
         [STARS]: 'Stars allow you to get user feedback about your video. With this option, the user can rate your video with stars. This is literally a must for every video.',
         [MULTIPLE_CHOICE]: 'A Multiple choice question allows the user to select one of many given answers. This is one of the best options.',
+        [VALIDATION]: 'A Validation question.',
         [TEXT]: 'A Text offers the user to say something about your product. We strongly recommend you to not use this option.',
       },
     };

@@ -78,6 +78,7 @@ export default {
       const map = {
         stars: StarsAnswer.name,
         'multiple-choice': MultipleChoiceAnswer.name,
+        validation: MultipleChoiceAnswer.name,
         text: TextAnswer.name,
       };
       return map[type.toLowerCase()];
