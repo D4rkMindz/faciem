@@ -17,6 +17,10 @@ $ npm run start
 
 # generate static project
 $ npm run generate
+
+# Run Docker
+docker build -t faciem .
+docker run -it -p 5000:5000 faciem
 ```
 
 For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
