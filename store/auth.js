@@ -35,7 +35,7 @@ export const getters = {
 };
 
 export const mutations = {
-  login(state, token, refreshToken) {
+  login(state, { token, refreshToken }) {
     state.status = AuthenticationState.AUTHENTICATED;
     state.authenticated = true;
     state.token.original = token;
@@ -44,6 +44,10 @@ export const mutations = {
     state.error = { message: null, language: null };
   },
   loggingIn(state) {
+    state.status = AuthenticationState.AUTHENTICATING;
+    state.error = { message: null, language: null };
+  },
+  refreshing(state) {
     state.status = AuthenticationState.AUTHENTICATING;
     state.error = { message: null, language: null };
   },
@@ -80,7 +84,7 @@ export const actions = {
       if (response.status === 200) {
         const token = response.data.access_token;
         const refreshToken = response.data.refresh_token;
-        commit('login', token, refreshToken);
+        commit('login', { token: token, refreshToken: refreshToken });
       } else {
         commit('error', { error: 'Something went wrong', language: 'en' });
       }
@@ -97,5 +101,33 @@ export const actions = {
    */
   logout({ commit }) {
     commit('logout');
+  },
+
+  /**
+   * Refresh a token
+   * @param commit
+   * @param userId
+   * @param refreshToken
+   * @return {Promise<void>}
+   */
+  async refresh({ commit }, { userId, refreshToken }) {
+    try {
+      commit('refreshing');
+      const response = await this.$axios.post(
+        '/auth/refresh',
+        { refresh_token: refreshToken, user_id: userId },
+      );
+      if (response.status === 200) {
+        const token = response.data.access_token;
+        const refreshToken = response.data.refresh_token;
+        commit('login', { token: token, refreshToken: refreshToken });
+      } else {
+        commit('error', { error: 'Something went wrong', language: 'en' });
+      }
+    } catch (e) {
+      if ('response' in e && 'data' in e.response) {
+        commit('error', e.response.data);
+      }
+    }
   },
 };
