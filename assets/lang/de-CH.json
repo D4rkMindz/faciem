@@ -54,7 +54,8 @@
     "sign-up": "Registrieren",
     "logout": "Abmelden",
     "watch": "Loslegen",
-    "home": "Start"
+    "home": "Start",
+    "profile": "Profil"
   },
   "ADMIN": {
     "welcome": "Willkommen {username}",

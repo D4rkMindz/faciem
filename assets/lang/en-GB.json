@@ -52,7 +52,8 @@
     "sign-up": "Sign up",
     "logout": "Logout",
     "watch": "Watch",
-    "home": "Home"
+    "home": "Home",
+    "profile": "Profile"
   },
   "ADMIN": {
     "welcome": "Welcome {username}",
