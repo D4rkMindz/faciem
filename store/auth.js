@@ -86,7 +86,8 @@ export const actions = {
         const refreshToken = response.data.refresh_token;
         commit('login', { token: token, refreshToken: refreshToken });
       } else {
-        commit('error', { error: 'Something went wrong', language: 'en' });
+        // todo think about the language param here
+        commit('error', { error: this.$t('ERRORS.generic'), language: 'en' });
       }
     } catch (e) {
       if ('response' in e && 'data' in e.response) {
@@ -122,7 +123,7 @@ export const actions = {
         const refreshToken = response.data.refresh_token;
         commit('login', { token: token, refreshToken: refreshToken });
       } else {
-        commit('error', { error: 'Something went wrong', language: 'en' });
+        commit('error', { error: this.$t('ERRORS.generic'), language: 'en' });
       }
     } catch (e) {
       if ('response' in e && 'data' in e.response) {

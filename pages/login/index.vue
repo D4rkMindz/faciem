@@ -5,7 +5,7 @@
         <div class="lg:w-1/3">
           <label class="block text lg:text-right mb-1 lg:mb-0 pr-4"
                  for="username">
-            Username
+            {{ $t('DEFAULTS.username') }}
           </label>
         </div>
         <div class="lg:w-2/3">
@@ -19,7 +19,7 @@
         <div class="lg:w-1/3">
           <label for="password"
                  class="block text lg:text-right mb-1 lg:mb-0 pr-4">
-            Password
+            {{ $t('DEFAULTS.password') }}
           </label>
         </div>
         <div class="lg:w-2/3">
@@ -39,16 +39,16 @@
                 :disabled="disabled"
                 @click="authenticate"
                 class="button">
-          Login
+          {{ $t('DEFAULTS.login-action') }}
         </button>
       </div>
     </div>
     <div class="w-1/1 text-center mt-3">
       <p class="text-muted">
-        Don't have an Account?
-        <nuxt-link to="/signup"
+        {{ $t('REGISTRATION.dont-have-an-account') }}
+        <nuxt-link :to="localeRoute('/signup')"
                    class="link">
-          Create an account
+          {{ $t('REGISTRATION.create-account') }}
         </nuxt-link>
       </p>
     </div>
@@ -92,9 +92,9 @@ export default {
       await this.login({ username: this.username, password: this.password });
       if (!this.hasError()) {
         if (this.hasRole()(WATCH_ROLES.WATCH)) {
-          await this.$router.push('/watch');
+          await this.$router.push(this.localeRoute('/watch'));
         } else {
-          await this.$router.push('/b2b/admin');
+          await this.$router.push(this.localeRoute('/b2b/admin'));
         }
       }
     },

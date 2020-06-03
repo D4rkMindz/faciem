@@ -79,16 +79,18 @@ const config = {
     }],
   },
   i18n: {
-    locales: [{
-      code: 'en',
-      name: 'English',
-      file: 'en-GB.json',
-    },
-    {
-      code: 'de',
-      name: 'Deutsch',
-      file: 'de-CH.json',
-    }],
+    strategy: 'prefix',
+    locales: [
+      {
+        code: 'de',
+        name: 'Deutsch',
+        file: 'de-CH.json',
+      }, {
+        code: 'en',
+        name: 'English',
+        file: 'en-GB.json',
+      },
+    ],
     loadLanguagesAsync: true,
     lazy: true,
     langDir: 'assets/lang/',

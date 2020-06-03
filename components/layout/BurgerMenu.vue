@@ -13,58 +13,58 @@
           <div v-if="!authenticated"
                @click="menuOpen = false"
                class="py-3 text-center text-gray-500 hover:text-gray-900 cursor-pointer">
-            <nuxt-link to="/">
-              PRIVATE
+            <nuxt-link :to="localeRoute('/')">
+              {{ $t('MENU.private') }}
             </nuxt-link>
           </div>
           <div v-if="!authenticated"
                @click="menuOpen = false"
                class="py-3 text-center text-gray-500 hover:text-gray-900 cursor-pointer">
-            <nuxt-link to="/business">
-              BUSINESS
+            <nuxt-link :to="localeRoute('/business')">
+              {{ $t('MENU.business') }}
             </nuxt-link>
           </div>
           <div @click="menuOpen = false"
                class="py-3 text-center text-gray-500 hover:text-gray-900 cursor-pointer">
-            <nuxt-link to="/">
-              Home
+            <nuxt-link :to="localeRoute('/')">
+              {{ $t('MENU.home') }}
             </nuxt-link>
           </div>
           <div v-if="authenticated && canSeeAdmin"
                @click="menuOpen = false"
                class="py-3 text-center text-gray-500 hover:text-gray-900 cursor-pointer">
-            <nuxt-link to="/b2b/admin">
-              Admin
+            <nuxt-link :to="localeRoute('/b2b/admin')">
+              {{ $t('MENU.admin') }}
             </nuxt-link>
           </div>
           <div v-if="authenticated && canSeeWatch"
                @click="menuOpen = false"
                class="py-3 text-center text-gray-500 hover:text-gray-900 cursor-pointer">
-            <nuxt-link to="/watch">
-              Watch
+            <nuxt-link :to="localeRoute('/watch')">
+              {{ $t('MENU.watch') }}
             </nuxt-link>
           </div>
           <div v-if="!authenticated"
                @click="menuOpen = false"
                class="py-3 text-center text-gray-500 hover:text-gray-900 cursor-pointer">
-            <nuxt-link to="/login">
-              Login
+            <nuxt-link :to="localeRoute('/login')">
+              {{ $t('MENU.login') }}
             </nuxt-link>
           </div>
           <div v-if="!authenticated"
                @click="menuOpen = false"
                class="py-3">
-            <nuxt-link to="/signup">
+            <nuxt-link :to="localeRoute('/signup')">
               <button class="bg-purple-500 text-white font-bold py-2 px-4 rounded-full hover:bg-purple-400">
-                Sign Up
+                {{ $t('MENU.sign-up') }}
               </button>
             </nuxt-link>
           </div>
           <div v-if="authenticated"
                @click="menuOpen = false"
                class="py-3 text-center text-gray-500 hover:text-gray-900 cursor-pointer">
-            <nuxt-link to="/logout">
-              Logout
+            <nuxt-link :to="localeRoute('/logout')">
+              {{ $t('MENU.logout') }}
             </nuxt-link>
           </div>
         </div>

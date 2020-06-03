@@ -1,16 +1,16 @@
 <template>
   <div class="container mx-auto emailtoken flex flex-wrap">
     <div class="block lg:inline-block w-3/4 p-6 lg:w-3/12 mx-auto lg:mr-auto">
-      <img src="/img/almost-done.svg"
-           alt="Thank you for signing up at venovum. Please finish your registration, you're almost done" />
+      <img :alt="$t('REGISTRATION.thanks')"
+           src="/img/almost-done.svg" />
     </div>
 
     <div class="block lg:inline-block bg-white shadow w-11/12 lg:w-8/12 mx-auto p-6 mx-auto lg:ml-auto registration-card">
       <h1 class="text-center lg:text-left title">
-        Almost done
+        {{ $t('REGISTRATION.title') }}
       </h1>
       <p class="text">
-        Please fill out the missing fields to complete your registration
+        {{ $t('REGISTRATION.text') }}
       </p>
 
       <div class="registration">
@@ -26,24 +26,24 @@
                        :errors="errors.firstname"
                        @validate="validateFirstname"
                        @touched="touched.firstname = $event"
-                       placeholder="Required"
-                       label="First name" />
+                       :placeholder="$t('DEFAULTS.required')"
+                       :label="$t('REGISTRATION.first-name')" />
 
               <v-input id="middle-name"
                        v-model="middlename"
                        :errors="errors.middlename"
                        @validate="validateMiddlename"
                        @touched="touched.middlename = $event"
-                       placeholder="Optional"
-                       label="Middle name" />
+                       :placeholder="$t('DEFAULTS.optional')"
+                       :label="$t('REGISTRATION.middle-name')" />
 
               <v-input id="last-name"
                        v-model="lastname"
                        :errors="errors.lastname"
                        @validate="validateLastname"
                        @touched="touched.lastname = $event"
-                       placeholder="Required"
-                       label="Last name" />
+                       :placeholder="$t('DEFAULTS.required')"
+                       :label="$t('REGISTRATION.last-name')" />
 
               <v-input id="birth-date"
                        v-model="birthdate"
@@ -51,7 +51,7 @@
                        :errors="errors.birthdate"
                        @validate="validateBirthdate"
                        @touched="touched.birthdate = $event"
-                       label="Birthdate" />
+                       :label="$t('REGISTRATION.birthdate')" />
             </div>
 
             <div class="flex flex-wrap">
@@ -59,7 +59,7 @@
                       :disabled="!firstStepValid"
                       :class="{'disabled': !firstStepValid, 'loading': saving}"
                       class="button w-full lg:w-auto lg:ml-auto">
-                Save
+                {{ $t('FORM.save') }}
               </button>
             </div>
           </div>
@@ -73,26 +73,26 @@
                        :errors="errors.username"
                        @validate="validateUsername"
                        @touched="touched.username = $event"
-                       label="Username" />
+                       :label="$t('DEFAULTS.username')" />
 
               <v-input id="password"
                        v-model="password"
                        :errors="errors.password"
                        @validate="validatePassword"
                        @touched="touched.password = $event"
-                       type="password"
-                       label="Password" />
+                       :label="$t('DEFAULTS.password')"
+                       type="password" />
             </div>
 
             <div class="flex flex-wrap flex-col-reverse lg:flex-row">
               <button @click="back"
                       class="button outline w-full lg:w-auto mr-auto mt-6 lg:mt-0">
-                Back
+                {{ $t('REGISTRATION.back') }}
               </button>
 
               <button @click="finish"
                       class="button w-full lg:w-auto">
-                Finish
+                {{ $t('REGISTRATION.finish') }}
               </button>
             </div>
           </div>
@@ -186,7 +186,7 @@ export default {
 
       this.saving = false;
       if (this.isRegistered()) {
-        this.$toast.info('You can now login with your created credentials');
+        this.$toast.info(this.$t('REGISTRATION.success-message'));
         await this.$router.replace('/login');
         return;
       }
@@ -250,36 +250,36 @@ export default {
       maximum = maximum || 255;
       const errors = [];
       if (name.length < minimum) {
-        errors.push(`${field} is not long enough. Minimum ${minimum} letters`);
+        errors.push(this.$t('ERRORS.minimum-length', { field: field, minimum: minimum })); // {field} is not long enough. Minimum {minimum} letters
       }
 
       if (name.length > maximum) {
-        errors.push(`${field} exceeds the maximum length. Please keep it shorter than ${maximum} characters`);
+        errors.push(this.$t('ERRORS.maximum-length', { field: field, maximum: maximum })); // {field} exceeds the maximum length. Please keep it shorter than {maximum} characters
       }
 
       return errors;
     },
     validateFirstname() {
-      this.errors.firstname = this.validateLength(this.firstname, 'First name');
+      this.errors.firstname = this.validateLength(this.firstname, this.$t('REGISTRATION.first-name'));
     },
     validateMiddlename() {
       if (this.middlename.length <= 0) {
         return;
       }
-      this.errors.middlename = this.validateLength(this.middlename, 'Middle name');
+      this.errors.middlename = this.validateLength(this.middlename, this.$t('REGISTRATION.middle-name'));
     },
     validateLastname() {
-      this.errors.lastname = this.validateLength(this.lastname, 'Last name');
+      this.errors.lastname = this.validateLength(this.lastname, this.$t('REGISTRATION.last-name'));
     },
     validateBirthdate() {
       const birthdate = moment(this.birthdate, 'DD.MM.YYYY', true);
       const errors = [];
       if (!birthdate.isValid()) {
-        errors.push('The date must match dd.mm.yyyy format');
+        errors.push(this.$t('ERRORS.date-format'));
       }
 
       if (birthdate.diff(moment().subtract(18, 'years')) > 0) {
-        errors.push('You need to be at least 18 years old to use venovum');
+        errors.push(this.$t('ERRORS.minimum-age'));
       }
 
       this.errors.birthdate = errors;
@@ -287,9 +287,9 @@ export default {
     validateUsername() {
       // https://stackoverflow.com/a/12019115/6805097
       const regex = /^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._-]+(?<![_.])$/;
-      const errors = this.validateLength(this.username, 'Username', 3, 30);
+      const errors = this.validateLength(this.username, this.$t('DEFAULTS.username'), 3, 30);
       if (!this.username.match(regex)) {
-        errors.push('Your username can only contain alphanumeric letters, ".", "-" and "_" and cannot end with ".", "-" and "_"');
+        errors.push(this.$t('ERRORS.username'));
       }
 
       this.errors.username = errors;
@@ -297,10 +297,10 @@ export default {
     validatePassword() {
       // https://stackoverflow.com/a/21456918/6805097
       const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]$/;
-      const errors = this.validateLength(this.password, 'Password', 6);
+      const errors = this.validateLength(this.password, this.$t('DEFAULTS.password'), 6);
 
       if (!this.password.match(regex)) {
-        errors.push('Your password must contain at least one uppercase, one lowercase and a special character');
+        errors.push(this.$t('ERRORS.password'));
       }
 
       this.errors.password = [];

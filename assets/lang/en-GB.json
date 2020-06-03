@@ -1,10 +1,122 @@
 {
-  "PRIVATE": "PRIVATE",
-  "BUSINESS": "BUSINESS",
-  "Watch": "Watch",
-  "Admin": "Admin",
-  "Sign Up": "Sign Up",
-  "Login": "Login",
-  "Logout": "Logout",
-  "TEST": "TEST"
+  "ANSWER": {
+    "STARS": {
+      "how-would-you-rate": "How would you rate the advertisement?"
+    },
+    "send": "Send answers",
+    "answer": "Answer",
+    "your-answer": "Your answer"
+  },
+  "ERRORS": {
+    "stars": "Please set a star rating between one and five stars",
+    "answer-the-question": "Please answer the question",
+    "minimum-length": "{field} should have at least {minimum} characters.",
+    "generic-field": "This field",
+    "maximum-length": "{field} can have at most {maximum} characters.",
+    "date-format": "The date must match dd.mm.yyyy format",
+    "minimum-age": "You need to be at least 18 years old to use venovum",
+    "username": "Your username can only contain alphanumeric letters, \".\", \"-\" and \"_\" and cannot end with \".\", \"-\" and \"_\"",
+    "password": "Your password must contain at least one uppercase, one lowercase and a special character",
+    "all-campaigns-watched": "All campaigns watched. We will inform you, if there are any other campaigns available for you.",
+    "session-expired": "Session expired",
+    "generic": "There was an error. Please try again",
+    "add-more-answers": "Please add more than one answer option",
+    "required": "{field} is required"
+  },
+  "QUESTIONS": {
+    "name": "Name",
+    "my-campaign": "My Campaign",
+    "description": "Description",
+    "about": "Describe your campaign a little...",
+    "question-type": "Question type",
+    "question": "Question",
+    "add": "Add",
+    "stars": "Stars",
+    "multiple-choice": "Multiple choice",
+    "validation": "Validation",
+    "text": "Text",
+    "stars-description": "Stars allow you to get user feedback about your video. With this option, the user can rate your video with stars. This is literally a must for every video.",
+    "multiple-choice-description": "A Multiple choice question allows the user to select one of many given answers. This is one of the best options.",
+    "validation-description": "A Validation question.",
+    "text-description": "A Text offers the user to say something about your product. We strongly recommend you to not use this option."
+  },
+  "FILEINPUT": {
+    "selected-file": "Selected file: {file}",
+    "select-file": "Select file"
+  },
+  "MENU": {
+    "private": "PRIVATE",
+    "business": "BUSINESS",
+    "admin": "Admin",
+    "login": "Login",
+    "sign-up": "Sign up",
+    "logout": "Logout",
+    "watch": "Watch",
+    "home": "Home"
+  },
+  "ADMIN": {
+    "welcome": "Welcome {username}",
+    "campaigns": "Campaigns",
+    "see-all-campaigns": "See all campaigns"
+  },
+  "CAMPAIGN": {
+    "create": "Create campaign",
+    "create-description": "You can always create a campaign. A campaign consists of a video and a few questions. One question is free, any more will cost you. Please see our pricing model for further information."
+  },
+  "FORM": {
+    "save": "Save",
+    "updating": "Updating ..."
+  },
+  "CAMPAIGNS": {
+    "title": "Campaigns",
+    "create": "Create",
+    "TABLE": {
+      "name": "Name",
+      "started-at": "Started at",
+      "ends-at": "Ends at",
+      "pricing": "Pricing",
+      "status": "Status",
+      "open-end": "Open end"
+    }
+  },
+  "DEFAULTS": {
+    "username": "Username",
+    "password": "Password",
+    "login-action": "Login",
+    "required": "Required",
+    "optional": "Optional"
+  },
+  "REGISTRATION": {
+    "dont-have-an-account": "Don't have an Account?",
+    "create-account": "Create an account",
+    "thanks": "Thank you for your registration",
+    "title": "Almost done",
+    "text": "Please fill out the missing fields to complete your registration",
+    "first-name": "First name",
+    "middle-name": "Middle name",
+    "last-name": "Last name",
+    "birthdate": "Birth date",
+    "back": "Back",
+    "finish": "Finish",
+    "success-message": "You can now login with your created credentials",
+    "email": "Email"
+  },
+  "AUTH": {
+    "logging-out": "Logging you out"
+  },
+  "SIGNUP": {
+    "register-now": "Register now at venovum.com",
+    "title": "Get Started With Ease",
+    "teaser": "Just enter your email and get ready to earn some money by watching advertisement videos. We then send you an email with a link to complete your signup at Venovum",
+    "sign-up": "Sign up",
+    "check-inbox": "Please have a look into your inbox and confirm your email",
+    "thanks": "Thank You"
+  },
+  "CREATECAMPAIGN": {
+    "file-uploaded": "File uploaded and enqueued for processing. This may take some time",
+    "question": "Question",
+    "answer": "Answer",
+    "name": "Name",
+    "description": "Description"
+  }
 }

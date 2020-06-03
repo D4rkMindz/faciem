@@ -2,7 +2,7 @@
   <div>
     <nav class="flex flex-wrap items-center justify-between bg-white mx-auto py-2 px-3 lg:py-12 lg:px-10">
       <div class="items-center flex-shrink-0 mx-2">
-        <nuxt-link to="/">
+        <nuxt-link :to="localeRoute('/')">
           <img src="/img/logo.png"
                class="h-8 w-8 lg:ml-32"
                alt="Venovum logo" />
@@ -16,29 +16,29 @@
         <div class="hidden lg:inline-flex">
           <div v-if="!authenticated"
                class="navigation-link">
-            <nuxt-link to="/"
+            <nuxt-link :to="localeRoute('/')"
                        exact>
-              {{ $t('PRIVATE') }}
+              {{ $t('MENU.private') }}
             </nuxt-link>
           </div>
           <div v-if="!authenticated"
                class="navigation-link">
-            <nuxt-link to="/business"
+            <nuxt-link :to="localeRoute('/business')"
                        exact>
-              {{ $t('BUSINESS') }}
+              {{ $t('MENU.business') }}
             </nuxt-link>
           </div>
           <div v-if="authenticated">
             <div v-if="canSeeWatch"
                  class="navigation-link">
-              <nuxt-link to="/watch">
-                {{ $t('Watch') }}
+              <nuxt-link :to="localeRoute('/watch')">
+                {{ $t('MENU.watch') }}
               </nuxt-link>
             </div>
             <div v-if="canSeeAdmin"
                  class="navigation-link">
-              <nuxt-link to="/b2b/admin">
-                {{ $t('Admin') }}
+              <nuxt-link :to="localeRoute('/b2b/admin')">
+                {{ $t('MENU.admin') }}
               </nuxt-link>
             </div>
           </div>
@@ -46,22 +46,22 @@
         <div class="hidden lg:inline-flex">
           <div v-if="!authenticated"
                class="navigation-link button-link">
-            <nuxt-link to="/signup">
+            <nuxt-link :to="localeRoute('/signup')">
               <button class="bg-purple-500 text-white font-bold py-2 px-4 rounded-full">
-                {{ $t('Sign Up') }}
+                {{ $t('MENU.sign-up') }}
               </button>
             </nuxt-link>
           </div>
           <div v-if="!authenticated"
                class="navigation-link">
-            <nuxt-link to="/login">
-              {{ $t('Login') }}
+            <nuxt-link :to="localeRoute('/login')">
+              {{ $t('MENU.login') }}
             </nuxt-link>
           </div>
           <div v-if="authenticated"
                class="navigation-link">
-            <nuxt-link to="/logout">
-              {{ $t('Logout') }}
+            <nuxt-link :to="localeRoute('/logout')">
+              {{ $t('MENU.logout') }}
             </nuxt-link>
           </div>
           <div v-for="locale in availableLocales"
@@ -95,8 +95,6 @@ export default {
   },
   computed: {
     availableLocales() {
-      // eslint-disable-next-line no-console
-      console.log(this.$i18n.locales);
       return this.$i18n.locales.filter(i => i.code !== this.$i18n.locale);
     },
     ...mapState({

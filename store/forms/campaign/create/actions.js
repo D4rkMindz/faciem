@@ -32,7 +32,7 @@ export default {
           });
         if (saveCampaignResponse.status !== 200) {
           commit('setState', CAMPAIGN_CREATE_STATES.INVALID);
-          commit('setErrors', { errors: [], message: 'Something went wrong. Please try again' });
+          commit('setErrors', { errors: [], message: this.$t('ERRORS.generic') });
           return;
         }
         commit('setCampaignId', saveCampaignResponse.data.campaign_id);
@@ -56,10 +56,10 @@ export default {
       );
       if (saveMediaResponse.status !== 200) {
         commit('setState', CAMPAIGN_CREATE_STATES.INVALID);
-        commit('setErrors', { errors: [], message: 'Something went wrong. Please try again' });
+        commit('setErrors', { errors: [], message: this.$t('ERRORS.generic') });
         return;
       }
-      this.$toast.info('File uploaded and enqueued for processing. This may take some time');
+      this.$toast.info(this.$t('CREATECAMPAIGN.file-uploaded'));
       commit('reset');
       file = null;
       dispatch('campaigns/update', null, { root: true });
@@ -94,7 +94,7 @@ export default {
     }
 
     if (!question.value || question.value.trim().length < 3) {
-      question.errors.push('Please enter at least a 3 characters long question');
+      question.errors.push(this.$t('ERRORS.minimum-length', { field: this.$t('CREATECAMPAIGN.question'), minimum: 3 })); // Question
     }
 
     question.valid = question.errors.length === 0;
@@ -114,12 +114,12 @@ export default {
     answer.errors = [];
 
     if (TYPES_THAT_REQUIRE_MULTIPLE_ANSWERS.includes(question.type) && question.answers.length <= 1) {
-      question.answers[question.answers.length - 1].errors.push('Please add more than one answer option');
+      question.answers[question.answers.length - 1].errors.push(this.$t('ERRORS.add-more-answers'));
       question.answers[question.answers.length - 1].valid = false;
     }
 
     if (!answer.value || answer.value.trim().length < 1) {
-      answer.errors.push('Please enter at least a one character long answer');
+      answer.errors.push(this.$t('ERRORS.minimum-length', { field: this.$t('CREATECAMPAIGN.answer'), minimum: 1 }));
     }
     answer.valid = answer.errors.length === 0;
 
@@ -134,16 +134,16 @@ export default {
   validateName({ commit, state }, name) {
     const errors = [];
     if (!name) {
-      errors.push('A name is required');
+      errors.push(this.$t('ERRORS.required', { field: this.$t('CREATECAMPAIGN.name') }));
       commit('setNameErrors', errors);
       return;
     }
 
     if (name.length < 3) {
-      errors.push('The name is too short');
+      errors.push(this.$t('ERRORS.minimum-length', { field: this.$t('CREATECAMPAIGN.name'), minimum: 3 }));
     }
     if (name.length > 20) {
-      errors.push('The name is too long');
+      errors.push(this.$t('ERRORS.maximum-length', { field: this.$t('CREATECAMPAIGN.name'), minimum: 20 }));
     }
 
     commit('setNameErrors', errors);
@@ -152,16 +152,16 @@ export default {
     const errors = [];
 
     if (!description) {
-      errors.push('A description is required');
+      errors.push(this.$t('ERRORS.required', { field: this.$t('CREATECAMPAIGN.description') }));
       commit('setDescriptionErrors', errors);
       return;
     }
 
     if (description.length < 10) {
-      errors.push('The description should be at least 10 characters long');
+      errors.push(this.$t('ERRORS.minimum-length', { field: this.$t('CREATECAMPAIGN.description'), minimum: 10 }));
     }
     if (description.length > 200) {
-      errors.push('The description is too long');
+      errors.push(this.$t('ERRORS.maximum-length', { field: this.$t('CREATECAMPAIGN.description'), minimum: 200 }));
     }
 
     commit('setDescriptionErrors', errors);

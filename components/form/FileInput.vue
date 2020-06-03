@@ -2,8 +2,8 @@
   <div @click="select()"
        class="file-input">
     <div :class="css">
-      <span v-if="value">Selected File: {{ value.name }}</span>
-      <span v-else>Select File</span>
+      <span v-if="value">{{ $t('FILEINPUT.selected-file', {file: value.name}) }}</span>
+      <span v-else>{{ $t('FILEINPUT.select-file') }}</span>
     </div>
     <input ref="file"
            @change="handleFileChange"

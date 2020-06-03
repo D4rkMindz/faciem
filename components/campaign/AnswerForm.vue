@@ -14,7 +14,8 @@
               :class="{'opacity-50 cursor-not-allowed': (valid === false)}"
               @click.prevent="answer"
               class="button">
-        Send answers
+        {{ $t('ANSWER.send') }}
+        <!-- Send answers-->
       </button>
     </div>
   </div>

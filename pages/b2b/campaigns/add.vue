@@ -1,11 +1,11 @@
 <template>
   <div class="container mx-auto">
     <h1 class="title">
-      Create campaign
+      {{ $t('CAMPAIGN.create') }}
     </h1>
     <div class="flex flex-col-reverse md:flex-row">
       <div class="w-1/1 md:w-1/2 mx-3">
-        <p>You can always create a campaign. A campaign consists of a video and a few questions. Three questions are free, any more will cost you. Please see our pricing model for further information.</p>
+        <p>{{ $t('CAMPAIGN.create-description') }}</p>
 
         <div class="sm:w-1/1 m-4">
           <file-input v-model="file" />
@@ -25,7 +25,7 @@
                   :class="{'loading': saving, 'disabled': !valid}"
                   :disabled="!valid || saving"
                   class="button">
-            Save
+            {{ $t('FORM.save') }}
           </button>
         </div>
       </div>

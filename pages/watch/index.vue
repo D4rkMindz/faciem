@@ -1,9 +1,6 @@
 <template>
   <div class="container mx-auto">
     <div class="flex flex-col">
-      <div class="flex-row w-1/1 text-center p-2">
-        Title of the campaign
-      </div>
       <div class="flex flex-col">
         <transition name="fade">
           <div v-if="showPlayer && source"
@@ -91,7 +88,7 @@ export default {
           this.setSource();
         }
         if (this.mediaState === WATCH_STATE.ALL_WATCHED) {
-          this.message = 'All campaigns watched. We will inform you, if there are any other campaigns available for you.';
+          this.message = this.$t('ERRORS.all-campaigns-watched');
         }
         this.source = null;
       },

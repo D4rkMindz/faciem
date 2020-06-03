@@ -1,7 +1,8 @@
 
 <template>
   <div>
-    logging you out
+    {{ $t('AUTH.logging-out') }}
+    <!--    logging you out-->
   </div>
 </template>
 
@@ -14,7 +15,7 @@ export default {
   name: 'LogoutPage',
   created() {
     this.logout();
-    this.$router.push('/');
+    this.$router.push(this.localeRoute('/'));
   },
   methods: {
     ...mapActions([
@@ -23,7 +24,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-
-</style>

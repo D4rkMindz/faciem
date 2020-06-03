@@ -1,11 +1,11 @@
 <template>
   <div class="container mx-auto">
     <h1 class="title">
-      Campaigns
+      {{ $t('CAMPAIGNS.title') }}
     </h1>
-    <nuxt-link to="/b2b/campaigns/add">
+    <nuxt-link :to="localeRoute('/b2b/campaigns/add')">
       <button class="button">
-        Create a campaign
+        {{ $t('CAMPAIGNS.create') }}
       </button>
     </nuxt-link>
     <div class="w-2/3">
@@ -13,19 +13,19 @@
         <thead>
           <tr>
             <th class="px-4 py-2">
-              Name
+              {{ $t('CAMPAIGNS.TABLE.name') }}
             </th>
             <th class="px-4 py-2">
-              Started at
+              {{ $t('CAMPAIGNS.TABLE.started-at') }}
             </th>
             <th class="px-4 py-2">
-              Ends at
+              {{ $t('CAMPAIGNS.TABLE.ends-at') }}
             </th>
             <th class="px-4 py-2">
-              Pricing
+              {{ $t('CAMPAIGNS.TABLE.pricing') }}
             </th>
             <th class="px-4 py-2">
-              Status
+              {{ $t('CAMPAIGNS.TABLE.status') }}
             </th>
           </tr>
         </thead>
@@ -33,7 +33,7 @@
           <tr v-if=" getState() === updatingState">
             <td colspan="5"
                 class="text-center text-secondary">
-              Updating ...
+              {{ $t('FORM.updating') }}
             </td>
           </tr>
           <tr v-for="(campaign, index) in getCampaigns()"
@@ -45,7 +45,7 @@
               {{ toMoment(campaign.start_at).format('DD.MM.YYYY') }}
             </td>
             <td class="border px-4 py-2">
-              {{ campaign.end_at ? toMoment(campaign.end_at).format('DD.MM.YYYY'): 'Open end' }}
+              {{ campaign.end_at ? toMoment(campaign.end_at).format('DD.MM.YYYY'): $t('CAMPAIGNS.TABLE.open-end') }}
             </td>
             <td class="border px-4 py-2">
               {{ campaign.pricing_name }}

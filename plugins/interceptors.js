@@ -1,6 +1,8 @@
 export default function (vue) {
   const { $axios, store, route } = vue;
   const $toast = vue.store.$toast;
+  const $t = vue.store.$t;
+  const localeRoute = vue.store.localeRoute;
   const $router = vue.store.$router;
   let isAlreadyFetchingAccessToken = false;
   let subscribers = [];
@@ -43,8 +45,8 @@ export default function (vue) {
     if (status === 401 && route.name !== 'login') {
       if (!store.getters['auth/hasRefreshToken']) {
         store.dispatch('auth/logout');
-        $toast.error('Session expired');
-        await $router.push({ name: 'login' });
+        $toast.error($t('ERRORS.session-expired'));
+        await $router.push(localeRoute({ name: 'login' }));
         return;
       }
       if (!isAlreadyFetchingAccessToken) {
@@ -55,8 +57,8 @@ export default function (vue) {
         store.dispatch('auth/refresh', { refreshToken: refreshToken, userId: userId }).then(async () => {
           if (store.getters['auth/hasError']) {
             subscribers = [];
-            $toast.error('Session expired');
-            await $router.push({ name: 'login' });
+            $toast.error($t('ERRORS.session-expired'));
+            await $router.push(localeRoute({ name: 'login' }));
             return;
           }
           const token = store.getters['auth/getToken'];

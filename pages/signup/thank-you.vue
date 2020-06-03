@@ -1,15 +1,15 @@
 <template>
   <div class="container mx-auto">
     <div class="w-full lg:w-1/3 p-6 lg:float-right flex items-center lg:mr-32">
-      <img src="/img/mail-sent.svg"
-           alt="Please check your inbox" />
+      <img :alt="$t('SIGNUP.check-inbox')"
+           src="/img/mail-sent.svg" />
     </div>
     <div class="w-full lg:w-1/3 px-6 float-left">
       <h1 class="text-center lg:text-left title">
-        Thank You
+        {{ $t('SIGNUP.thanks') }}
       </h1>
       <p class="text">
-        Please have a look into your inbox and confirm your email
+        {{ $t('SIGNUP.check-inbox') }}
       </p>
     </div>
   </div>

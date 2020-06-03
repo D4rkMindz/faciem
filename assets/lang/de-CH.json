@@ -1,10 +1,124 @@
 {
-  "PRIVATE": "PRIVAT",
-  "BUSINESS": "CORPORATE",
-  "Watch": "Ansehen",
-  "Admin": "Administration",
-  "Sign Up": "Registrieren",
-  "Login": "Anmelden",
-  "Logout": "Ausloggen",
-  "TEST": "TEST"
+  "ANSWER": {
+    "STARS": {
+      "how-would-you-rate": "Wie würdest Du diese Werbung bewerten?"
+    },
+    "send": "Antworten schicken",
+    "answer": "Antwort",
+    "your-answer": "Deine Antwort"
+  },
+  "ERRORS": {
+    "too-short": "{field} ist zu kurz",
+    "too-long": "{field} ist zu lang",
+    "stars": "Bitte bewerte mit einer Anzahl Sterne",
+    "answer-the-question": "Bitte beantworte die Frage",
+    "minimum-length": "{field} sollte mindestens {minimum} Zeichen haben.",
+    "generic-field": "Dieses Feld",
+    "maximum-length": "{field} darf maximal {maximum} Zeichen haben.",
+    "date-format": "Das Datum muss dem TT.MM.JJJJ format entsprechen",
+    "minimum-age": "Du musst mindestens 18 Jahre alt sein um venovum nutzen zu dürfen",
+    "username": "Dein Benutzername darf nur Alphanumerische Zeichen sowie \".\", \"-\" und \"_\" beinhalten. Ebenfalls darf er nicht mit \".\", \"-\" und \"_\" enden",
+    "password": "Dein Passwort muss mindestens einen Gross- und einen Kleinbuchstaben sowie ein Sonderzeichen enthalten",
+    "all-campaigns-watched": "Leider hast Du alle Werbungen gesehen. Wir werden Dich informieren, sobald wir neue Werbung für Dich haben",
+    "session-expired": "Sitzung abgelaufen",
+    "generic": "Etwas ist schief gelaufen. Bitte versuche es später erneut",
+    "add-more-answers": "Bitte füge mehr als eine Antwort hinzu ",
+    "required": "{field} ist erfordert"
+  },
+  "QUESTIONS": {
+    "name": "Name",
+    "my-campaign": "Meine Kampagne",
+    "description": "Beschreibung",
+    "about": "Beschreibe Deine Kampagne",
+    "question-type": "Fragetyp",
+    "question": "Frage",
+    "add": "Hinzufügen",
+    "stars": "Sterne",
+    "multiple-choice": "Multiple Choice",
+    "validation": "Überprüfung",
+    "text": "Text",
+    "stars-description": "Sterne erlauben dir Feedback über das Video zu erhalten. Mit dieser Option kann der Benutzer das Video mit einer Anzahl Sterne zwischen 1 - 5 bewerten. Diese Option ist praktisch ein MUSS für jede Kampagne",
+    "multiple-choice-description": "Eine Multiple Choice Antwort ermöglicht dem Benuter mehrere Antworten aus einem Set von Antworten auszuwählen. Diese Antwortart ist eine der Besten",
+    "validation-description": "Eine Überprüfungsfrage. Dem Benutzer werden verschiedene Antworten zur Verfügung gestellt, jedoch ist nur ein Teil davon richtig. Sollte diese Frage nicht korrekt beantwortet werden, so ist die Antwort falsch.",
+    "text-description": "Ein Text ermöglicht einem Benutzer einen Text zu Deiner Kampagne zu verfassen. Wir raten stark von diesem Typ ab."
+  },
+  "FILEINPUT": {
+    "selected-file": "Ausgewählte Datei: {file}",
+    "select-file": "Datei auswählen"
+  },
+  "MENU": {
+    "private": "PRIVATE",
+    "business": "CORPORATE",
+    "admin": "Admin",
+    "login": "Anmelden",
+    "sign-up": "Registrieren",
+    "logout": "Abmelden",
+    "watch": "Loslegen",
+    "home": "Start"
+  },
+  "ADMIN": {
+    "welcome": "Willkommen {username}",
+    "campaigns": "Kampagnen",
+    "see-all-campaigns": "Alle Kampagnen ansehen"
+  },
+  "CAMPAIGN": {
+    "create": "Erstellen",
+    "create-description": "Du kannst immer eine Kampagne erstellen. Eine Kampagne besteht aus einem Video und ein paar Fragen. Eine Frage ist gratis, jede weitere kostet dich. Bitte siehe unser Preismodell an für weitere Informationen."
+  },
+  "FORM": {
+    "save": "Speichern",
+    "updating": "Aktualisieren ..."
+  },
+  "CAMPAIGNS": {
+    "title": "Kampagnen",
+    "create": "Erstellen",
+    "TABLE": {
+      "name": "Name",
+      "started-at": "Beginnt am",
+      "ends-at": "Endet am",
+      "pricing": "Preismodell",
+      "status": "Status",
+      "open-end": "Kein Ende definiert"
+    }
+  },
+  "DEFAULTS": {
+    "username": "Benutzername",
+    "password": "Passwort",
+    "login-action": "Anmelden",
+    "required": "Erfordert",
+    "optional": "Optional"
+  },
+  "REGISTRATION": {
+    "dont-have-an-account": "Hast Du keinen Account?",
+    "create-account": "Erstelle einen Account",
+    "thanks": "Danke für Deine Registration",
+    "title": "Fast fertig",
+    "text": "Bitte fülle noch die fehlenden Felder aus um Deine Registration abzuschliessen",
+    "first-name": "Vorname",
+    "middle-name": "Zwischenname",
+    "last-name": "Nachname",
+    "birthdate": "Geburtsdatum",
+    "back": "Zurück",
+    "finish": "Abschliessen",
+    "success-message": "Du kannst Dich nun mit Deinem Benutzernamen und Passwort anmelden",
+    "email": "Email"
+  },
+  "AUTH": {
+    "logging-out": "Du wirst abgemeldet..."
+  },
+  "SIGNUP": {
+    "register-now": "Registriere Dich jetzt auf venovum.com",
+    "title": "Ganz Einfach Anfangen",
+    "teaser": "Gib einfach Deine Email an und beginne mit Werbung Geld zu verdienen. Wir werden Dir einen Link zukommen lassen für den Abschluss Deiner Registration auf venovum.com",
+    "sign-up": "Registrieren",
+    "check-inbox": "Bitte überprüfe Dein Emailpostfach und bestätige Deine Emailadresse.",
+    "thanks": "Vielen Dank"
+  },
+  "CREATECAMPAIGN": {
+    "file-uploaded": "Datei hochgeladen und für die Verarbeitung bereitgestellt. Dies dauert einen kleinen Moment",
+    "question": "Frage",
+    "answer": "Antwort",
+    "name": "Name",
+    "description": "Beschreibung"
+  }
 }

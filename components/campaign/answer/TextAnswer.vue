@@ -20,13 +20,13 @@ export default {
     validateText(value) {
       const errors = [];
       if (!value) {
-        errors.push('Please answer the question');
+        errors.push(this.$t('ERRORS.answer-the-question'));
       }
       if (value.trim().length <= 2) {
-        errors.push('Your answer must be longer than 3 characters');
+        errors.push(this.$t('ERRORS.minimum-length', { field: this.$t('ERRORS.generic-field'), minimum: 3 }));
       }
       if (value.trim().length >= 150) {
-        errors.push('Your answer cannot be longer than 150 characters');
+        errors.push(this.$t('ERRORS.maximum-length', { field: this.$t('ERRORS.generic-field'), maximum: 150 }));
       }
 
       this.$set(this.value, 'errors', errors);

@@ -1,22 +1,21 @@
 <template>
   <div class="container mx-auto signup">
     <div class="w-full lg:w-1/3 p-6 lg:float-right flex items-center lg:mt-20 lg:mr-32">
-      <img src="/img/registration.svg"
-           alt="Register now at Venovum.com" />
+      <img :alt="$t('SIGNUP.register-now')"
+           src="/img/registration.svg" />
     </div>
     <div class="w-full lg:w-1/2 px-6 float-left">
       <h1 class="text-center lg:text-left p-3 title">
-        Get Started With Ease
+        {{ $t('SIGNUP.title') }}
       </h1>
       <p class="text-gray-500 p-3 text-sm">
-        Just enter your email and get ready to earn some money by watching advertisement videos. We then send you an
-        email with a link to complete your signup at Venovum
+        {{ $t('SIGNUP.teaser') }}
       </p>
       <div class="lg:flex lg:items-center mx-6 mt-6 mb-3 lg:mt-12">
         <div class="lg:w-1/6">
           <label class="block text-gray-500 text-left lg:text-right mb-1 lg:mb-0 pr-4"
                  for="email">
-            Email
+            {{ $t('REGISTRATION.email') }}
           </label>
         </div>
         <div class="w-full lg:w-3/6 mb-3 lg:my-0">
@@ -37,7 +36,7 @@
                   :disabled="isSignUpDisabled"
                   @click="signUpWithEmail"
                   class="button w-full">
-            Sign Up
+            {{ $t('SIGNUP.sign-up') }}
           </button>
         </div>
       </div>
@@ -127,7 +126,7 @@ export default {
       }
       await this.signUp({ email: this.email });
       if (!this.hasErrors()) {
-        this.$router.push('/signup/thank-you');
+        this.$router.push(this.localeRoute('/signup/thank-you'));
       }
     },
     onEmailSignupInput() {

@@ -6,8 +6,8 @@
                @input="setName($event)"
                @validate="validateName($event)"
                :errors="nameErrors"
-               label="Name"
-               placeholder="My Campaign"
+               :label="$t('QUESTIONS.name')"
+               :placeholder="$t('QUESTIONS.my-campaign')"
                class="mt-6" />
 
       <v-input id="description"
@@ -15,8 +15,8 @@
                @input="setDescription($event)"
                @validate="validateDescription($event)"
                :errors="descriptionErrors"
-               label="Description"
-               placeholder="What is it all about?"
+               :label="$t('QUESTIONS.description')"
+               :placeholder="$t('QUESTIONS.about')"
                class="mt-6" />
     </div>
 
@@ -29,7 +29,7 @@
           :options="options"
           :value="question.type"
           @input="setType(i, $event)"
-          label="Question Type"
+          :label="$t('QUESTIONS.question-type')"
           class="mt-6"
           nomargin />
 
@@ -50,8 +50,8 @@
           :value="question.value"
           @input="setQuestionValue({questionIndex: i, property: 'value', value: $event})"
           @validate="validateQuestion({ questionIndex: i })"
-          label="Question"
-          placeholder="Add a question" />
+          :label="$t('QUESTIONS.question')"
+          :placeholder="$t('QUESTIONS.add')" />
 
         <div v-for="(answer, answerIndex) in question.answers">
           <addeable-input
@@ -69,8 +69,8 @@
             :value="answer.value"
             @input="setAnswerValue({questionIndex: i, answerIndex: answerIndex, property: 'value', value: $event})"
             @correct="setAnswerValue({questionIndex: i, answerIndex: answerIndex, property: 'correct', value: $event})"
-            label="Answer"
-            placeholder="Your answer" />
+            :label="$t('ANSWER.answer')"
+            :placeholder="$t('ANSWER.your-answer')" />
         </div>
       </div>
 
@@ -86,7 +86,7 @@
       <div class="text-right m-4">
         <button @click="addQuestion()"
                 class="button sm:w-1/1 md:w-1/3">
-          Add Question
+          {{ $t('QUESTIONS.add') }}
         </button>
       </div>
     </div>
@@ -111,16 +111,16 @@ export default {
       typesThatRequireMultipleAnswers: TYPES_THAT_REQUIRE_MULTIPLE_ANSWERS,
       validation: VALIDATION,
       options: [
-        { key: STARS, translation: 'Stars' },
-        { key: MULTIPLE_CHOICE, translation: 'Multiple choice' },
-        { key: VALIDATION, translation: 'Validation' },
-        { key: TEXT, translation: 'Text' },
+        { key: STARS, translation: this.$t('QUESTIONS.stars') },
+        { key: MULTIPLE_CHOICE, translation: this.$t('QUESTIONS.multiple-choice') },
+        { key: VALIDATION, translation: this.$t('QUESTIONS.validation') },
+        { key: TEXT, translation: this.$t('QUESTIONS.text') },
       ],
       descriptions: {
-        [STARS]: 'Stars allow you to get user feedback about your video. With this option, the user can rate your video with stars. This is literally a must for every video.',
-        [MULTIPLE_CHOICE]: 'A Multiple choice question allows the user to select one of many given answers. This is one of the best options.',
-        [VALIDATION]: 'A Validation question.',
-        [TEXT]: 'A Text offers the user to say something about your product. We strongly recommend you to not use this option.',
+        [STARS]: this.$t('QUESTIONS.stars-description'),
+        [MULTIPLE_CHOICE]: this.$t('QUESTIONS.multiple-choice-description'),
+        [VALIDATION]: this.$t('QUESTIONS.validation-description'),
+        [TEXT]: this.$t('QUESTIONS.text-description'),
       },
     };
   },

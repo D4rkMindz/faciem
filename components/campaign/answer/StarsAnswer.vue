@@ -2,7 +2,7 @@
   <div v-if="value"
        class="flex flex-col md:flex-row mt-8">
     <div class="w-1/1 md:w-2/5 md:text-right pr-4 text">
-      How would you rate the advertisement?
+      {{ $t('ANSWER.STARS.how-would-you-rate') }}
     </div>
     <div class="w-1/1 mt-4 md:w-3/5 md:mt-0">
       <v-stars v-model="value.value"
@@ -32,7 +32,7 @@ export default {
     validate(value) {
       const errors = [];
       if (value > 5 || value <= 0) {
-        errors.push('Please set a star rating between one and five stars');
+        errors.push(this.$t('ERRORS.stars'));
       }
 
       this.value.errors = errors;

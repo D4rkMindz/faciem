@@ -1,4 +1,4 @@
-import { RegistrationState } from '../domain/registration/registration-state';
+import { RegistrationState } from '@/domain/registration/registration-state';
 
 export function state() {
   return {
