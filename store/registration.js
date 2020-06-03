@@ -3,7 +3,7 @@ import { RegistrationState } from '@/domain/registration/registration-state';
 export function state() {
   return {
     status: RegistrationState.INITIAL,
-    error: { message: null, language: null },
+    error: { errors: [{ message: null, language: null }] },
     user: {
       username: '',
       firstname: '',
@@ -31,7 +31,8 @@ export const getters = {
         message: null,
       }];
     }
-    return filtered.shift().message;
+    const recent = filtered.shift();
+    return recent && recent.message ? recent.message : '';
   },
   hasErrors: state => state.status === RegistrationState.ERROR,
   getErrors: state => state.error,
