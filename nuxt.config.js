@@ -53,6 +53,7 @@ const config = {
     '@nuxtjs/axios',
     '@nuxtjs/eslint-module',
     '@nuxtjs/toast',
+    'nuxt-i18n',
   ],
   /*
    ** Axios module configuration
@@ -76,6 +77,25 @@ const config = {
         toast.goAway(0);
       },
     }],
+  },
+  i18n: {
+    locales: [{
+      code: 'en',
+      name: 'English',
+      file: 'en-GB.json',
+    },
+    {
+      code: 'de',
+      name: 'Deutsch',
+      file: 'de-CH.json',
+    }],
+    loadLanguagesAsync: true,
+    lazy: true,
+    langDir: 'assets/lang/',
+    defaultLocale: 'en',
+    vueI18n: {
+      fallbackLocale: 'en',
+    },
   },
   /*
    ** Build configuration

@@ -10,6 +10,8 @@
     "docker:build": "docker build -t faciem .",
     "test": "npm run test:unit && npm run test:e2e",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "locale": "npx vue-i18n-extract report -v './!(node_modules|dist)/**/*.?(js|vue)' -l './assets/lang/*.json' -a",
+    "locale:info": "npx vue-i18n-extract report -v './**/*.?(js|vue)' -l './assets/lang/*.js'",
     "dev": "nuxt",
     "generate": "nuxt generate",
     "generate:tailwind": "npx tailwind build assets/css/tailwind.css -o assets/css/output.css -c tailwind.config.js",
@@ -32,6 +34,7 @@
     "moment": "^2.24.0",
     "network-speed": "^2.0.5",
     "nuxt": "^2.11.0",
+    "nuxt-i18n": "^6.12.0",
     "nuxt-start": "^2.11.0",
     "tailwindcss": "^1.1.4",
     "video.js": "^7.6.6",
@@ -58,12 +61,14 @@
     "eslint-plugin-promise": ">=4.0.1",
     "eslint-plugin-standard": "^4.0.1",
     "eslint-plugin-vue": "^5.2.2",
+    "glob": "^7.1.6",
     "jest": "^24.9.0",
     "node-sass": "^4.13.1",
     "nodemon": "^1.19.4",
     "sass-loader": "^7.3.1",
     "start-server-and-test": "^1.10.8",
     "style-loader": "^0.23.1",
+    "vue-i18n-extract": "^1.1.1",
     "vue-jest": "^3.0.3"
   }
 }
