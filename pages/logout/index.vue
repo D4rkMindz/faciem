@@ -13,9 +13,10 @@ const { mapActions } = createNamespacedHelpers('auth');
 
 export default {
   name: 'LogoutPage',
+  middleware: 'auth',
   created() {
     this.logout();
-    this.$router.push(this.localeRoute('/'));
+    this.$router.push(this.localeRoute('/login'));
   },
   methods: {
     ...mapActions([

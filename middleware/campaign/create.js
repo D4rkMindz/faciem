@@ -2,6 +2,6 @@ import { CAMPAIGN_ROLES } from '@/domain/auth/authorization/customer/campaign-ro
 
 export default function ({ store, redirect }) {
   if ((store.getters['auth/hasRole'](CAMPAIGN_ROLES.CREATE)) !== true) {
-    return redirect('/');
+    return redirect(store.localeRoute('/'));
   }
 };

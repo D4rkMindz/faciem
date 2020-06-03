@@ -19,7 +19,6 @@
 export default {
   middleware: [
     'auth',
-    'campaign/view',
   ],
   name: 'AdminPage',
   computed: {
