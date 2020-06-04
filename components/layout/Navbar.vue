@@ -115,7 +115,6 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex';
-// import BurgerMenu from '@/components/layout/BurgerMenu';
 import { CAMPAIGN_ROLES } from '@/domain/auth/authorization/customer/campaign-roles';
 import { WATCH_ROLES } from '@/domain/auth/authorization/user/watch-roles';
 
@@ -133,28 +132,35 @@ export default {
   },
   computed: {
     navigation() {
+      const locales = this.availableLocales;
+      // eslint-disable-next-line no-console
+      console.log(locales);
       const items = [];
+      const login = {
+        route: '/login',
+        title: this.$t('MENU.login'),
+      };
+      const signup = {
+        route: '/signup',
+        title: this.$t('MENU.sign-up'),
+      };
+      const admin = {
+        route: '/b2b/admin',
+        title: this.$t('MENU.admin'),
+      };
+      const watch = {
+        route: '/watch',
+        title: this.$t('MENU.watch'),
+      };
       if (!this.authenticated) {
-        items.push({
-          route: '/login',
-          title: this.$t('MENU.login'),
-        });
-        items.push({
-          route: '/signup',
-          title: this.$t('MENU.sign-up'),
-        });
+        items.push(login);
+        items.push(signup);
       } else {
         if (this.canSeeAdmin) {
-          items.push({
-            route: '/b2b/admin',
-            title: this.$t('MENU.admin'),
-          });
+          items.push(admin);
         }
         if (this.canSeeWatch) {
-          items.push({
-            route: '/watch',
-            title: this.$t('MENU.watch'),
-          });
+          items.push(watch);
         }
       }
 
@@ -182,7 +188,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
   .menu-item {
     @apply ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-white;
 

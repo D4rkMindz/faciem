@@ -5,7 +5,7 @@
   "description": "The Frontend of the venovum application",
   "author": "Björn Pfoster",
   "scripts": {
-    "build": "nuxt build --pwa -c nuxt.config.beta",
+    "build": "nuxt build --pwa -c nuxt.config.beta.js",
     "build:beta": "nuxt build --pwa -c nuxt.config.beta.js",
     "build:production": "nuxt build --pwa -c nuxt.config.production.js",
     "docker": "docker run -it -p 5000:5000 faciem",
@@ -13,7 +13,6 @@
     "test": "npm run test:unit && npm run test:e2e",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "locale": "npx vue-i18n-extract report -v './!(node_modules|dist)/**/*.?(js|vue)' -l './assets/lang/*.json' -a",
-    "locale:info": "npx vue-i18n-extract report -v './**/*.?(js|vue)' -l './assets/lang/*.js'",
     "dev": "nuxt",
     "generate": "nuxt generate",
     "generate:tailwind": "npx tailwind build assets/css/tailwind.css -o assets/css/output.css -c tailwind.config.js",

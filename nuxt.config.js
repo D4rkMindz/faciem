@@ -79,25 +79,30 @@ const config = {
     }],
   },
   i18n: {
-    strategy: 'prefix',
+    strategy: 'prefix_except_default',
+    defaultLocale: 'en',
     locales: [
       {
-        code: 'de',
-        name: 'Deutsch',
-        file: 'de-CH.json',
-      }, {
         code: 'en',
+        iso: 'en-GB',
         name: 'English',
         file: 'en-GB.json',
+      }, {
+        code: 'de',
+        iso: 'de-CH',
+        name: 'Deutsch',
+        file: 'de-CH.json',
       },
     ],
-    loadLanguagesAsync: true,
+    vuex: {
+      syncLocale: true,
+      syncMessages: true,
+    },
+    seo: true,
     lazy: true,
     langDir: 'assets/lang/',
-    defaultLocale: 'en',
-    vueI18n: {
-      fallbackLocale: 'en',
-    },
+    // TODO implement hook to change the language in JWT
+    onLanguageSwitched: (oldLocale, newLocale) => null,
   },
   /*
    ** Build configuration

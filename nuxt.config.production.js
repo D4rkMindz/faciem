@@ -3,6 +3,6 @@ module.exports = {
     fallback: true,
   },
   axios: {
-    baseURL: 'https://api.beta.venovum.com',
+    baseURL: 'https://api.venovum.com',
   },
 };
