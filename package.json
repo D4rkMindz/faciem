@@ -5,9 +5,9 @@
   "description": "The Frontend of the venovum application",
   "author": "Björn Pfoster",
   "scripts": {
-    "build": "nuxt build --pwa -c nuxt.config.beta.js",
-    "build:beta": "nuxt build --pwa -c nuxt.config.beta.js",
-    "build:production": "nuxt build --pwa -c nuxt.config.production.js",
+    "build": "NODE_ENV=beta nuxt build --pwa",
+    "build:beta": "NODE_ENV=beta nuxt build --pwa -c nuxt.config.beta.js",
+    "build:production": "NODE_ENV=production nuxt build --pwa -c nuxt.config.production.js",
     "docker": "docker run -it -p 5000:5000 faciem",
     "docker:build": "docker build -t faciem .",
     "test": "npm run test:unit && npm run test:e2e",
