@@ -32,7 +32,7 @@ export default {
           });
         if (saveCampaignResponse.status !== 200) {
           commit('setState', CAMPAIGN_CREATE_STATES.INVALID);
-          commit('setErrors', { errors: [], message: this.$t('ERRORS.generic') });
+          commit('setErrors', { errors: [], message: this.$i18n.t('ERRORS.generic') });
           return;
         }
         commit('setCampaignId', saveCampaignResponse.data.campaign_id);
@@ -56,10 +56,10 @@ export default {
       );
       if (saveMediaResponse.status !== 200) {
         commit('setState', CAMPAIGN_CREATE_STATES.INVALID);
-        commit('setErrors', { errors: [], message: this.$t('ERRORS.generic') });
+        commit('setErrors', { errors: [], message: this.$i18n.t('ERRORS.generic') });
         return;
       }
-      this.$toast.info(this.$t('CREATECAMPAIGN.file-uploaded'));
+      this.$toast.info(this.$i18n.t('CREATECAMPAIGN.file-uploaded'));
       commit('reset');
       file = null;
       dispatch('campaigns/update', null, { root: true });
@@ -94,7 +94,7 @@ export default {
     }
 
     if (!question.value || question.value.trim().length < 3) {
-      question.errors.push(this.$t('ERRORS.minimum-length', { field: this.$t('CREATECAMPAIGN.question'), minimum: 3 })); // Question
+      question.errors.push(this.$i18n.t('ERRORS.minimum-length', { field: this.$i18n.t('CREATECAMPAIGN.question'), minimum: 3 })); // Question
     }
 
     question.valid = question.errors.length === 0;
@@ -114,12 +114,12 @@ export default {
     answer.errors = [];
 
     if (TYPES_THAT_REQUIRE_MULTIPLE_ANSWERS.includes(question.type) && question.answers.length <= 1) {
-      question.answers[question.answers.length - 1].errors.push(this.$t('ERRORS.add-more-answers'));
+      question.answers[question.answers.length - 1].errors.push(this.$i18n.t('ERRORS.add-more-answers'));
       question.answers[question.answers.length - 1].valid = false;
     }
 
     if (!answer.value || answer.value.trim().length < 1) {
-      answer.errors.push(this.$t('ERRORS.minimum-length', { field: this.$t('CREATECAMPAIGN.answer'), minimum: 1 }));
+      answer.errors.push(this.$i18n.t('ERRORS.minimum-length', { field: this.$i18n.t('CREATECAMPAIGN.answer'), minimum: 1 }));
     }
     answer.valid = answer.errors.length === 0;
 
@@ -134,16 +134,16 @@ export default {
   validateName({ commit, state }, name) {
     const errors = [];
     if (!name) {
-      errors.push(this.$t('ERRORS.required', { field: this.$t('CREATECAMPAIGN.name') }));
+      errors.push(this.$i18n.t('ERRORS.required', { field: this.$i18n.t('CREATECAMPAIGN.name') }));
       commit('setNameErrors', errors);
       return;
     }
 
     if (name.length < 3) {
-      errors.push(this.$t('ERRORS.minimum-length', { field: this.$t('CREATECAMPAIGN.name'), minimum: 3 }));
+      errors.push(this.$i18n.t('ERRORS.minimum-length', { field: this.$i18n.t('CREATECAMPAIGN.name'), minimum: 3 }));
     }
     if (name.length > 20) {
-      errors.push(this.$t('ERRORS.maximum-length', { field: this.$t('CREATECAMPAIGN.name'), minimum: 20 }));
+      errors.push(this.$i18n.t('ERRORS.maximum-length', { field: this.$i18n.t('CREATECAMPAIGN.name'), minimum: 20 }));
     }
 
     commit('setNameErrors', errors);
@@ -152,16 +152,16 @@ export default {
     const errors = [];
 
     if (!description) {
-      errors.push(this.$t('ERRORS.required', { field: this.$t('CREATECAMPAIGN.description') }));
+      errors.push(this.$i18n.t('ERRORS.required', { field: this.$i18n.t('CREATECAMPAIGN.description') }));
       commit('setDescriptionErrors', errors);
       return;
     }
 
     if (description.length < 10) {
-      errors.push(this.$t('ERRORS.minimum-length', { field: this.$t('CREATECAMPAIGN.description'), minimum: 10 }));
+      errors.push(this.$i18n.t('ERRORS.minimum-length', { field: this.$i18n.t('CREATECAMPAIGN.description'), minimum: 10 }));
     }
     if (description.length > 200) {
-      errors.push(this.$t('ERRORS.maximum-length', { field: this.$t('CREATECAMPAIGN.description'), minimum: 200 }));
+      errors.push(this.$i18n.t('ERRORS.maximum-length', { field: this.$i18n.t('CREATECAMPAIGN.description'), minimum: 200 }));
     }
 
     commit('setDescriptionErrors', errors);
