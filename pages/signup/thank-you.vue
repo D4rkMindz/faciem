@@ -18,5 +18,10 @@
 <script>
 export default {
   name: 'SignUpThankYouPage',
+  head() {
+    return {
+      title: 'VENOVUM | ' + this.$t('HEAD.SIGNUP-THANKS.title'),
+    };
+  },
 };
 </script>

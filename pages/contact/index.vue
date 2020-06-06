@@ -9,5 +9,13 @@
 <script>
 export default {
   name: 'ContactPage',
+  head() {
+    return {
+      title: 'VENOVUM | ' + this.$t('HEAD.CONTACT.title'),
+      meta: [
+        { hid: 'description', name: 'description', content: this.$t('HEAD.CONTACT.description') },
+      ],
+    };
+  },
 };
 </script>

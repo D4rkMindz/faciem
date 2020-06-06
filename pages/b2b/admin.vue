@@ -27,5 +27,10 @@ export default {
       return 'Admin';
     },
   },
+  head() {
+    return {
+      title: 'VENOVUM | ' + this.$t('HEAD.ADMIN.title'),
+    };
+  },
 };
 </script>

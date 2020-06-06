@@ -321,6 +321,11 @@ export default {
       return hasError;
     },
   },
+  head() {
+    return {
+      title: 'VENOVUM | ' + this.$t('HEAD.SIGNUP-CONFIRM.title'),
+    };
+  },
 };
 </script>
 

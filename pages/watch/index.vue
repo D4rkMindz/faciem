@@ -151,6 +151,11 @@ export default {
       this.resolution = null;
     },
   },
+  head() {
+    return {
+      title: 'VENOVUM | ' + this.$t('HEAD.WATCH.title'),
+    };
+  },
 };
 </script>
 

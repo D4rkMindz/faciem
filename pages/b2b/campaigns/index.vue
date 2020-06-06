@@ -92,5 +92,10 @@ export default {
       return moment(date);
     },
   },
+  head() {
+    return {
+      title: 'VENOVUM | ' + this.$t('HEAD.CAMPAIGNS.title'),
+    };
+  },
 };
 </script>

@@ -101,5 +101,10 @@ export default {
       this.saveForm({ file: this.file });
     },
   },
+  head() {
+    return {
+      title: 'VENOVUM | ' + this.$t('HEAD.CAMPAIGNS-ADD.title'),
+    };
+  },
 };
 </script>

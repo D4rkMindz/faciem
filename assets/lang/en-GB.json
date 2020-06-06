@@ -14,7 +14,7 @@
     "generic-field": "This field",
     "maximum-length": "{field} can have at most {maximum} characters.",
     "date-format": "The date must match dd.mm.yyyy format",
-    "minimum-age": "You need to be at least 18 years old to use venovum",
+    "minimum-age": "You need to be at least 18 years old to use VENOVUM",
     "username": "Your username can only contain alphanumeric letters, \".\", \"-\" and \"_\" and cannot end with \".\", \"-\" and \"_\"",
     "password": "Your password must contain at least one uppercase, one lowercase and a special character",
     "all-campaigns-watched": "All campaigns watched. We will inform you, if there are any other campaigns available for you.",
@@ -106,9 +106,9 @@
     "logging-out": "Logging you out"
   },
   "SIGNUP": {
-    "register-now": "Register now at venovum.com",
+    "register-now": "Register now at VENOVUM.com",
     "title": "Get Started With Ease",
-    "teaser": "Just enter your email and get ready to earn some money by watching advertisement videos. We then send you an email with a link to complete your signup at Venovum",
+    "teaser": "Just enter your email and get ready to earn some money by watching advertisement videos. We then send you an email with a link to complete your signup at VENOVUM",
     "sign-up": "Sign up",
     "check-inbox": "Please have a look into your inbox and confirm your email",
     "thanks": "Thank You"
@@ -142,5 +142,44 @@
   },
   "IMPRINT": {
     "title": "Imprint"
+  },
+  "HEAD": {
+    "ADMIN": {
+      "title": "Admin"
+    },
+    "CAMPAIGNS-ADD": {
+      "title": "Add campaign"
+    },
+    "CAMPAIGNS": {
+      "title": "Campaigns"
+    },
+    "CONTACT": {
+      "title": "Contact",
+      "description": "Do You have any questions or improvements? Just contact us"
+    },
+    "IMPRINT": {
+      "title": "Imprint",
+      "description": "Legal Information"
+    },
+    "INDEX": {
+      "title": "Home"
+    },
+    "LOGIN": {
+      "title": "Login",
+      "description": "login to VENOVUM"
+    },
+    "SIGNUP-CONFIRM": {
+      "title": "Confirm email"
+    },
+    "SIGNUP": {
+      "title": "Signup",
+      "description": "Signup for VENOVUM"
+    },
+    "SIGNUP-THANKS": {
+      "title": "Thank You"
+    },
+    "WATCH": {
+      "title": "Watch videos"
+    }
   }
 }

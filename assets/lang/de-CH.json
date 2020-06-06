@@ -16,7 +16,7 @@
     "generic-field": "Dieses Feld",
     "maximum-length": "{field} darf maximal {maximum} Zeichen haben.",
     "date-format": "Das Datum muss dem TT.MM.JJJJ format entsprechen",
-    "minimum-age": "Du musst mindestens 18 Jahre alt sein um venovum nutzen zu dürfen",
+    "minimum-age": "Du musst mindestens 18 Jahre alt sein um VENOVUM nutzen zu dürfen",
     "username": "Dein Benutzername darf nur Alphanumerische Zeichen sowie \".\", \"-\" und \"_\" beinhalten. Ebenfalls darf er nicht mit \".\", \"-\" und \"_\" enden",
     "password": "Dein Passwort muss mindestens einen Gross- und einen Kleinbuchstaben sowie ein Sonderzeichen enthalten",
     "all-campaigns-watched": "Leider hast Du alle Werbungen gesehen. Wir werden Dich informieren, sobald wir neue Werbung für Dich haben",
@@ -108,9 +108,9 @@
     "logging-out": "Du wirst abgemeldet..."
   },
   "SIGNUP": {
-    "register-now": "Registriere Dich jetzt auf venovum.com",
+    "register-now": "Registriere Dich jetzt auf VENOVUM.com",
     "title": "Ganz Einfach Anfangen",
-    "teaser": "Gib einfach Deine Email an und beginne mit Werbung Geld zu verdienen. Wir werden Dir einen Link zukommen lassen für den Abschluss Deiner Registration auf venovum.com",
+    "teaser": "Gib einfach Deine Email an und beginne mit Werbung Geld zu verdienen. Wir werden Dir einen Link zukommen lassen für den Abschluss Deiner Registration auf VENOVUM.com",
     "sign-up": "Registrieren",
     "check-inbox": "Bitte überprüfe Dein Emailpostfach und bestätige Deine Emailadresse.",
     "thanks": "Vielen Dank"
@@ -144,5 +144,44 @@
   },
   "IMPRINT": {
     "title": "Impressum"
+  },
+  "HEAD": {
+    "ADMIN": {
+      "title": "Admin"
+    },
+    "CAMPAIGNS-ADD": {
+      "title": "Kampagne hinzufügen"
+    },
+    "CAMPAIGNS": {
+      "title": "Kampagnen"
+    },
+    "CONTACT": {
+      "title": "Kontakt",
+      "description": "Hast du Fragen oder Anregungen? Dann kontaktiere uns."
+    },
+    "IMPRINT": {
+      "title": "Impressum",
+      "description": "Rechtliche Informationen"
+    },
+    "INDEX": {
+      "title": "Start"
+    },
+    "LOGIN": {
+      "title": "Login",
+      "description": "Melde Dich bei VENOVUM an"
+    },
+    "SIGNUP-CONFIRM": {
+      "title": "Email bestätigen"
+    },
+    "SIGNUP": {
+      "title": "Registrieren",
+      "description": "Registriere Dich bei VENOVUM"
+    },
+    "SIGNUP-THANKS": {
+      "title": "Danke"
+    },
+    "WATCH": {
+      "title": "Videos ansehen"
+    }
   }
 }

@@ -89,7 +89,7 @@ export const actions = {
       commit('SIGNING_UP');
       const response = await this.$axios.post(
         '/users/register',
-        { email: email },
+        { email: email, language: this.$i18n.locale },
       );
 
       if (response.status === 200) {

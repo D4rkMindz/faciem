@@ -135,5 +135,13 @@ export default {
       }
     },
   },
+  head() {
+    return {
+      title: 'VENOVUM | ' + this.$t('HEAD.SIGNUP.title'),
+      meta: [
+        { hid: 'description', name: 'description', content: this.$t('HEAD.SIGNUP.description') },
+      ],
+    };
+  },
 };
 </script>
