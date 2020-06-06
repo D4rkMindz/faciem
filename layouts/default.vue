@@ -7,7 +7,7 @@
     <footer class="text-white mt-5 flex-grow-0">
       <div class="bg-purple-700 w-full">
         <div class="container mx-auto px-2 md:px-0 pt-5 pb-3 flex flex-col md:flex-row">
-          <div class="w-1 md:w-1/3 lg:w-1/6 flex flex-col">
+          <div class="footer-row">
             <h3 class="font-bold">
               {{ $t('FOOTER.first.title') }}
             </h3>
@@ -18,6 +18,31 @@
             <nuxt-link :to="localeRoute('/contact')"
                        class="mt-1">
               {{ $t('FOOTER.first.contact') }}
+            </nuxt-link>
+          </div>
+
+          <div class="footer-row">
+            <h3 class="font-bold hidden">
+              {{ $t('FOOTER.second.title') }}
+            </h3>
+          </div>
+
+          <div class="footer-row">
+            <h3 class="font-bold hidden">
+              {{ $t('FOOTER.third.title') }}
+            </h3>
+          </div>
+
+          <div class="footer-row">
+            <h3 class="font-bold">
+              {{ $t('FOOTER.fourth.title') }}
+            </h3>
+            <nuxt-link
+              v-for="locale in availableLocales"
+              :key="locale.code"
+              :to="switchLocalePath(locale.code)"
+              class="mt-1">
+              {{ locale.name }}
             </nuxt-link>
           </div>
         </div>
@@ -40,16 +65,29 @@ export default {
     currentYear() {
       return moment().year().toString();
     },
+    availableLocales() {
+      return this.$i18n.locales;
+    },
   },
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   body, html {
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
     min-height: 80vh;
+  }
+
+  .footer-row {
+    @apply w-1 flex flex-col;
+  }
+
+  @screen md {
+    .footer-row {
+      @apply w-1/4;
+    }
   }
 </style>

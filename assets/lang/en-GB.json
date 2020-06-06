@@ -132,6 +132,9 @@
       "title": "General",
       "imprint": "Imprint",
       "contact": "Contact"
+    },
+    "fourth": {
+      "title": "Languages"
     }
   },
   "CONTACT": {

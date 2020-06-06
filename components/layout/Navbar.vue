@@ -122,7 +122,6 @@ const { mapState, mapGetters } = createNamespacedHelpers('auth');
 
 export default {
   name: 'Navbar',
-  // components: { BurgerMenu },
   data: () => {
     return {
       profile: false,
@@ -162,9 +161,6 @@ export default {
       }
 
       return items;
-    },
-    availableLocales() {
-      return this.$i18n.locales.filter(i => i.code !== this.$i18n.locale);
     },
     ...mapState({
       authenticated: state => state.authenticated,
