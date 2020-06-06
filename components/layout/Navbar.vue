@@ -75,6 +75,7 @@
                 leave-class="opacity-100 transform scale-100"
                 leave-to-class="opacity-0 transform scale-95">
                 <div v-if="profile"
+                     @click="profile = false"
                      class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg">
                   <div class="py-1 rounded-md bg-white shadow-xs"
                        role="menu"
