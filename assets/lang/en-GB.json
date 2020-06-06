@@ -126,5 +126,18 @@
   },
   "DASHBOARD": {
     "overview": "Overview"
+  },
+  "FOOTER": {
+    "first": {
+      "title": "General",
+      "imprint": "Imprint",
+      "contact": "Contact"
+    }
+  },
+  "CONTACT": {
+    "title": "Contact"
+  },
+  "IMPRINT": {
+    "title": "Imprint"
   }
 }
