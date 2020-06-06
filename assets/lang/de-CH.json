@@ -121,5 +121,12 @@
     "answer": "Antwort",
     "name": "Name",
     "description": "Beschreibung"
+  },
+  "PROFIT": {
+    "title": "Guthaben",
+    "error": "Das Guthaben konnte nicht geladen werden. Bitte lade die Seite nochmals."
+  },
+  "DASHBOARD": {
+    "overview": "Übersicht"
   }
 }

@@ -119,5 +119,12 @@
     "answer": "Answer",
     "name": "Name",
     "description": "Description"
+  },
+  "PROFIT": {
+    "title": "Balance",
+    "error": "Balance could not be fetched. Please reload the page"
+  },
+  "DASHBOARD": {
+    "overview": "Overview"
   }
 }

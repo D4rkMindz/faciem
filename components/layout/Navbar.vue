@@ -132,9 +132,6 @@ export default {
   },
   computed: {
     navigation() {
-      const locales = this.availableLocales;
-      // eslint-disable-next-line no-console
-      console.log(locales);
       const items = [];
       const login = {
         route: '/login',
