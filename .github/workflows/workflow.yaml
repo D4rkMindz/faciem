@@ -15,6 +15,9 @@ jobs:
       - name: Update SHA
         run: echo $GITHUB_SHA > $GITHUB_WORKSPACE/static/.version
 
+      - name: Save version
+        run: echo "{\"full\":\"$(echo $GITHUB_SHA)\",\"short\":\"$(echo $GITHUB_SHA | head -c7)\"}" > $GITHUB_WORKSPACE/static/version.json
+
       - name: Build container image
         run: docker build -t devdarker/faciem:$(echo $GITHUB_SHA | head -c7) .
 

@@ -48,8 +48,10 @@
         </div>
       </div>
       <div class="bg-purple-900 w-full">
-        <div class="container mx-auto bg-purple-900 p-2">
-          © 2019 - {{ currentYear }} venovum
+        <div class="container mx-auto bg-purple-900 p-2 flex flex-row justify-between">
+          <div>© 2019 - {{ currentYear }} venovum</div>
+          <a :href="'https://github.com/D4rkMindz/faciem/commit/' + version.full"
+             class="text-muted version">v{{ version.short }}</a>
         </div>
       </div>
     </footer>
@@ -62,6 +64,12 @@ import Navbar from '~/components/layout/Navbar';
 export default {
   components: { Navbar },
   computed: {
+    version() {
+      const version = require('@/static/version.json');
+      // eslint-disable-next-line no-console
+      console.log(version);
+      return version;
+    },
     currentYear() {
       return moment().year().toString();
     },
@@ -87,6 +95,11 @@ export default {
     &:first-of-type {
       @apply mt-0;
     }
+  }
+
+  .version {
+    @apply text-xs;
+    line-height: 1.5rem;
   }
 
   @screen md {
