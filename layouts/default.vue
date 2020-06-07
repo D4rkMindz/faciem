@@ -65,10 +65,7 @@ export default {
   components: { Navbar },
   computed: {
     version() {
-      const version = require('@/static/version.json');
-      // eslint-disable-next-line no-console
-      console.log(version);
-      return version;
+      return require('@/static/version.json');
     },
     currentYear() {
       return moment().year().toString();
