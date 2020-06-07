@@ -183,5 +183,9 @@
     "WATCH": {
       "title": "Videos ansehen"
     }
+  },
+  "PROFILE": {
+    "welcome": "Willkommen",
+    "nice-to-see-you": "Schön bist Du zurück"
   }
 }

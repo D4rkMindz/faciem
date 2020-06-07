@@ -55,44 +55,8 @@
               </div>
             </div>
           </div>
-          <div v-if="authenticated"
-               class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            <!-- Profile dropdown -->
-            <div class="ml-3 relative">
-              <button @click="profile = !profile"
-                      class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-white transition duration-150 ease-in-out"
-                      aria-label="User menu"
-                      aria-haspopup="true">
-                <img class="h-8 w-8 rounded-full object-cover"
-                     src="https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png"
-                     alt="" />
-              </button>
-              <transition
-                enter-active-class="transition-all duration-100 ease-in-out"
-                leave-active-class="transition-all duration-75 ease-in"
-                enter-class="opacity-0 transform scale-70"
-                enter-to-class="opacity-100 transform scale-100"
-                leave-class="opacity-100 transform scale-100"
-                leave-to-class="opacity-0 transform scale-95">
-                <div v-if="profile"
-                     @click="profile = false"
-                     class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg">
-                  <div class="py-1 rounded-md bg-white shadow-xs"
-                       role="menu"
-                       aria-orientation="vertical"
-                       aria-labelledby="user-menu">
-                    <nuxt-link :to="localeRoute('/')"
-                               class="dropdown-item">
-                      {{ $t('MENU.profile') }}
-                    </nuxt-link>
-                    <nuxt-link :to="localeRoute('/logout')"
-                               class="dropdown-item">
-                      {{ $t('MENU.logout') }}
-                    </nuxt-link>
-                  </div>
-                </div>
-              </transition>
-            </div>
+          <div v-if="authenticated">
+            <ProfileDropdown />
           </div>
         </div>
       </div>
@@ -116,6 +80,7 @@
 </template>
 
 <script>
+import ProfileDropdown from '@/components/layout/ProfileDropdown';
 import { createNamespacedHelpers } from 'vuex';
 import { CAMPAIGN_ROLES } from '@/domain/auth/authorization/customer/campaign-roles';
 import { WATCH_ROLES } from '@/domain/auth/authorization/user/watch-roles';
@@ -124,9 +89,9 @@ const { mapState, mapGetters } = createNamespacedHelpers('auth');
 
 export default {
   name: 'Navbar',
+  components: { ProfileDropdown },
   data: () => {
     return {
-      profile: false,
       mobileMenu: false,
       menuOpen: false,
     };
@@ -202,16 +167,6 @@ export default {
     }
     &:focus {
       @apply text-white bg-gray-700;
-    }
-  }
-
-  .dropdown-item {
-    @apply block px-4 py-2 text-sm leading-5 text-gray-700;
-    &:hover {
-      @apply bg-gray-100;
-    }
-    &:focus {
-      @apply bg-gray-100;
     }
   }
 </style>

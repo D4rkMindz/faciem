@@ -135,6 +135,12 @@
     },
     "fourth": {
       "title": "Languages"
+    },
+    "second": {
+      "title": ""
+    },
+    "third": {
+      "title": ""
     }
   },
   "CONTACT": {
@@ -181,5 +187,9 @@
     "WATCH": {
       "title": "Watch videos"
     }
+  },
+  "PROFILE": {
+    "welcome": "Welcome",
+    "nice-to-see-you": "Nice to see You"
   }
 }
