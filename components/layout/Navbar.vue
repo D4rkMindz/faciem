@@ -99,6 +99,7 @@
 
       <!-- Mobile navigation -->
       <div v-if="mobileMenu"
+           @click="mobileMenu = false"
            class="block">
         <div class="px-2 pt-2 pb-3">
           <div v-for="item in navigation">
