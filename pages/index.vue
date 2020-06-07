@@ -1,12 +1,12 @@
 <template>
   <div>
     <!-- from https://dribbble.com/shots/11678010-Payment-application-page-example -->
-    <div class="container mx-auto">
+    <div class="container mx-auto p-3">
       <h2 class="text-muted mb-3">
         {{ $t('DASHBOARD.overview') }}
       </h2>
       <div class="flex flex-col md:flex-row">
-        <ProfitCard class="w-1 md:w-1/2 lg:w-1/3" />
+        <ProfitCard class="w-full md:w-1/2 lg:w-1/3" />
       </div>
     </div>
   </div>

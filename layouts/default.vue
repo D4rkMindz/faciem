@@ -48,7 +48,7 @@
         </div>
       </div>
       <div class="bg-purple-900 w-full">
-        <div class="container mx-auto bg-purple-900 py-2">
+        <div class="container mx-auto bg-purple-900 p-2">
           © 2019 - {{ currentYear }} venovum
         </div>
       </div>
@@ -82,7 +82,11 @@ export default {
   }
 
   .footer-row {
-    @apply w-1 flex flex-col;
+    @apply w-1 flex flex-col mt-2;
+
+    &:first-of-type {
+      @apply mt-0;
+    }
   }
 
   @screen md {
