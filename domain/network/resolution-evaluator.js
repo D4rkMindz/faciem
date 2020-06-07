@@ -7,7 +7,7 @@ export class ResolutionEvaluator {
    * @return {Promise<number>}
    */
   async getBestResolution() {
-    const baseUrl = 'http://eu.httpbin.org/stream-bytes/500000';
+    const baseUrl = 'https://eu.httpbin.org/stream-bytes/500000';
     const fileSize = 500000;
     const testNetworkSpeed = new NetworkSpeed();
     const speed = await testNetworkSpeed.checkDownloadSpeed(baseUrl, fileSize);
