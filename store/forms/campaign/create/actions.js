@@ -41,6 +41,7 @@ export default {
       const formData = new FormData();
 
       formData.append('video', file);
+      // TODO determine language for video
       formData.append('language', 'de');
       formData.append('display_name', file.name);
       const url = `/users/${userId}/campaigns/${state.campaign_id}/media`;

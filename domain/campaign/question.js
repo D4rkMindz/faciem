@@ -1,15 +1,16 @@
+import { LOCALES } from '@/domain/profile/locale';
 
 export class Question {
   id = null;
   text = 'the question';
   value = null;
-  language = 'en';
+  language = LOCALES.DEFAULT;
   errors = [];
   valid = false;
   type = 'text';
   answers = [];
 
-  constructor(data = { id: null, text: 'the question', value: null, language: 'en', errors: [], valid: false, type: 'text', answers: [] }) {
+  constructor(data = { id: null, text: 'the question', value: null, language: LOCALES.DEFAULT, errors: [], valid: false, type: 'text', answers: [] }) {
     if (data.id === null) {
       data.id = Math.round(Math.random() * 1000);
     }

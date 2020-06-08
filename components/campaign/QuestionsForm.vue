@@ -102,6 +102,7 @@ import {
   TYPES_THAT_REQUIRE_QUESTION,
 } from '@/store/forms/campaign/create';
 const { mapGetters, mapMutations, mapActions } = createNamespacedHelpers('forms/campaign/create');
+const authStore = createNamespacedHelpers('auth');
 
 export default {
   name: 'QuestionsForm',
@@ -135,9 +136,10 @@ export default {
   mounted() {
     this.setState(CAMPAIGN_CREATE_STATES.UNTOUCHED);
     this.setPricingId(1);
-    this.setLanguage('de');
+    this.setLanguage(this.getLocale());
   },
   methods: {
+    ...authStore.mapGetters(['getLocale']),
     ...mapGetters([
       'getName',
       'getNameErrors',

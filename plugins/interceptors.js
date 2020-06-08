@@ -23,21 +23,6 @@ export default function (vue) {
     return config;
   });
 
-  // $axios.interceptors.response.use(r => r, async function (error) {
-  //   if (error.response.status === 401 && route.name !== 'login') {
-  //     if (store.getters['auth/hasRefreshToken']) {
-  //       const refreshToken = store.getters['auth/refreshToken'];
-  //       store.dispatch('auth/refresh', { refreshToken: refreshToken });
-  //     } else {
-  //       store.dispatch('auth/logout');
-  //       $toast.error('Session expired');
-  //       await $router.push({ name: 'login' });
-  //     }
-  //   }
-  //
-  //   return Promise.reject(error);
-  // });
-
   $axios.interceptors.response.use(r => r, async function (error) {
     const { config, response: { status } } = error;
     const originalRequest = config;

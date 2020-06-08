@@ -6,7 +6,7 @@
               aria-label="User menu"
               aria-haspopup="true">
         <img class="h-8 w-8 rounded-full object-cover"
-             src="https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png"
+             src="/img/profile.png"
              alt="" />
       </button>
       <transition
@@ -73,8 +73,6 @@ export default {
     },
   },
   mounted() {
-    // eslint-disable-next-line no-console
-    console.log('mounted');
     this.refreshInfo();
   },
   methods: {

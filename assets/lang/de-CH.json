@@ -23,7 +23,8 @@
     "session-expired": "Sitzung abgelaufen",
     "generic": "Etwas ist schief gelaufen. Bitte versuche es später erneut",
     "add-more-answers": "Bitte füge mehr als eine Antwort hinzu ",
-    "required": "{field} ist erfordert"
+    "required": "{field} ist erfordert",
+    "failed-to-update-language": "Sprache konnte nicht aktualisiert werden. Bitte versuche es erneut"
   },
   "QUESTIONS": {
     "name": "Name",
@@ -105,7 +106,8 @@
     "email": "Email"
   },
   "AUTH": {
-    "logging-out": "Du wirst abgemeldet..."
+    "logging-out": "Du wirst abgemeldet...",
+    "changed-locale": "Die Sprache wurde automatisch auf Deine konfigurierte Sprache (deutsch) umgestellt"
   },
   "SIGNUP": {
     "register-now": "Registriere Dich jetzt auf VENOVUM.com",

@@ -22,15 +22,11 @@
           </div>
 
           <div class="footer-row">
-            <h3 class="font-bold hidden">
-              {{ $t('FOOTER.second.title') }}
-            </h3>
+            <h3 class="font-bold hidden" />
           </div>
 
           <div class="footer-row">
-            <h3 class="font-bold hidden">
-              {{ $t('FOOTER.third.title') }}
-            </h3>
+            <h3 class="font-bold hidden" />
           </div>
 
           <div class="footer-row">

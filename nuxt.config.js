@@ -1,3 +1,4 @@
+
 const stage = process.env.NODE_ENV || 'dev';
 const env = require('./nuxt.config.' + stage + '.js');
 const colors = require('./tailwind.config').theme;
@@ -44,6 +45,7 @@ const config = {
     { src: '~/plugins/interceptors.js', ssr: false },
     { src: '~/plugins/notifications.js', ssr: false },
     { src: '~/plugins/icons.js', ssr: false },
+    { src: '~/plugins/i18n-switch.js', ssr: false },
   ],
   /*
    ** Nuxt.js modules

@@ -41,6 +41,7 @@ import { QUESTIONS_STATE } from '@/store/watch/questions';
 import { ResolutionEvaluator } from '@/domain/network/resolution-evaluator';
 const questionsStore = createNamespacedHelpers('watch/questions');
 const mediaStore = createNamespacedHelpers('watch/media');
+const authStore = createNamespacedHelpers('auth');
 
 export default {
   name: 'WatchPage',
@@ -56,13 +57,13 @@ export default {
       host: 'https://venovum.dev',
       hash: null,
       source: null,
-      language: 'de',
       resolution: null,
       format: 'mp4', // TODO change format to webm for chrome (browserdetection)
       showPlayer: true,
     };
   },
   computed: {
+    locale() { return this.getLocale(); },
     mediaState() { return this.getState(); },
     questions() { return this.getQuestions(); },
     questionsState() { return this.getQuestionsState(); },
@@ -109,6 +110,7 @@ export default {
     this.resolution = await new ResolutionEvaluator().getBestResolution();
   },
   methods: {
+    ...authStore.mapGetters(['getLocale']),
     ...mediaStore.mapActions([
       'loadNextMedia',
     ]),
@@ -138,7 +140,7 @@ export default {
 
       const host = this.host;
       const file = this.hash;
-      const lang = this.language;
+      const lang = this.locale;
       const format = this.format;
       const resolution = this.resolution;
       this.source = `${host}/media/${file}/${lang}/${resolution}/${format}`;

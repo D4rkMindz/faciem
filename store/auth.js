@@ -1,5 +1,6 @@
 import decode from 'jwt-decode';
 import { AuthenticationState } from '@/domain/auth/authentication-state';
+import { LOCALES } from '@/domain/profile/locale';
 
 export function state() {
   return {
@@ -24,6 +25,12 @@ export const getters = {
       return state.token.decoded.data.user_id;
     }
     return null;
+  },
+  getLocale: (state) => {
+    if (state.token.decoded && 'data' in state.token.decoded && 'locale' in state.token.decoded.data) {
+      return state.token.decoded.data.locale.substring(0, 2);
+    }
+    return LOCALES.DEFAULT;
   },
   hasRefreshToken: state => !!state.refreshToken,
   refreshToken: state => state.refreshToken,
@@ -61,6 +68,7 @@ export const mutations = {
     state.status = AuthenticationState.FAILED;
     state.authenticated = false;
     state.token = { original: null, decoded: null };
+    // TODO remove language from error
     state.error = { message: error.message, language: error.language };
   },
 };
@@ -69,11 +77,13 @@ export const actions = {
   /**
    * Log in a user
    * @param commit
+   * @param getters
+   * @param dispatch
    * @param username
    * @param password
    * @return {Promise<void>}
    */
-  async login({ commit }, { username, password }) {
+  async login({ commit, getters, dispatch }, { username, password }) {
     try {
       commit('loggingIn');
       const response = await this.$axios.post(
@@ -85,9 +95,15 @@ export const actions = {
         const token = response.data.access_token;
         const refreshToken = response.data.refresh_token;
         commit('login', { token: token, refreshToken: refreshToken });
+        const currentLocale = this.$i18n.locale;
+        const newLocale = getters.getLocale;
+        if (currentLocale !== newLocale) {
+          this.$i18n.setLocale(newLocale);
+          this.$toast.info(this.$i18n.t('AUTH.changed-locale'));
+        }
       } else {
         // todo think about the language param here
-        commit('error', { error: this.$i18n.t('ERRORS.generic'), language: 'en' });
+        commit('error', { error: this.$i18n.t('ERRORS.generic'), language: LOCALES.DEFAULT });
       }
     } catch (e) {
       if ('response' in e && 'data' in e.response) {
@@ -123,7 +139,7 @@ export const actions = {
         const refreshToken = response.data.refresh_token;
         commit('login', { token: token, refreshToken: refreshToken });
       } else {
-        commit('error', { error: this.$i18n.t('ERRORS.generic'), language: 'en' });
+        commit('error', { error: this.$i18n.t('ERRORS.generic'), language: LOCALES.EN });
       }
     } catch (e) {
       if ('response' in e && 'data' in e.response) {
