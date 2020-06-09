@@ -122,6 +122,8 @@ const config = {
     extend(config, { isDev }) {
       if (!isDev) {
         config.output.publicPath = '/_nuxt/';
+        // eslint-disable-next-line no-console
+        console.log = console.error = console.warn = () => null;
       }
 
       return config;
