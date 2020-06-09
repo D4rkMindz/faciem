@@ -189,5 +189,9 @@
   "PROFILE": {
     "welcome": "Willkommen",
     "nice-to-see-you": "Schön bist Du zurück"
+  },
+  "CONSOLE": {
+    "stop": "STOPP!",
+    "info": "Dies ist eine Browser-Funktion für Entwickler. Solltest du von jemandem gefragt werden, hier etwas zu kopieren und einzufügen, um eine VENOVUM-Funktion zu aktivieren oder ein Konto zu „hacken“, dann handelt es sich um Scam. Dadurch wird der Person Zugriff auf dein VENOVUM-Konto gewährt."
   }
 }

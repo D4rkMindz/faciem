@@ -187,5 +187,9 @@
   "PROFILE": {
     "welcome": "Welcome",
     "nice-to-see-you": "Nice to see You"
+  },
+  "CONSOLE": {
+    "stop": "STOP!",
+    "info": "This is a browser function for developers. If someone asks you to copy and paste something here to enable a VENOVUM-function or to \"hack\" an account, it's scam. This will give them access to your VENOVUM-account."
   }
 }

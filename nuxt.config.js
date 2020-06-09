@@ -40,6 +40,7 @@ const config = {
    ** Plugins to load before mounting the App
    */
   plugins: [
+    { src: '~/plugins/mute-console.js', ssr: false },
     { src: '~/plugins/global-components.js', ssr: false },
     { src: '~/plugins/localstorage.js', ssr: false },
     { src: '~/plugins/interceptors.js', ssr: false },
@@ -103,8 +104,6 @@ const config = {
     seo: true,
     lazy: true,
     langDir: 'assets/lang/',
-    // TODO implement hook to change the language in JWT
-    onLanguageSwitched: (oldLocale, newLocale) => null,
   },
   /*
    ** Build configuration
@@ -122,8 +121,6 @@ const config = {
     extend(config, { isDev }) {
       if (!isDev) {
         config.output.publicPath = '/_nuxt/';
-        // eslint-disable-next-line no-console
-        console.log = console.error = console.warn = () => null;
       }
 
       return config;
