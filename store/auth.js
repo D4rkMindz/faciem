@@ -86,26 +86,46 @@ export const actions = {
   async login({ commit, getters, dispatch }, { username, password }) {
     try {
       commit('loggingIn');
+      // eslint-disable-next-line no-console
+      console.log('2');
       const response = await this.$axios.post(
         '/auth/login',
         { username: username, password: password },
       );
+      // eslint-disable-next-line no-console
+      console.log('3');
 
       if (response.status === 200) {
+        // eslint-disable-next-line no-console
+        console.log('4');
         const token = response.data.access_token;
         const refreshToken = response.data.refresh_token;
+        // eslint-disable-next-line no-console
+        console.log('5');
         commit('login', { token: token, refreshToken: refreshToken });
+        // eslint-disable-next-line no-console
+        console.log('6');
         const currentLocale = this.$i18n.locale;
         const newLocale = getters.getLocale;
         if (currentLocale !== newLocale) {
-          this.$i18n.setLocale(newLocale);
+          // eslint-disable-next-line no-console
+          console.log('7');
+          await this.$i18n.setLocale(newLocale);
+          // eslint-disable-next-line no-console
+          console.log('8');
           this.$toast.info(this.$i18n.t('AUTH.changed-locale'));
+          // eslint-disable-next-line no-console
+          console.log('9');
         }
       } else {
+        // eslint-disable-next-line no-console
+        console.log('NO1');
         // todo think about the language param here
-        commit('error', { error: this.$i18n.t('ERRORS.generic'), language: LOCALES.DEFAULT });
+        commit('error', { error: this.$i18n.t('ERRORS.generic'), language: getters.getLocale });
       }
     } catch (e) {
+      // eslint-disable-next-line no-console
+      console.log('NO2');
       if ('response' in e && 'data' in e.response) {
         commit('error', e.response.data);
       }

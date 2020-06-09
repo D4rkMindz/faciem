@@ -89,11 +89,21 @@ export default {
       'isAuthenticating',
     ]),
     async authenticate() {
+      // eslint-disable-next-line no-console
+      console.log('1');
       await this.login({ username: this.username, password: this.password });
+      // eslint-disable-next-line no-console
+      console.log('10');
       if (!this.hasError()) {
+        // eslint-disable-next-line no-console
+        console.log('11');
         if (this.hasRole()(WATCH_ROLES.WATCH)) {
+          // eslint-disable-next-line no-console
+          console.log('12');
           await this.$router.push(this.localeRoute('/watch'));
         } else {
+          // eslint-disable-next-line no-console
+          console.log('12/2');
           await this.$router.push(this.localeRoute('/b2b/admin'));
         }
       }
