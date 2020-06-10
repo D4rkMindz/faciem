@@ -1,5 +1,4 @@
 import { QUESTIONS_STATE } from '@/store/watch/questions/index';
-import { Answer } from '@/domain/campaign/answer';
 import { Question } from '@/domain/campaign/question';
 
 /**
@@ -13,17 +12,6 @@ function parseQuestions(q) {
   }
   const questions = [];
   q.forEach((question) => {
-    if (question.answers) {
-      question.answers.forEach((a, i) => {
-        const answer = {
-          id: a.id,
-          text: a.answer,
-          value: a.value,
-          valid: true,
-        };
-        question.answers[i] = new Answer(answer);
-      });
-    }
     const data = {};
     data.id = question.id;
     data.type = question.question_type;

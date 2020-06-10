@@ -16,7 +16,16 @@ export default {
    * @param state
    * @return {function(*): Question[]}
    */
-  getById: state => id => state.questions.filter(question => question.id === id),
+  findById: state => (id) => {
+    let index = null;
+    state.questions.forEach((value, i) => {
+      if (value.id === id) {
+        index = i;
+      }
+    });
+
+    return state.questions[index];
+  },
   /**
    * Get by locale
    * @param state

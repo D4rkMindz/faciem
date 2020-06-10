@@ -82,7 +82,6 @@ export default {
       question.errors = [];
       question.errors.push(...getErrors(question.id + '.value'));
       question.errors.push(...getErrors(question.id + '.type'));
-      question.errors.push(...getErrors(question.id + '.language'));
 
       question.answers.forEach((answer, key) => {
         answer.errors = [];
@@ -101,7 +100,6 @@ export default {
     state.description_errors = [];
     state.campaign_id = null;
     state.pricing_id = null;
-    state.language = null;
     state.state = CAMPAIGN_CREATE_STATES.UNTOUCHED;
     state.errors = [];
     state.message = null;

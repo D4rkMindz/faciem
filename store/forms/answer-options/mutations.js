@@ -10,7 +10,7 @@ function getIndex(state, id) {
     }
   });
   if (answerIndex === null) {
-    throw new Error(this.$i18n.t('ERRORS.answer-not-found'));
+    throw new Error(global.$nuxt.$i18n.t('ERRORS.answer-not-found'));
   }
 
   return answerIndex;
@@ -31,7 +31,7 @@ export default {
    */
   reset(state) {
     state.state = ANSWER_OPTION_STATES.INITIAL;
-    state.answers = [new Answer()];
+    state.answers = [];
   },
   /**
    * Add a new answer

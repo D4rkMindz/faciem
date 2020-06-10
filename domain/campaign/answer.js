@@ -12,15 +12,15 @@ export class Answer {
     if (!data.question_id) {
       throw new Error('question id not defined');
     }
-    if (data.id === null) {
+    if (!data.id) {
       data.id = Math.round(Math.random() * 1000);
     }
     this.id = data.id;
     this.questionId = data.question_id;
-    this.value = data.value;
-    this.text = data.text;
-    this.errors = data.errors;
-    this.valid = data.valid;
-    this.correct = data.correct;
+    this.value = data.value || null;
+    this.text = data.text || '';
+    this.errors = data.errors || [];
+    this.valid = data.valid || false;
+    this.correct = data.correct || false;
   }
 }

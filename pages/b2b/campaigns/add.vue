@@ -39,9 +39,6 @@
         <div class="form mt-12">
           <QuestionsForm />
         </div>
-        <div class="form mt-12">
-          <QuestionsForm />
-        </div>
 
         <div class="w-1/1 text-right m-4">
           <button @click="save()"

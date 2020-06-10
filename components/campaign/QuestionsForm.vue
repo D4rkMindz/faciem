@@ -1,8 +1,14 @@
 <template>
   <div>
-    <div>SELECT LOCALE</div>
+    <div>
+      <v-select
+        :options="locales"
+        v-model="locale"
+        :label="$t('QUESTIONS.locale')"
+        class="mt-6" />
+    </div>
     <div v-if="questions.length"
-         v-for="(question, i) in getByLocale(locale)"
+         v-for="(question, i) in getByLocale()(locale)"
          :key="question.id"
          class="w-full flex flex-wrap">
       <div class="w-11/12 inline-block p-4 mb-4">
@@ -28,8 +34,8 @@
           v-if="typesThatRequireQuestion.includes(question.type)"
           :id="id('question')"
           :errors="question.errors"
-          :value="question.value"
-          @input="setQuestionValue({id: question.id, property: 'value', value: $event})"
+          :value="question.text"
+          @input="setQuestionValue({id: question.id, property: 'text', value: $event})"
           @validate="validateQuestion({ id: question.id })"
           :label="$t('QUESTIONS.question')"
           :placeholder="$t('QUESTIONS.add')" />
@@ -37,7 +43,7 @@
       </div>
 
       <div class="w-1/12 inline-block text-center flex justify-center flex-col mb-4">
-        <v-icon @click.prevent="removeQuestionFromForm({ id: i })"
+        <v-icon @click.prevent="removeQuestionFromForm({ id: question.id })"
                 :class="{'icon-danger': questions.length > 1, 'icon-disabled': questions.length < 2}"
                 class="cursor-pointer"
                 name="trash-alt" />
@@ -46,7 +52,7 @@
 
     <div class="w-full mb-12">
       <div class="text-right m-4">
-        <button @click="addQuestion()"
+        <button @click="addQuestion(locale)"
                 class="button sm:w-1/1 md:w-1/3">
           {{ $t('QUESTIONS.add') }}
         </button>
@@ -76,6 +82,10 @@ export default {
   data() {
     return {
       locale: LOCALES.DEFAULT,
+      locales: [
+        { key: LOCALES.DE, translation: 'Deutsch' },
+        { key: LOCALES.EN, translation: 'English' },
+      ],
       typesThatRequireQuestion: TYPES_THAT_REQUIRE_QUESTION,
       typesThatRequireMultipleAnswers: TYPES_THAT_REQUIRE_MULTIPLE_ANSWERS,
       validation: VALIDATION,
@@ -118,15 +128,9 @@ export default {
     ]),
     setType(index, type) {
       const question = this.getQuestions()[index];
-      if (TYPES_THAT_REQUIRE_MULTIPLE_ANSWERS.includes(type) && question.answers.length === 0) {
-        this.addAnswer({ questionId: question.id, locale: this.locale });
-      }
-      if (!TYPES_THAT_REQUIRE_MULTIPLE_ANSWERS.includes(type)) {
-        this.setQuestionValue({ id: question.id, property: 'answers', value: [] });
-      }
       if (TYPES_THAT_REQUIRE_NO_QUESTION.includes(type)) {
         this.setQuestionValue({ id: question.id, property: 'valid', value: true });
-        this.setQuestionValue({ id: question.id, property: 'value', value: null });
+        this.setQuestionValue({ id: question.id, property: 'text', value: null });
         this.setQuestionValue({ id: question.id, property: 'errors', value: [] });
       }
 

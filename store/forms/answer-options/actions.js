@@ -10,7 +10,7 @@ export default {
    * @param questionIndex
    * @param answerIndex
    */
-  validateAnswers({ commit, state, rootGetters, getters }, { id }) {
+  validateAnswer({ commit, state, rootGetters, getters, dispatch }, { id }) {
     let answerIndex = null;
     state.answers.forEach((answer, index) => {
       if (answer.id === id) {
@@ -21,12 +21,19 @@ export default {
       throw new Error(this.$i18n.t('ERRORS.answer-not-found'));
     }
     const answer = cloneDeep(state.answers[answerIndex]);
+
+    // always validate the question too if the answers get validated
+    dispatch('forms/questions/validateQuestion', { id: answer.questionId }, { root: true });
+
     answer.errors = [];
-    const question = rootGetters['forms/questions/getById'](answer.question_id);
-    const answerCount = getters.getAnswersForQuestion(answer.question_id).length;
+    const question = cloneDeep(rootGetters['forms/questions/findById'](answer.questionId));
+    const answerCount = (getters.getAnswersForQuestion)(answer.questionId).length;
 
     if (TYPES_THAT_REQUIRE_MULTIPLE_ANSWERS.includes(question.type) && answerCount <= 1) {
-      question.errors.push(this.$i18n.t('ERRORS.add-more-answers'));
+      const message = this.$i18n.t('ERRORS.add-more-answers');
+      if (!question.errors.includes(message)) {
+        question.errors.push(message);
+      }
       question.valid = false;
       commit('forms/questions/setQuestion', question, { root: true });
     }
@@ -36,7 +43,7 @@ export default {
     }
     answer.valid = answer.errors.length === 0;
 
-    commit('setAnswer', { answerIndex, answer });
+    commit('setAnswer', answer);
   },
   /**
    * Save all answer options

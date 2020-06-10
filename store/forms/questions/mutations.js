@@ -10,7 +10,7 @@ function getIndex(state, id) {
     }
   });
   if (questionIndex === null) {
-    throw new Error(this.$i18n.t('ERRORS.question-not-found'));
+    throw new Error(global.$nuxt.$i18n.t('ERRORS.question-not-found'));
   }
 
   return questionIndex;
@@ -23,7 +23,7 @@ export default {
 
   reset(state) {
     state.state = QUESTIONS_FORM_STATES.INITIAL;
-    state.questions = [new Question()];
+    state.questions = [];
   },
   /**
    * Add a new question
@@ -31,7 +31,7 @@ export default {
    * @param locale
    */
   addQuestion(state, locale) {
-    Vue.set(state.questions, state.questions.length, new Question());
+    Vue.set(state.questions, state.questions.length, new Question({ locale: locale }));
   },
   /**
    * Set a question

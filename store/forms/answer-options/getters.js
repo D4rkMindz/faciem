@@ -16,7 +16,9 @@ export default {
    * @param state
    * @return {function(*): Answer[]}
    */
-  getAnswersForQuestion: state => id => state.answers.filter(a => a.questionId === id),
+  getAnswersForQuestion: state => (id) => {
+    return state.answers.filter(a => a.questionId === id);
+  },
   /**
    * Check if the form is valid
    * @param state

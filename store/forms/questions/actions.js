@@ -1,5 +1,9 @@
 import cloneDeep from 'lodash.clonedeep';
-import { QUESTIONS_FORM_STATES, TYPES_THAT_REQUIRE_NO_QUESTION } from '@/store/forms/questions/index';
+import {
+  QUESTIONS_FORM_STATES,
+  TYPES_THAT_REQUIRE_MULTIPLE_ANSWERS,
+  TYPES_THAT_REQUIRE_NO_QUESTION,
+} from '@/store/forms/questions/index';
 
 export default {
   /**
@@ -9,7 +13,7 @@ export default {
    * @param id
    * @param questionIndex
    */
-  validateQuestion({ commit, state }, { id }) {
+  validateQuestion({ commit, state, rootGetters }, { id }) {
     let questionIndex = null;
     state.questions.forEach((value, index) => {
       if (value.id === id) {
@@ -30,8 +34,16 @@ export default {
       return;
     }
 
+    const answerCount = rootGetters['forms/answer-options/getAnswersForQuestion'](question.id).length;
+    if (TYPES_THAT_REQUIRE_MULTIPLE_ANSWERS.includes(question.type) && answerCount <= 1) {
+      question.errors.push(this.$i18n.t('ERRORS.add-more-answers'));
+    }
+
     if (!question.text || question.text.trim().length < 3) {
-      question.errors.push(this.$i18n.t('ERRORS.minimum-length', { field: this.$i18n.t('CREATECAMPAIGN.question'), minimum: 3 }));
+      const message = this.$i18n.t('ERRORS.minimum-length', { field: this.$i18n.t('CREATECAMPAIGN.question'), minimum: 3 });
+      if (!question.errors.includes(message)) {
+        question.errors.push(message);
+      }
     }
 
     question.valid = question.errors.length === 0;
