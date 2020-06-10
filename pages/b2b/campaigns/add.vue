@@ -3,10 +3,30 @@
     <h1 class="title">
       {{ $t('CAMPAIGN.create') }}
     </h1>
-    <div class="flex flex-col-reverse md:flex-row">
+    <p class="text-sm font-">
+      {{ $t('CAMPAIGN.create-description') }}
+    </p>
+    <div class="flex flex-col-reverse md:flex-row bg-gray-100 rounded-md shadow-md">
       <div class="w-1/1 md:w-1/2 mx-3">
-        <p>{{ $t('CAMPAIGN.create-description') }}</p>
+        <div class="pr-5">
+          <v-input id="name"
+                   :value="name"
+                   @input="setName($event)"
+                   @validate="validateName($event)"
+                   :errors="nameErrors"
+                   :label="$t('QUESTIONS.name')"
+                   :placeholder="$t('QUESTIONS.my-campaign')"
+                   class="mt-6" />
 
+          <v-input id="description"
+                   :value="description"
+                   @input="setDescription($event)"
+                   @validate="validateDescription($event)"
+                   :errors="descriptionErrors"
+                   :label="$t('QUESTIONS.description')"
+                   :placeholder="$t('QUESTIONS.about')"
+                   class="mt-6" />
+        </div>
         <div class="sm:w-1/1 m-4">
           <file-input v-model="file" />
 
@@ -16,6 +36,9 @@
           </div>
         </div>
 
+        <div class="form mt-12">
+          <QuestionsForm />
+        </div>
         <div class="form mt-12">
           <QuestionsForm />
         </div>
@@ -44,7 +67,7 @@ import { createNamespacedHelpers } from 'vuex';
 import { ALLOWED_FILE_TYPES } from '@/domain/file/allowed-file-types';
 import QuestionsForm from '@/components/campaign/QuestionsForm';
 import { CAMPAIGN_CREATE_STATES } from '@/store/forms/campaign/create';
-const { mapGetters, mapActions } = createNamespacedHelpers('forms/campaign/create');
+const { mapGetters, mapActions, mapMutations } = createNamespacedHelpers('forms/campaign/create');
 export default {
   name: 'AddCapaignPage',
   middleware: [
@@ -62,6 +85,10 @@ export default {
     };
   },
   computed: {
+    name() { return this.getName(); },
+    nameErrors() { return this.getNameErrors(); },
+    description() { return this.getDescription(); },
+    descriptionErrors() { return this.getDescriptionErrors(); },
     valid() {
       return this.isValid() && this.fileValid;
     },
@@ -93,6 +120,14 @@ export default {
     ...mapGetters([
       'isValid',
       'getState',
+      'getName',
+      'getNameErrors',
+      'getDescription',
+      'getDescriptionErrors',
+    ]),
+    ...mapMutations([
+      'setName',
+      'setDescription',
     ]),
     ...mapActions([
       'saveForm',

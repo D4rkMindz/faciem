@@ -30,12 +30,6 @@ export default {
    */
   getState: state => state.state,
   /**
-   * Get all questions
-   * @param state
-   * @return {any}
-   */
-  getQuestions: state => state.questions,
-  /**
    * Check if the form is valid
    * @param state
    * @return {boolean}
@@ -47,16 +41,6 @@ export default {
       if (state.name_errors.length > 0 || state.description_errors > 0) {
         throw BreakException;
       }
-      state.questions.forEach((q) => {
-        if (!q.valid) {
-          throw BreakException;
-        }
-        q.answers.forEach((a) => {
-          if (!a.valid) {
-            throw BreakException;
-          }
-        });
-      });
     } catch (e) {
       formValid = false;
     }
