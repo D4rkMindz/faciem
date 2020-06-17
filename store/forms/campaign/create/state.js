@@ -8,7 +8,7 @@ export default function () {
     description_errors: [],
     error: null,
     campaign_id: null,
-    pricing_id: 1,
+    pricing_id: null,
     start: null,
     end: null,
     state: CAMPAIGN_CREATE_STATES.UNTOUCHED,

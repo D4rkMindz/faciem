@@ -66,7 +66,7 @@
       </div>
 
       <div class="w-1/12 inline-block text-center flex justify-center flex-col mb-4">
-        <v-icon @click.prevent="removeQuestionFromForm({ id: question.id })"
+        <v-icon @click.prevent="removeQuestionFromForm(question.id)"
                 :class="{'icon-danger': questions.length > 1, 'icon-disabled': questions.length < 2}"
                 class="cursor-pointer"
                 name="trash-alt" />

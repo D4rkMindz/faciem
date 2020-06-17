@@ -70,6 +70,9 @@ import { createNamespacedHelpers } from 'vuex';
 import QuestionsForm from '@/components/campaign/QuestionsForm';
 import { LOCALES } from '@/domain/profile/locale';
 import { MediaFile } from '@/domain/file/MediaFile';
+import { VIDEO_STATES } from '@/store/forms/media/video';
+import { QUESTIONS_FORM_STATES } from '@/store/forms/questions';
+import { ANSWER_OPTION_STATES } from '@/store/forms/answer-options';
 const { mapGetters, mapActions, mapMutations } = createNamespacedHelpers('forms/campaign/create');
 const questionsStore = createNamespacedHelpers('forms/questions');
 const answerOptionsStore = createNamespacedHelpers('forms/answer-options');
@@ -107,7 +110,7 @@ export default {
   methods: {
     ...mapGetters([
       'isValid',
-      'getState',
+      'getCampaignState',
       'getName',
       'getNameErrors',
       'getDescription',
@@ -123,18 +126,32 @@ export default {
       'validateName',
       'validateDescription',
     ]),
-    ...questionsStore.mapGetters(['getByLocale']),
+    ...questionsStore.mapGetters(['getByLocale', 'getQuestionsState']),
     ...questionsStore.mapActions(['saveQuestions', 'removeQuestionAndAssociatedAnswerOptions']),
+    ...answerOptionsStore.mapGetters(['getAnswerOptionsState']),
     ...answerOptionsStore.mapActions(['saveAnswerOptions']),
+    ...videosStore.mapGetters(['getVideoState']),
     ...videosStore.mapActions(['saveVideoFiles']),
     async save() {
       this.saving = true;
       await this.saveCampaign();
       if (this.getCampaignId()) {
-        await this.saveQuestions(this.getCampaignId());
-        await this.saveAnswerOptions();
         const videoFiles = this.questionForms.map(f => f.mediaFile);
-        await this.saveVideoFiles(videoFiles);
+        await Promise.all([
+          this.saveQuestions(this.getCampaignId()).then(() => this.saveAnswerOptions()),
+          this.saveVideoFiles(videoFiles),
+        ]);
+        const questionSaved = this.getQuestionsState() === QUESTIONS_FORM_STATES.SAVED;
+        const answerOptionsSaved = this.getAnswerOptionsState() === ANSWER_OPTION_STATES.SAVED;
+        const videosSaved = this.getVideoState() === VIDEO_STATES.SAVED;
+        if (questionSaved && answerOptionsSaved && videosSaved) {
+          this.$toast.info(this.$t('CAMPAIGN_ADD.created-campaign-successfully'));
+          this.$store.commit('forms/questions/reset');
+          this.$store.commit('forms/answer-options/reset');
+          this.$store.commit('forms/campaign/create/reset');
+          this.$store.commit('forms/media/video/reset');
+          await this.$router.replace('/b2b/campaigns');
+        }
       }
       this.saving = false;
     },

@@ -4,7 +4,7 @@ export default {
    * @param state
    * @return {string}
    */
-  getState: state => state.state,
+  getQuestionsState: state => state.state,
   /**
    * Get all questions
    * @param state

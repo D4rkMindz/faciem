@@ -28,13 +28,19 @@ export default {
    * @param state
    * @return {*}
    */
-  getState: state => state.state,
+  getCampaignState: state => state.state,
   /**
    * Get the campaign ID
    * @param state
    * @return {null}
    */
   getCampaignId: state => state.campaign_id,
+  /**
+   * Get the pricing ID
+   * @param state
+   * @return {null}
+   */
+  getPricingId: state => state.pricing_id,
   /**
    * Check if the form is valid
    * @param state

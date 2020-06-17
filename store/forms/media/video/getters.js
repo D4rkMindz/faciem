@@ -4,5 +4,5 @@ export default {
    * @param state
    * @return {string}
    */
-  getState: state => state.state,
+  getVideoState: state => state.state,
 };

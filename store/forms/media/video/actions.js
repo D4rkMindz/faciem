@@ -1,3 +1,5 @@
+import { VIDEO_STATES } from '@/store/forms/media/video/index';
+
 export default {
 
   /**
@@ -10,13 +12,15 @@ export default {
    * @return {Promise<void>}
    */
   async saveVideoFiles({ commit, getters, rootGetters, dispatch }, mediaFiles) {
-    debugger;
+    commit('setState', VIDEO_STATES.EDITED);
     if (!rootGetters['forms/campaign/create/isValid'] || !rootGetters['forms/campaign/create/getCampaignId']) {
+      commit('setState', VIDEO_STATES.INVALID);
       return;
     }
 
     let failed = false;
     const BreakException = {};
+    commit('setState', VIDEO_STATES.SAVING);
     await Promise.all(mediaFiles.map(async (mediaFile, index) => {
       try {
         if (!mediaFile.valid) {
@@ -60,8 +64,10 @@ export default {
     }));
 
     if (!failed) {
+      commit('setState', VIDEO_STATES.SAVED);
       this.$toast.info(this.$i18n.t('CAMPAIGN.media-files-uploaded-success'));
     } else {
+      commit('setState', VIDEO_STATES.ERROR);
       this.$toast.info(this.$i18n.t('ERRORS.media-files-not-uploaded'));
     }
 

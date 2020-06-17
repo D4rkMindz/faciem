@@ -8,22 +8,25 @@ export default {
    * Save the form
    * @return {Promise<void>}
    */
-  async saveCampaign({ state, getters, rootGetters, commit }) {
+  async saveCampaign({ getters, rootGetters, commit }) {
+    // TODO set pricing id dynamically
+    commit('setPricingId', 1);
+    commit('setState', CAMPAIGN_CREATE_STATES.SAVING);
     if (!getters.isValid) {
+      commit('setState', CAMPAIGN_CREATE_STATES.INVALID);
       return;
     }
     const userId = rootGetters['auth/getUserId'];
 
     try {
-      commit('setState', CAMPAIGN_CREATE_STATES.SAVING);
-      if (state.campaign_id === null) {
+      if (getters.getCampaignId === null) {
         const response = await this.$axios.post(
           `/users/${userId}/campaigns`, {
-            name: state.name,
-            description: state.description,
+            name: getters.getName,
+            description: getters.getDescription,
             start: moment().format('YYYY-MM-DD HH:mm:ss'),
             end: null,
-            pricing_id: state.pricing_id,
+            pricing_id: getters.getPricingId,
           });
         if (response.status !== 200) {
           commit('setState', CAMPAIGN_CREATE_STATES.INVALID);
