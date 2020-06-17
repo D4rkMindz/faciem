@@ -1,3 +1,5 @@
+import cloneDeep from 'lodash.clonedeep';
+
 export default {
   /**
    * Get the state
@@ -17,7 +19,22 @@ export default {
    * @return {function(*): Answer[]}
    */
   getAnswersForQuestion: state => (id) => {
-    return state.answers.filter(a => a.questionId === id);
+    return cloneDeep(state.answers.filter(a => a.questionId === id));
+  },
+  /**
+   * Find by id
+   * @param state
+   * @return {function(*): *}
+   */
+  findById: state => (id) => {
+    let index = null;
+    state.answers.forEach((value, i) => {
+      if (value.id === id) {
+        index = i;
+      }
+    });
+
+    return state.answers[index];
   },
   /**
    * Check if the form is valid

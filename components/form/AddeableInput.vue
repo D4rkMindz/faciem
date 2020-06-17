@@ -1,47 +1,49 @@
 <template>
   <div>
     <div :class="{'my-6': errors.length === 0, 'mt-6': errors.length !== 0}"
-         class="lg:flex lg:items-center">
-      <div class="lg:w-1/3">
+         class="flex items-center flex-col lg:flex-row">
+      <div class="w-full lg:w-1/3">
         <label :for="id"
                class="block text lg:text-right mb-1 lg:mb-0 pr-4">
           {{ label }}
         </label>
       </div>
 
-      <div :class="inputWidthClass">
-        <input ref="input"
-               :id="id"
-               v-model="inputValue"
-               :title="inputValue"
-               :class="['input', classes]"
-               :placeholder="placeholder"
-               :type="type"
-               @input="onInput"
-               @leave="onBlur"
-               @blur="onBlur" />
-      </div>
+      <div class="w-full lg:w-9/12 flex flex-row items-center">
+        <div :class="inputWidthClass">
+          <input ref="input"
+                 :id="id"
+                 v-model="inputValue"
+                 :title="inputValue"
+                 :class="['input', classes]"
+                 :placeholder="placeholder"
+                 :type="type"
+                 @input="onInput"
+                 @leave="onBlur"
+                 @blur="onBlur" />
+        </div>
 
-      <div @click="onAdd()"
-           :class="{'hidden': !showAdd}"
-           class="lg:w-1/12 text-center cursor-pointer">
-        <v-icon name="plus" />
-      </div>
+        <div @click="onCorrect()"
+             :class="{'hidden': !showCorrect}"
+             class="w-1/12 text-center cursor-pointer">
+          <v-icon
+            :class="{'icon-ok': correct}"
+            name="check" />
+        </div>
 
-      <div @click="onRemove()"
-           :class="{'hidden': !showRemove}"
-           class="lg:w-1/12 text-center cursor-pointer">
-        <v-icon
-          name="trash-alt"
-          class="icon-danger" />
-      </div>
+        <div @click="onAdd()"
+             :class="{'hidden': !showAdd}"
+             class="w-1/12 text-center cursor-pointer">
+          <v-icon name="plus" />
+        </div>
 
-      <div @click="onCorrect()"
-           :class="{'hidden': !showCorrect}"
-           class="lg:w-1/12 text-center cursor-pointer">
-        <v-icon
-          :class="{'icon-ok': correct}"
-          name="check" />
+        <div @click="onRemove()"
+             :class="{'hidden': !showRemove}"
+             class="w-1/12 text-center cursor-pointer">
+          <v-icon
+            name="trash-alt"
+            class="icon-danger" />
+        </div>
       </div>
     </div>
 
@@ -121,9 +123,9 @@ export default {
       if (this.showCorrect === true) {
         counter++;
       }
-      const width = 8 - counter;
+      const width = 12 - counter;
 
-      return `lg:w-${width}/12`;
+      return `w-${width}/12`;
     },
   },
   methods: {

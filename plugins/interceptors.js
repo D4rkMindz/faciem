@@ -1,7 +1,7 @@
 export default function (vue) {
   const { $axios, store, route } = vue;
   const $toast = vue.store.$toast;
-  const $t = vue.store.$t;
+  const $t = vue.store.$i18n.t;
   const localeRoute = vue.store.localeRoute;
   const $router = vue.store.$router;
   let isAlreadyFetchingAccessToken = false;
@@ -55,7 +55,11 @@ export default function (vue) {
       return new Promise((resolve) => {
         addSubscriber(() => {
           originalRequest.headers.Authorization = store.getters['auth/getToken'];
-          resolve($axios(originalRequest));
+          $axios(originalRequest).then((r) => {
+            // eslint-disable-next-line no-console
+            console.info('Authentification updated and resent request to %s', r.request.responseURL);
+            resolve(r);
+          });
         });
       });
     }

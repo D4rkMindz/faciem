@@ -1,5 +1,6 @@
 import { Answer } from '@/domain/campaign/answer';
 import Vue from 'vue';
+import cloneDeep from 'lodash.clonedeep';
 import { ANSWER_OPTION_STATES } from '@/store/forms/answer-options/index';
 
 function getIndex(state, id) {
@@ -40,7 +41,7 @@ export default {
    * @param locale
    */
   addAnswer(state, { questionId, locale }) {
-    Vue.set(state.answers, state.answers.length, new Answer({ question_id: questionId, locale: locale }));
+    Vue.set(state.answers, state.answers.length, new Answer({ questionId: questionId, locale: locale }));
   },
   /**
    * Set a answer
@@ -48,15 +49,21 @@ export default {
    * @param answer
    */
   setAnswer(state, answer) {
-    const answerIndex = getIndex(state, answer.id);
-    Vue.set(state.answers, answerIndex, answer);
+    const a = cloneDeep(answer);
+    let id = a.id;
+    if (a.old_id) {
+      id = a.old_id;
+      delete a.old_id;
+    }
+    const answerIndex = getIndex(state, id);
+    Vue.set(state.answers, answerIndex, a);
   },
   /**
    * Remove a answer
    * @param state
-   * @param index
+   * @param id
    */
-  removeAnswer(state, { id }) {
+  removeAnswer(state, id) {
     const answerIndex = getIndex(state, id);
     state.answers.splice(answerIndex, 1);
   },

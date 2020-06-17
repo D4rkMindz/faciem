@@ -8,7 +8,7 @@ export default {
    * Save the form
    * @return {Promise<void>}
    */
-  async saveForm({ state, getters, rootGetters, commit, dispatch }, { file }) {
+  async saveCampaign({ state, getters, rootGetters, commit }) {
     if (!getters.isValid) {
       return;
     }
@@ -32,6 +32,10 @@ export default {
         }
         commit('setCampaignId', response.data.campaign_id);
       }
+      commit('setState', CAMPAIGN_CREATE_STATES.SAVED);
+      // eslint-disable-next-line no-console
+      console.log('campaign id already set');
+      // todo implement update campaign
     } catch (e) {
       commit('setState', CAMPAIGN_CREATE_STATES.INVALID);
       if ('response' in e && 'errors' in e.response.data) {
@@ -40,6 +44,7 @@ export default {
       }
     }
   },
+
   /**
    * Validate the name
    * @param commit

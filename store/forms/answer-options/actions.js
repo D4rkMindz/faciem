@@ -7,13 +7,13 @@ export default {
    * Validate an answer
    * @param commit
    * @param state
+   * @param answerOptionId
    * @param questionIndex
-   * @param answerIndex
    */
-  validateAnswer({ commit, state, rootGetters, getters, dispatch }, { id }) {
+  validateAnswerOption({ commit, state, rootGetters, getters, dispatch }, answerOptionId) {
     let answerIndex = null;
     state.answers.forEach((answer, index) => {
-      if (answer.id === id) {
+      if (answer.id === answerOptionId) {
         answerIndex = index;
       }
     });
@@ -23,7 +23,7 @@ export default {
     const answer = cloneDeep(state.answers[answerIndex]);
 
     // always validate the question too if the answers get validated
-    dispatch('forms/questions/validateQuestion', { id: answer.questionId }, { root: true });
+    dispatch('forms/questions/validateQuestion', answer.questionId, { root: true });
 
     answer.errors = [];
     const question = cloneDeep(rootGetters['forms/questions/findById'](answer.questionId));
@@ -46,31 +46,67 @@ export default {
     commit('setAnswer', answer);
   },
   /**
+   *
+   * @param getters
+   * @param rootGetters
+   * @param dispatch
+   * @param answerOptionId
+   */
+  canAnswerOptionBePersisted({ getters, rootGetters, dispatch }, answerOptionId) {
+    dispatch('validateAnswerOption', answerOptionId);
+    const answerOption = getters.findById(answerOptionId);
+    if (!answerOption || !answerOption.valid) {
+      return false;
+    }
+    return rootGetters['forms/questions/findById'](answerOption.questionId).persisted;
+  },
+  /**
    * Save all answer options
    * @param commit
    * @param getters
+   * @param rootGetters
+   * @param dispatch
    * @return {Promise<void>}
    */
-  async saveAnswerOptions({ commit, getters }) {
+  async saveAnswerOptions({ commit, getters, rootGetters, dispatch }) {
     commit('setState', ANSWER_OPTION_STATES.SAVING);
     const BreakException = {};
     try {
       const answers = getters.getAnswers;
       answers.forEach((a) => {
-        if (!a.question_id) {
+        if (!a.questionId) {
           throw BreakException;
         }
       });
       let failed = false;
+      const positionCounterByQuestion = [];
       await Promise.all(
-        answers.map(async (answer) => {
-          const url = `/questions/${answer.question_id}/answer-options`;
+        answers.map(async (a) => {
+          const answer = cloneDeep(a);
+          if (answer.persisted) {
+            return;
+          }
+          if (!positionCounterByQuestion[answer.questionId]) {
+            positionCounterByQuestion[answer.questionId] = 0;
+          }
+          positionCounterByQuestion[answer.questionId]++;
+          answer.position = positionCounterByQuestion[answer.questionId];
+          commit('setAnswer', answer);
+
+          if (!answer.valid || !dispatch('canAnswerOptionBePersisted', answer.id)) {
+            answer.valid = false;
+            answer.errors.push(this.$i18n.t('ERRORS.generic'));
+            commit('setAnswer', answer);
+            throw BreakException;
+          }
+          const url = `/questions/${answer.questionId}/answer-options`;
           try {
             const response = await this.$axios.post(url, {
               text: answer.text,
               position: answer.position,
             });
             if (response.status === 200) {
+              answer.old_id = answer.id;
               answer.id = response.data.answer_option_id;
               answer.persisted = true;
               commit('setAnswer', answer);

@@ -30,6 +30,12 @@ export default {
    */
   getState: state => state.state,
   /**
+   * Get the campaign ID
+   * @param state
+   * @return {null}
+   */
+  getCampaignId: state => state.campaign_id,
+  /**
    * Check if the form is valid
    * @param state
    * @return {boolean}

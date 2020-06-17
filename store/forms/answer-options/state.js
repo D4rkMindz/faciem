@@ -6,5 +6,3 @@ export default function () {
     answers: [],
   };
 }
-
-// TODO continue here with the forms (questions, answeroptions, campaign)

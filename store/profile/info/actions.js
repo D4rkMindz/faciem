@@ -1,6 +1,5 @@
 import { INFO_STATES } from '@/domain/profile/info-states';
 
-// TODO continue here by adding a on language change method that changes the language in the token and also updates the locale in the frontend (take it from the JWT)
 export default {
   /**
    * Refresh the balance

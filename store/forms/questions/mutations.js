@@ -1,5 +1,6 @@
 import { QUESTIONS_FORM_STATES } from '@/store/forms/questions/index';
 import { Question } from '@/domain/campaign/question';
+import cloneDeep from 'lodash.clonedeep';
 import Vue from 'vue';
 
 function getIndex(state, id) {
@@ -39,15 +40,21 @@ export default {
    * @param question
    */
   setQuestion(state, question) {
-    const questionIndex = getIndex(state, question.id);
-    Vue.set(state.questions, questionIndex, question);
+    const q = cloneDeep(question);
+    let id = q.id;
+    if (q.old_id) {
+      id = q.old_id;
+      delete q.old_id;
+    }
+    const questionIndex = getIndex(state, id);
+    Vue.set(state.questions, questionIndex, q);
   },
   /**
    * Remove a question
    * @param state
-   * @param index
+   * @param id
    */
-  removeQuestion(state, { id }) {
+  removeQuestion(state, id) {
     const questionIndex = getIndex(state, id);
     state.questions.splice(questionIndex, 1);
   },

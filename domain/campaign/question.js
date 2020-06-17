@@ -9,8 +9,10 @@ export class Question {
   errors = [];
   valid = false;
   type = 'text';
+  position = 1;
+  campaignId = null;
 
-  constructor(data = { id: null, text: '', value: null, locale: LOCALES.DEFAULT, errors: [], valid: false, type: 'text' }) {
+  constructor(data = { id: null, text: '', value: null, locale: LOCALES.DEFAULT, errors: [], valid: false, type: 'text', campaign_id: null, position: 1 }) {
     if (!data.id) {
       data.id = Math.round(Math.random() * 1000);
     }
@@ -21,6 +23,8 @@ export class Question {
     this.errors = data.errors || [];
     this.valid = data.valid || false;
     this.type = data.type || 'text';
+    this.position = data.position || 1;
+    this.campaignId = data.campaign_id || null;
   }
 }
 

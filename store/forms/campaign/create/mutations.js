@@ -41,6 +41,12 @@ export default {
   setPricingId(state, pricingId) {
     state.pricing_id = pricingId;
   },
+  setStart(state, start) {
+    state.start = start;
+  },
+  setEnd(state, end) {
+    state.end = end;
+  },
   /**
    * Set the campaign id
    * @param state
