@@ -24,7 +24,12 @@
     "generic": "Etwas ist schief gelaufen. Bitte versuche es später erneut",
     "add-more-answers": "Bitte füge mehr als eine Antwort hinzu ",
     "required": "{field} ist erfordert",
-    "failed-to-update-language": "Sprache konnte nicht aktualisiert werden. Bitte versuche es erneut"
+    "failed-to-update-language": "Sprache konnte nicht aktualisiert werden. Bitte versuche es erneut",
+    "no-file-selected": "Kein Medium ausgewählt",
+    "answer-not-found": "Antwort nicht gefunden",
+    "question-not-found": "Frage nicht gefunden",
+    "invalid-filetype": "Dateitype nicht erlaubt. Bitte verwende eine .mp4 oder .webm Datei",
+    "media-files-not-uploaded": "Medien nicht hochgeladen"
   },
   "QUESTIONS": {
     "name": "Name",
@@ -41,7 +46,10 @@
     "stars-description": "Sterne erlauben dir Feedback über das Video zu erhalten. Mit dieser Option kann der Benutzer das Video mit einer Anzahl Sterne zwischen 1 - 5 bewerten. Diese Option ist praktisch ein MUSS für jede Kampagne",
     "multiple-choice-description": "Eine Multiple Choice Antwort ermöglicht dem Benuter mehrere Antworten aus einem Set von Antworten auszuwählen. Diese Antwortart ist eine der Besten",
     "validation-description": "Eine Überprüfungsfrage. Dem Benutzer werden verschiedene Antworten zur Verfügung gestellt, jedoch ist nur ein Teil davon richtig. Sollte diese Frage nicht korrekt beantwortet werden, so ist die Antwort falsch.",
-    "text-description": "Ein Text ermöglicht einem Benutzer einen Text zu Deiner Kampagne zu verfassen. Wir raten stark von diesem Typ ab."
+    "text-description": "Ein Text ermöglicht einem Benutzer einen Text zu Deiner Kampagne zu verfassen. Wir raten stark von diesem Typ ab.",
+    "locale": "Sprache",
+    "remove-form": "Sprache entfernen",
+    "add-form": "Sprache hinzufügen"
   },
   "FILEINPUT": {
     "selected-file": "Ausgewählte Datei: {file}",
@@ -65,7 +73,8 @@
   },
   "CAMPAIGN": {
     "create": "Erstellen",
-    "create-description": "Du kannst immer eine Kampagne erstellen. Eine Kampagne besteht aus einem Video und ein paar Fragen. Eine Frage ist gratis, jede weitere kostet dich. Bitte siehe unser Preismodell an für weitere Informationen."
+    "create-description": "Du kannst immer eine Kampagne erstellen. Eine Kampagne besteht aus einem Video und ein paar Fragen. Eine Frage ist gratis, jede weitere kostet dich. Bitte siehe unser Preismodell an für weitere Informationen.",
+    "media-files-uploaded-success": "Medien erfolgreich hochgeladen und zur Verarbeitung bereitgestellt"
   },
   "FORM": {
     "save": "Speichern",

@@ -22,7 +22,12 @@
     "generic": "There was an error. Please try again",
     "add-more-answers": "Please add more than one answer option",
     "required": "{field} is required",
-    "failed-to-update-language": "Failed to update the language for you. Please try again"
+    "failed-to-update-language": "Failed to update the language for you. Please try again",
+    "no-file-selected": "No media selected",
+    "answer-not-found": "Answer not found",
+    "question-not-found": "Question not found",
+    "invalid-filetype": "Invalid filetype. Only .mp4 and .webm allowed",
+    "media-files-not-uploaded": "Media files not uploaded"
   },
   "QUESTIONS": {
     "name": "Name",
@@ -39,7 +44,10 @@
     "stars-description": "Stars allow you to get user feedback about your video. With this option, the user can rate your video with stars. This is literally a must for every video.",
     "multiple-choice-description": "A Multiple choice question allows the user to select one of many given answers. This is one of the best options.",
     "validation-description": "A Validation question.",
-    "text-description": "A Text offers the user to say something about your product. We strongly recommend you to not use this option."
+    "text-description": "A Text offers the user to say something about your product. We strongly recommend you to not use this option.",
+    "locale": "Locale",
+    "remove-form": "Remove locale",
+    "add-form": "Add locale"
   },
   "FILEINPUT": {
     "selected-file": "Selected file: {file}",
@@ -63,7 +71,8 @@
   },
   "CAMPAIGN": {
     "create": "Create campaign",
-    "create-description": "You can always create a campaign. A campaign consists of a video and a few questions. One question is free, any more will cost you. Please see our pricing model for further information."
+    "create-description": "You can always create a campaign. A campaign consists of a video and a few questions. One question is free, any more will cost you. Please see our pricing model for further information.",
+    "media-files-uploaded-success": "Media files uploaded and enqueued for processing"
   },
   "FORM": {
     "save": "Save",

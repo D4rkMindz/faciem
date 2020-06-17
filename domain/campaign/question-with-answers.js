@@ -1,6 +1,6 @@
 import { LOCALES } from '@/domain/profile/locale';
 
-export class Question {
+export class QuestionWithAnswers {
   id = null;
   persisted = false;
   text = 'the question';
@@ -11,8 +11,9 @@ export class Question {
   type = 'text';
   position = 1;
   campaignId = null;
+  answers = [];
 
-  constructor(data = { id: null, text: '', value: null, locale: LOCALES.DEFAULT, errors: [], valid: false, type: 'text', campaign_id: null, position: 1 }) {
+  constructor(data = { id: null, text: '', value: null, locale: LOCALES.DEFAULT, errors: [], valid: false, type: 'text', campaign_id: null, position: 1, answers: [] }) {
     if (!data.id) {
       data.id = Math.round(Math.random() * 1000);
     }
@@ -25,10 +26,6 @@ export class Question {
     this.type = data.type || 'text';
     this.position = data.position || 1;
     this.campaignId = data.campaign_id || null;
+    this.answers = data.answers || [];
   }
 }
-
-export const TEXT = 'text';
-export const STARS = 'stars';
-export const MULTIPLE_CHOICE = 'multiple-choice';
-export const VALIDATION = 'validation';

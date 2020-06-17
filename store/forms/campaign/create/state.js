@@ -1,4 +1,3 @@
-import { Question } from '@/domain/campaign/question';
 import { CAMPAIGN_CREATE_STATES } from '@/store/forms/campaign/create';
 
 export default function () {
@@ -10,8 +9,8 @@ export default function () {
     error: null,
     campaign_id: null,
     pricing_id: null,
-    language: null,
-    questions: [new Question()],
+    start: null,
+    end: null,
     state: CAMPAIGN_CREATE_STATES.UNTOUCHED,
     errors: [],
     message: null,

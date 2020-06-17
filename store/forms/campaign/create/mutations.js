@@ -1,6 +1,3 @@
-import Vue from 'vue';
-import { Question } from '@/domain/campaign/question';
-import { Answer } from '@/domain/campaign/answer';
 import { CAMPAIGN_CREATE_STATES } from '@/store/forms/campaign/create/index';
 
 export default {
@@ -44,6 +41,12 @@ export default {
   setPricingId(state, pricingId) {
     state.pricing_id = pricingId;
   },
+  setStart(state, start) {
+    state.start = start;
+  },
+  setEnd(state, end) {
+    state.end = end;
+  },
   /**
    * Set the campaign id
    * @param state
@@ -51,76 +54,6 @@ export default {
    */
   setCampaignId(state, campaignId) {
     state.campaign_id = campaignId;
-  },
-  /**
-   * Set language
-   * @param state
-   * @param language
-   */
-  setLanguage(state, language) {
-    state.language = language;
-  },
-  /**
-   * Add a new question
-   * @param state
-   */
-  addQuestion(state) {
-    Vue.set(state.questions, state.questions.length, new Question());
-  },
-  /**
-   * Remove a question
-   * @param state
-   * @param index
-   */
-  removeQuestion(state, { questionIndex }) {
-    state.questions.splice(questionIndex, 1);
-  },
-  /**
-   * Set a question
-   * @param state
-   * @param index
-   * @param question
-   */
-  setQuestion(state, { questionIndex, question }) {
-    Vue.set(state.questions, questionIndex, question);
-  },
-  /**
-   * Set a question value
-   * @param state
-   * @param questionIndex
-   * @param property
-   * @param value
-   */
-  setQuestionValue(state, { questionIndex, property, value }) {
-    state.questions[questionIndex][property] = value;
-  },
-  /**
-   * Add an answer
-   * @param state
-   * @param questionIndex
-   */
-  addAnswer(state, { questionIndex }) {
-    state.questions[questionIndex].answers.push(new Answer());
-  },
-  /**
-   * Remove an answer
-   * @param state
-   * @param questionIndex
-   * @param answerIndex
-   */
-  removeAnswer(state, { questionIndex, answerIndex }) {
-    state.questions[questionIndex].answers.splice(answerIndex, 1);
-  },
-  /**
-   * Set an answer value
-   * @param state
-   * @param questionIndex
-   * @param answerIndex
-   * @param property
-   * @param value
-   */
-  setAnswerValue(state, { questionIndex, answerIndex, property, value }) {
-    state.questions[questionIndex].answers[answerIndex][property] = value;
   },
   /**
    * Set the state
@@ -155,7 +88,6 @@ export default {
       question.errors = [];
       question.errors.push(...getErrors(question.id + '.value'));
       question.errors.push(...getErrors(question.id + '.type'));
-      question.errors.push(...getErrors(question.id + '.language'));
 
       question.answers.forEach((answer, key) => {
         answer.errors = [];
@@ -174,8 +106,6 @@ export default {
     state.description_errors = [];
     state.campaign_id = null;
     state.pricing_id = null;
-    state.language = null;
-    state.questions = [new Question()];
     state.state = CAMPAIGN_CREATE_STATES.UNTOUCHED;
     state.errors = [];
     state.message = null;

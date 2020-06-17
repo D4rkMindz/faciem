@@ -28,13 +28,19 @@ export default {
    * @param state
    * @return {*}
    */
-  getState: state => state.state,
+  getCampaignState: state => state.state,
   /**
-   * Get all questions
+   * Get the campaign ID
    * @param state
-   * @return {any}
+   * @return {null}
    */
-  getQuestions: state => state.questions,
+  getCampaignId: state => state.campaign_id,
+  /**
+   * Get the pricing ID
+   * @param state
+   * @return {null}
+   */
+  getPricingId: state => state.pricing_id,
   /**
    * Check if the form is valid
    * @param state
@@ -47,16 +53,6 @@ export default {
       if (state.name_errors.length > 0 || state.description_errors > 0) {
         throw BreakException;
       }
-      state.questions.forEach((q) => {
-        if (!q.valid) {
-          throw BreakException;
-        }
-        q.answers.forEach((a) => {
-          if (!a.valid) {
-            throw BreakException;
-          }
-        });
-      });
     } catch (e) {
       formValid = false;
     }

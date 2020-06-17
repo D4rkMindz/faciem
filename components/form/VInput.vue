@@ -1,15 +1,15 @@
 <template>
   <div>
     <div :class="{'my-6': errors.length === 0, 'mt-6': errors.length !== 0}"
-         class="flex flex-col md:flex-row lg:items-center">
-      <div class="w-1/1 md:w-2/5">
+         class="flex flex-col lg:flex-row lg:items-center">
+      <div class="w-full lg:w-2/5">
         <label :for="id"
-               class="block md:text-right mb-1 lg:mb-0 pr-4 text">
+               class="block lg:text-right mb-1 lg:mb-0 pr-4 text">
           {{ label }}
         </label>
       </div>
 
-      <div class="w-1/1 md:w-3/5">
+      <div class="w-full lg:w-3/5">
         <input ref="input"
                :id="id"
                v-model="inputValue"

@@ -3,7 +3,7 @@
        class="file-input">
     <div :class="css">
       <span v-if="value">{{ $t('FILEINPUT.selected-file', {file: value.name}) }}</span>
-      <span v-else>{{ $t('FILEINPUT.select-file') }}</span>
+      <span v-else>{{ title }}</span>
     </div>
     <input ref="file"
            @change="handleFileChange"
@@ -18,6 +18,10 @@ export default {
   name: 'FileInput',
   props: {
     value: File,
+    title: {
+      type: String,
+      required: true,
+    },
     css: {
       type: String,
       default: 'button',
@@ -30,6 +34,7 @@ export default {
   },
   methods: {
     select() {
+      this.$emit('input', null);
       this.$refs.file.click();
     },
     handleFileChange(e) {

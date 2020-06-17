@@ -42,6 +42,6 @@ jobs:
 
       - name: Deploy to DigitalOcean Kubernetes
         run: kubectl --kubeconfig=$GITHUB_WORKSPACE/.kubeconfig apply -f $GITHUB_WORKSPACE/config/deployment.yml
-# TODO continue here by checking why the flow fails
+
       - name: Verify deployment
         run: kubectl --kubeconfig=$GITHUB_WORKSPACE/.kubeconfig rollout status deployment.apps/faciem

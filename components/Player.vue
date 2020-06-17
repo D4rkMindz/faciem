@@ -60,7 +60,7 @@ export default {
     this.player.on('ended', function () {
       this.controlBar.dispose();
       this.bigPlayButton.dispose();
-      this.exitFullscreen();
+      if (this.isFullscreen()) { this.exitFullscreen(); }
       $this.$emit('ended', { source: this.source });
     });
     this.setupComplete = true;

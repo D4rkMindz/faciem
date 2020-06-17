@@ -1,10 +1,10 @@
 <template>
   <div v-if="value"
-       class="flex flex-col md:flex-row mt-8">
-    <p class="w-1/1 md:w-2/5 mb-4 md:mt-0 text md:text-right pr-4">
+       class="flex flex-col mt-8">
+    <p class="w-full mb-4 text">
       {{ value.text }}
     </p>
-    <div class="flex-col w-1/1 md:w-3/5">
+    <div class="w-full">
       <div v-for="(answer, i) in value.answers"
            :key="i"
            @click.prevent="setValue(i)"
