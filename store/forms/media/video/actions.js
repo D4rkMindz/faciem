@@ -36,6 +36,8 @@ export default {
         const formData = new FormData();
 
         formData.append('video', mediaFile.file);
+        // eslint-disable-next-line no-console
+        console.log('Media file %s has locale %s', mediaFile.file.name, mediaFile.locale);
         formData.append('language', mediaFile.locale);
         formData.append('display_name', mediaFile.file.name);
         const url = `/users/${userId}/campaigns/${campaignId}/media`;
@@ -53,10 +55,6 @@ export default {
           failed = true;
           return;
         }
-        mediaFiles.splice(index, 1);
-        mediaFile.file = null;
-        mediaFile.persisted = true;
-        dispatch('campaigns/update', null, { root: true });
       } catch (e) {
         failed = true;
         mediaFile.persisted = false;

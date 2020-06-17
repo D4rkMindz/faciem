@@ -1,5 +1,7 @@
 import { QUESTIONS_STATE } from '@/store/watch/questions/index';
-import { Question } from '@/domain/campaign/question';
+import { QuestionWithAnswers } from '@/domain/campaign/question-with-answers';
+
+// TODO continue here by fixing the form
 
 /**
  * Parse questions
@@ -18,7 +20,7 @@ function parseQuestions(q) {
     data.text = question.question;
     data.value = null;
     data.answers = question.answers;
-    questions.push(new Question(data));
+    questions.push(new QuestionWithAnswers(data));
   });
 
   return questions;

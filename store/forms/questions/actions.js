@@ -85,7 +85,8 @@ export default {
       const positionCounterByLocale = {};
       let failed = false;
       await Promise.all(
-        questions.map(async (question) => {
+        questions.map(async (q) => {
+          const question = cloneDeep(q);
           if (question.persisted) {
             return;
           }

@@ -69,6 +69,10 @@ export default {
     questionsState() { return this.getQuestionsState(); },
   },
   watch: {
+    locale() {
+      // reload on language change
+      this.next();
+    },
     resolution(n, o) {
       if (this.mediaState === WATCH_STATE.LOADED && this.resolution) {
         this.setSource();

@@ -104,6 +104,7 @@ export default {
             const response = await this.$axios.post(url, {
               text: answer.text,
               position: answer.position,
+              correct: answer.correct ? true : null,
             });
             if (response.status === 200) {
               answer.old_id = answer.id;

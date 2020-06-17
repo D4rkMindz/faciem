@@ -107,6 +107,16 @@ export default {
       return this.isValid();
     },
   },
+  watch: {
+    questionForms: {
+      deep: true,
+      handler() {
+        this.questionForms.forEach((f) => {
+          f.mediaFile.locale = f.locale;
+        });
+      },
+    },
+  },
   methods: {
     ...mapGetters([
       'isValid',
@@ -137,10 +147,9 @@ export default {
       await this.saveCampaign();
       if (this.getCampaignId()) {
         const videoFiles = this.questionForms.map(f => f.mediaFile);
-        await Promise.all([
-          this.saveQuestions(this.getCampaignId()).then(() => this.saveAnswerOptions()),
-          this.saveVideoFiles(videoFiles),
-        ]);
+        await this.saveQuestions(this.getCampaignId()).then(() => this.saveAnswerOptions());
+        await this.saveVideoFiles(videoFiles);
+
         const questionSaved = this.getQuestionsState() === QUESTIONS_FORM_STATES.SAVED;
         const answerOptionsSaved = this.getAnswerOptionsState() === ANSWER_OPTION_STATES.SAVED;
         const videosSaved = this.getVideoState() === VIDEO_STATES.SAVED;
