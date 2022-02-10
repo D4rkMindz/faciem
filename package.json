@@ -65,7 +65,7 @@
     "eslint-plugin-vue": "^5.2.2",
     "glob": "^7.1.6",
     "jest": "^24.9.0",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "nodemon": "^1.19.4",
     "sass-loader": "^7.3.1",
     "start-server-and-test": "^1.10.8",
