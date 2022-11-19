@@ -35,7 +35,7 @@
     "lodash.clonedeep": "^4.5.0",
     "moment": "^2.26.0",
     "network-speed": "^2.0.6",
-    "nuxt": "^2.12.2",
+    "nuxt": "^2.15.8",
     "nuxt-i18n": "^6.12.2",
     "nuxt-start": "^2.12.2",
     "tailwindcss": "^1.4.6",
